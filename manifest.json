@@ -1,19 +1,16 @@
 {
   "name": "BUCO ESP32 (IB+ Bus Gateway)",
-  "version": "1.0.35",
+  "version": "1.0.37",
   "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
       "parts": [
         {
-          "path": "buco-esp32-1.0.35-factory.bin",
+          "path": "buco-esp32-1.0.37-factory.bin",
           "offset": 0
         }
       ]
     }
-  ],
-  "otaFile": "buco-esp32-1.0.35-ota.bin",
-  "otaSize": 1650848,
-  "otaMd5": "eb08366d6830730601698f22e98d55f0"
+  ]
 }

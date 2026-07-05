@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "1.0.37",
+      "date": "2026-07-05",
+      "notes": [
+        "refactor: narrow Update Firmware to check-only, drop OTA partition",
+        "chore: add push_flasher.py, publish backup reminder in flasher docs"
+      ]
+    },
+    {
       "version": "1.0.35",
       "date": "2026-07-05",
       "notes": [

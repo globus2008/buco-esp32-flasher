@@ -18,7 +18,9 @@ If no serial port appears, install the USB driver:
 [CP210x](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers) or
 [CH340](https://www.wch-ic.com/downloads/CH341SER_ZIP.html).
 
-**Note:** installing erases all data on the device, including any previous configuration.
+**Note:** installing erases all data on the device, including any previous configuration. If you
+want to keep it, back it up first in the device's web interface under Settings → Options →
+Load/Save → Copy to computer, then restore it after the update with Copy from computer.
 
 ## After installation
 
@@ -48,7 +50,9 @@ oficiálním výrobkem společnosti Somfy.
 
 **Instalace:** otevřete <https://globus2008.github.io/buco-esp32-flasher/> v prohlížeči Chrome
 nebo Edge, připojte EQSP32 přes USB, klikněte na **Install** a vyberte sériový port. Instalace
-trvá ~2 minuty a smaže veškerá data v zařízení. Pokud se port nezobrazí, nainstalujte ovladač
+trvá ~2 minuty a smaže veškerá data v zařízení. Pokud si je chcete zachovat, nejprve je zálohujte
+ve webovém rozhraní zařízení přes Settings → Options → Load/Save → Copy to computer a po
+aktualizaci je obnovte pomocí Copy from computer. Pokud se port nezobrazí, nainstalujte ovladač
 CP210x nebo CH340 (odkazy výše).
 
 **Po instalaci:** zařízení vytvoří vlastní Wi-Fi síť — připojte se a otevřete
@@ -70,8 +74,11 @@ unabhängiges Produkt und kein offizielles Somfy-Produkt.
 
 **Installation:** Öffnen Sie <https://globus2008.github.io/buco-esp32-flasher/> in Chrome oder
 Edge, verbinden Sie den EQSP32 per USB, klicken Sie auf **Install** und wählen Sie den seriellen
-Port. Die Installation dauert ~2 Minuten und löscht alle Daten auf dem Gerät. Erscheint kein
-Port, installieren Sie den CP210x- oder CH340-Treiber (Links oben).
+Port. Die Installation dauert ~2 Minuten und löscht alle Daten auf dem Gerät. Wenn Sie diese
+behalten möchten, sichern Sie sie zuerst in der Weboberfläche des Geräts unter Settings →
+Options → Load/Save → Copy to computer und stellen Sie sie nach dem Update mit Copy from
+computer wieder her. Erscheint kein Port, installieren Sie den CP210x- oder CH340-Treiber (Links
+oben).
 
 **Nach der Installation:** Das Gerät startet einen eigenen WLAN-Zugangspunkt — verbinden Sie
 sich und öffnen Sie `http://192.168.4.1`, oder per Ethernet `http://buco-esp32.local`.
@@ -92,7 +99,9 @@ Il s'agit d'un produit indépendant, non affilié à Somfy.
 
 **Installation :** ouvrez <https://globus2008.github.io/buco-esp32-flasher/> dans Chrome ou
 Edge, connectez l'EQSP32 en USB, cliquez sur **Install** et sélectionnez le port série.
-L'installation dure ~2 minutes et efface toutes les données de l'appareil. Si aucun port
+L'installation dure ~2 minutes et efface toutes les données de l'appareil. Pour les conserver,
+sauvegardez-les d'abord dans l'interface web de l'appareil via Settings → Options → Load/Save →
+Copy to computer, puis restaurez-les après la mise à jour avec Copy from computer. Si aucun port
 n'apparaît, installez le pilote CP210x ou CH340 (liens ci-dessus).
 
 **Après l'installation :** l'appareil crée son propre point d'accès Wi-Fi — connectez-vous et
@@ -114,8 +123,10 @@ proizvod i nije službeni Somfy proizvod.
 
 **Instalacija:** otvorite <https://globus2008.github.io/buco-esp32-flasher/> u Chromeu ili
 Edgeu, spojite EQSP32 USB kabelom, kliknite **Install** i odaberite serijski port. Instalacija
-traje ~2 minute i briše sve podatke na uređaju. Ako se port ne pojavi, instalirajte CP210x ili
-CH340 upravljački program (poveznice iznad).
+traje ~2 minute i briše sve podatke na uređaju. Ako ih želite zadržati, prvo ih izradite u
+web sučelju uređaja putem Settings → Options → Load/Save → Copy to computer, a nakon ažuriranja
+ih vratite pomoću Copy from computer. Ako se port ne pojavi, instalirajte CP210x ili CH340
+upravljački program (poveznice iznad).
 
 **Nakon instalacije:** uređaj pokreće vlastitu Wi-Fi pristupnu točku — spojite se i otvorite
 `http://192.168.4.1`, ili preko Etherneta `http://buco-esp32.local`.
@@ -136,8 +147,10 @@ produkt niezależny, nie jest to oficjalny produkt firmy Somfy.
 
 **Instalacja:** otwórz <https://globus2008.github.io/buco-esp32-flasher/> w Chrome lub Edge,
 podłącz EQSP32 przez USB, kliknij **Install** i wybierz port szeregowy. Instalacja trwa ~2
-minuty i usuwa wszystkie dane z urządzenia. Jeśli port się nie pojawi, zainstaluj sterownik
-CP210x lub CH340 (linki powyżej).
+minuty i usuwa wszystkie dane z urządzenia. Aby je zachować, wykonaj najpierw ich kopię zapasową
+w interfejsie webowym urządzenia przez Settings → Options → Load/Save → Copy to computer, a po
+aktualizacji przywróć je za pomocą Copy from computer. Jeśli port się nie pojawi, zainstaluj
+sterownik CP210x lub CH340 (linki powyżej).
 
 **Po instalacji:** urządzenie uruchamia własny punkt dostępowy Wi-Fi — połącz się i otwórz
 `http://192.168.4.1`, lub przez Ethernet `http://buco-esp32.local`.
