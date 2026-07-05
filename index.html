@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUCO ESP32 - Firmware Installer</title>
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js"></script>
+    <style>
+        :root { color-scheme: light; }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+            line-height: 1.55;
+        }
+        .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+        .header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+        h1 { font-size: 1.6rem; margin: 0 0 4px; }
+        .subtitle { color: #6b7280; margin: 0 0 28px; }
+        .lang-switch { display: flex; gap: 4px; flex-wrap: wrap; }
+        .lang-switch button {
+            border: 1px solid #d1d5db;
+            background: #fff;
+            border-radius: 6px;
+            padding: 4px 9px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+        }
+        .lang-switch button.active {
+            background: #1f2937;
+            border-color: #1f2937;
+            color: #fff;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+        }
+        .card h2 { font-size: 1.05rem; margin: 0 0 12px; }
+        ol { margin: 0; padding-left: 22px; }
+        li { margin-bottom: 8px; }
+        li:last-child { margin-bottom: 0; }
+        .install-area { text-align: center; padding: 28px 24px; }
+        code {
+            background: #eef1f4;
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-family: Consolas, Menlo, monospace;
+            font-size: 0.9em;
+        }
+        .note { font-size: 0.88rem; color: #6b7280; margin-top: 12px; }
+        .warn {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            margin-top: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header-row">
+            <h1>BUCO ESP32 &mdash; Firmware Installer</h1>
+            <div class="lang-switch" id="lang-switch"></div>
+        </div>
+        <p class="subtitle" data-i18n="subtitle"></p>
+
+        <div class="card">
+            <h2 data-i18n="reqTitle"></h2>
+            <ol>
+                <li data-i18n="req1"></li>
+                <li data-i18n="req2"></li>
+                <li data-i18n="req3"></li>
+            </ol>
+        </div>
+
+        <div class="card install-area">
+            <h2 data-i18n="installTitle"></h2>
+            <p data-i18n="installIntro"></p>
+            <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+            <p class="note" data-i18n="installNote"></p>
+            <div class="warn" data-i18n="installWarn"></div>
+        </div>
+
+        <div class="card">
+            <h2 data-i18n="afterTitle"></h2>
+            <ol>
+                <li data-i18n="after1"></li>
+                <li data-i18n="after2"></li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2 data-i18n="updatesTitle"></h2>
+            <ol>
+                <li data-i18n="upd1"></li>
+                <li data-i18n="upd2"></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Same 6 languages as the device web UI's help content (data/help/).
+        // Values may contain trusted static HTML (links, <code>); applied via
+        // innerHTML - fine for a fully static page with no user input.
+        const DRIVERS = '<a href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers" target="_blank" rel="noopener">CP210x</a>, <a href="https://www.wch-ic.com/downloads/CH341SER_ZIP.html" target="_blank" rel="noopener">CH340</a>';
+        const EQCONNECT = '<a href="https://erqos.com/eqconnect/" target="_blank" rel="noopener">EQConnect</a>';
+        const AP_URL = '<code>http://192.168.4.1</code>';
+        const MDNS_URL = '<code>http://buco-esp32.local</code>';
+        const PANEL_URL = '<code>http://&lt;device-ip&gt;:8000</code>';
+        const OTA_FILE = '<code>*-ota.bin</code>';
+        const PWD = '<code>admin</code>';
+
+        const I18N = {
+            en: {
+                subtitle: 'IB+ Bus Gateway firmware for the ERQOS EQSP32-CE controller (compatible with Somfy motor controllers)',
+                reqTitle: 'Requirements',
+                req1: '<strong>Google Chrome</strong> or <strong>Microsoft Edge</strong> browser (Firefox and Safari do not support USB flashing).',
+                req2: 'A <strong>USB cable</strong> connecting the EQSP32 to this computer.',
+                req3: 'If no serial port appears after connecting, install the USB driver: ' + DRIVERS + '.',
+                installTitle: 'Install Firmware',
+                installIntro: 'Connect the device via USB, then click the button and select the serial port.',
+                installNote: 'The installation takes about 2 minutes. Do not disconnect the device.',
+                installWarn: 'Installing the firmware erases all data on the device, including any previous configuration.',
+                afterTitle: 'After Installation',
+                after1: 'The device starts its own Wi-Fi access point &mdash; connect to it and open ' + AP_URL + ', or connect the device to your LAN via Ethernet and open ' + MDNS_URL + '.',
+                after2: 'Configure your zones and sensors in the web interface.',
+                updatesTitle: 'Future Updates',
+                upd1: 'Later firmware updates do <strong>not</strong> require USB: open the device\'s maintenance panel at ' + PANEL_URL + ' and upload the provided ' + OTA_FILE + ' file (default password: ' + PWD + ').',
+                upd2: 'We recommend changing the default OTA password using the ' + EQCONNECT + ' app.'
+            },
+            cs: {
+                subtitle: 'Firmware brány sběrnice IB+ pro kontrolér ERQOS EQSP32-CE (kompatibilní s motor controllery Somfy)',
+                reqTitle: 'Požadavky',
+                req1: 'Prohlížeč <strong>Google Chrome</strong> nebo <strong>Microsoft Edge</strong> (Firefox a Safari flashování přes USB nepodporují).',
+                req2: '<strong>USB kabel</strong> propojující EQSP32 s tímto počítačem.',
+                req3: 'Pokud se po připojení nezobrazí žádný sériový port, nainstalujte USB ovladač: ' + DRIVERS + '.',
+                installTitle: 'Instalace firmwaru',
+                installIntro: 'Připojte zařízení přes USB, klikněte na tlačítko a vyberte sériový port.',
+                installNote: 'Instalace trvá přibližně 2 minuty. Zařízení neodpojujte.',
+                installWarn: 'Instalace firmwaru smaže veškerá data v zařízení včetně předchozí konfigurace.',
+                afterTitle: 'Po instalaci',
+                after1: 'Zařízení vytvoří vlastní Wi-Fi přístupový bod &mdash; připojte se k němu a otevřete ' + AP_URL + ', nebo připojte zařízení do sítě přes Ethernet a otevřete ' + MDNS_URL + '.',
+                after2: 'Ve webovém rozhraní nastavte zóny a senzory.',
+                updatesTitle: 'Budoucí aktualizace',
+                upd1: 'Další aktualizace firmwaru už USB <strong>nevyžadují</strong>: otevřete servisní panel zařízení na ' + PANEL_URL + ' a nahrajte dodaný soubor ' + OTA_FILE + ' (výchozí heslo: ' + PWD + ').',
+                upd2: 'Doporučujeme změnit výchozí OTA heslo pomocí aplikace ' + EQCONNECT + '.'
+            },
+            de: {
+                subtitle: 'IB+-Bus-Gateway-Firmware für den ERQOS EQSP32-CE Controller (kompatibel mit Somfy-Motorsteuerungen)',
+                reqTitle: 'Voraussetzungen',
+                req1: '<strong>Google Chrome</strong> oder <strong>Microsoft Edge</strong> Browser (Firefox und Safari unterstützen kein USB-Flashen).',
+                req2: 'Ein <strong>USB-Kabel</strong>, das den EQSP32 mit diesem Computer verbindet.',
+                req3: 'Falls nach dem Anschließen kein serieller Port erscheint, installieren Sie den USB-Treiber: ' + DRIVERS + '.',
+                installTitle: 'Firmware installieren',
+                installIntro: 'Verbinden Sie das Gerät per USB, klicken Sie auf die Schaltfläche und wählen Sie den seriellen Port.',
+                installNote: 'Die Installation dauert etwa 2 Minuten. Trennen Sie das Gerät nicht.',
+                installWarn: 'Die Installation löscht alle Daten auf dem Gerät, einschließlich einer früheren Konfiguration.',
+                afterTitle: 'Nach der Installation',
+                after1: 'Das Gerät startet einen eigenen WLAN-Zugangspunkt &mdash; verbinden Sie sich damit und öffnen Sie ' + AP_URL + ', oder verbinden Sie das Gerät per Ethernet mit Ihrem Netzwerk und öffnen Sie ' + MDNS_URL + '.',
+                after2: 'Konfigurieren Sie Zonen und Sensoren in der Weboberfläche.',
+                updatesTitle: 'Zukünftige Updates',
+                upd1: 'Spätere Firmware-Updates benötigen <strong>kein</strong> USB mehr: Öffnen Sie das Wartungspanel des Geräts unter ' + PANEL_URL + ' und laden Sie die bereitgestellte Datei ' + OTA_FILE + ' hoch (Standardpasswort: ' + PWD + ').',
+                upd2: 'Wir empfehlen, das Standard-OTA-Passwort mit der ' + EQCONNECT + '-App zu ändern.'
+            },
+            fr: {
+                subtitle: 'Micrologiciel de passerelle bus IB+ pour le contrôleur ERQOS EQSP32-CE (compatible avec les contrôleurs de moteurs Somfy)',
+                reqTitle: 'Prérequis',
+                req1: 'Navigateur <strong>Google Chrome</strong> ou <strong>Microsoft Edge</strong> (Firefox et Safari ne prennent pas en charge le flashage USB).',
+                req2: 'Un <strong>câble USB</strong> reliant l\'EQSP32 à cet ordinateur.',
+                req3: 'Si aucun port série n\'apparaît après la connexion, installez le pilote USB : ' + DRIVERS + '.',
+                installTitle: 'Installer le micrologiciel',
+                installIntro: 'Connectez l\'appareil en USB, cliquez sur le bouton et sélectionnez le port série.',
+                installNote: 'L\'installation dure environ 2 minutes. Ne débranchez pas l\'appareil.',
+                installWarn: 'L\'installation efface toutes les données de l\'appareil, y compris toute configuration antérieure.',
+                afterTitle: 'Après l\'installation',
+                after1: 'L\'appareil crée son propre point d\'accès Wi-Fi &mdash; connectez-vous-y et ouvrez ' + AP_URL + ', ou reliez l\'appareil à votre réseau en Ethernet et ouvrez ' + MDNS_URL + '.',
+                after2: 'Configurez les zones et les capteurs dans l\'interface web.',
+                updatesTitle: 'Mises à jour futures',
+                upd1: 'Les mises à jour ultérieures ne nécessitent <strong>plus</strong> d\'USB : ouvrez le panneau de maintenance de l\'appareil sur ' + PANEL_URL + ' et téléversez le fichier ' + OTA_FILE + ' fourni (mot de passe par défaut : ' + PWD + ').',
+                upd2: 'Nous recommandons de changer le mot de passe OTA par défaut via l\'application ' + EQCONNECT + '.'
+            },
+            hr: {
+                subtitle: 'Firmware IB+ sabirničkog pristupnika za ERQOS EQSP32-CE kontroler (kompatibilno sa Somfy motornim kontrolerima)',
+                reqTitle: 'Preduvjeti',
+                req1: 'Preglednik <strong>Google Chrome</strong> ili <strong>Microsoft Edge</strong> (Firefox i Safari ne podržavaju USB flashanje).',
+                req2: '<strong>USB kabel</strong> koji povezuje EQSP32 s ovim računalom.',
+                req3: 'Ako se nakon spajanja ne pojavi serijski port, instalirajte USB upravljački program: ' + DRIVERS + '.',
+                installTitle: 'Instalacija firmwarea',
+                installIntro: 'Spojite uređaj USB kabelom, kliknite gumb i odaberite serijski port.',
+                installNote: 'Instalacija traje oko 2 minute. Ne odspajajte uređaj.',
+                installWarn: 'Instalacija briše sve podatke na uređaju, uključujući prethodnu konfiguraciju.',
+                afterTitle: 'Nakon instalacije',
+                after1: 'Uređaj pokreće vlastitu Wi-Fi pristupnu točku &mdash; spojite se na nju i otvorite ' + AP_URL + ', ili spojite uređaj na mrežu Ethernetom i otvorite ' + MDNS_URL + '.',
+                after2: 'Konfigurirajte zone i senzore u web sučelju.',
+                updatesTitle: 'Buduća ažuriranja',
+                upd1: 'Kasnija ažuriranja firmwarea <strong>ne</strong> zahtijevaju USB: otvorite servisni panel uređaja na ' + PANEL_URL + ' i prenesite isporučenu datoteku ' + OTA_FILE + ' (zadana lozinka: ' + PWD + ').',
+                upd2: 'Preporučujemo promjenu zadane OTA lozinke pomoću aplikacije ' + EQCONNECT + '.'
+            },
+            pl: {
+                subtitle: 'Oprogramowanie bramy magistrali IB+ dla sterownika ERQOS EQSP32-CE (kompatybilne ze sterownikami silników Somfy)',
+                reqTitle: 'Wymagania',
+                req1: 'Przeglądarka <strong>Google Chrome</strong> lub <strong>Microsoft Edge</strong> (Firefox i Safari nie obsługują flashowania przez USB).',
+                req2: '<strong>Kabel USB</strong> łączący EQSP32 z tym komputerem.',
+                req3: 'Jeśli po podłączeniu nie pojawi się port szeregowy, zainstaluj sterownik USB: ' + DRIVERS + '.',
+                installTitle: 'Instalacja oprogramowania',
+                installIntro: 'Podłącz urządzenie przez USB, kliknij przycisk i wybierz port szeregowy.',
+                installNote: 'Instalacja trwa około 2 minut. Nie odłączaj urządzenia.',
+                installWarn: 'Instalacja usuwa wszystkie dane z urządzenia, łącznie z wcześniejszą konfiguracją.',
+                afterTitle: 'Po instalacji',
+                after1: 'Urządzenie uruchamia własny punkt dostępowy Wi-Fi &mdash; połącz się z nim i otwórz ' + AP_URL + ', lub podłącz urządzenie do sieci przez Ethernet i otwórz ' + MDNS_URL + '.',
+                after2: 'Skonfiguruj strefy i czujniki w interfejsie webowym.',
+                updatesTitle: 'Przyszłe aktualizacje',
+                upd1: 'Kolejne aktualizacje <strong>nie</strong> wymagają już USB: otwórz panel serwisowy urządzenia pod adresem ' + PANEL_URL + ' i wgraj dostarczony plik ' + OTA_FILE + ' (domyślne hasło: ' + PWD + ').',
+                upd2: 'Zalecamy zmianę domyślnego hasła OTA za pomocą aplikacji ' + EQCONNECT + '.'
+            }
+        };
+
+        const LANGS = ['en', 'cs', 'de', 'fr', 'hr', 'pl'];
+
+        function detectLang() {
+            const saved = localStorage.getItem('flasher-lang');
+            if (saved && LANGS.includes(saved)) return saved;
+            const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+            return LANGS.includes(nav) ? nav : 'en';
+        }
+
+        function applyLang(lang) {
+            const dict = I18N[lang];
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                const value = dict[el.getAttribute('data-i18n')];
+                if (value !== undefined) el.innerHTML = value;
+            });
+            document.querySelectorAll('#lang-switch button').forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            localStorage.setItem('flasher-lang', lang);
+        }
+
+        const switchEl = document.getElementById('lang-switch');
+        LANGS.forEach((lang) => {
+            const btn = document.createElement('button');
+            btn.textContent = lang.toUpperCase();
+            btn.dataset.lang = lang;
+            btn.addEventListener('click', () => applyLang(lang));
+            switchEl.appendChild(btn);
+        });
+
+        applyLang(detectLang());
+    </script>
+</body>
+</html>
