@@ -4,7 +4,9 @@
       "version": "1.0.35",
       "date": "2026-07-05",
       "notes": [
-        "No changelog is available for updates from earlier versions."
+        "Added an in-app Update Firmware page - check for and install updates directly from the device.",
+        "Added configuration backups (Load/Save) - save and restore your zone and settings configuration on the device.",
+        "Cleaned up product naming in customer-facing materials."
       ]
     }
   ]
