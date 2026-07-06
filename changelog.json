@@ -1,20 +1,25 @@
 {
   "entries": [
     {
-      "version": "1.0.37",
-      "date": "2026-07-05",
+      "version": "1.0.46",
+      "date": "2026-07-06",
       "notes": [
-        "refactor: narrow Update Firmware to check-only, drop OTA partition",
-        "chore: add push_flasher.py, publish backup reminder in flasher docs"
+        "fix: close first-boot save race that left a dangling zoneIndex entry",
+        "feat: add Update Motor Controllers page to push zone config to hardware",
+        "feat: add Reset to Auto page with manual reset and per-zone weekly timer",
+        "feat: add Standard Position page for per-zone position/angle and angle endlimits",
+        "feat: add Configuration Wizard with a 14-screen guided commissioning flow",
+        "feat: add Test Zones page for motor controller wiring checks",
+        "fix: stash ignored .claude/settings.json around branch switch in merge_dev_to_main.py",
+        "chore: add merge_dev_to_main.py to fast-forward main from dev",
+        "fix: silence LittleFS vfs_api spam, log network transitions, show real Eth IP"
       ]
     },
     {
-      "version": "1.0.35",
+      "version": "1.0.37",
       "date": "2026-07-05",
       "notes": [
-        "Added an in-app Update Firmware page - check for and install updates directly from the device.",
-        "Added configuration backups (Load/Save) - save and restore your zone and settings configuration on the device.",
-        "Cleaned up product naming in customer-facing materials."
+        "refactor: narrow Update Firmware to check-only, drop OTA partition"
       ]
     }
   ]
