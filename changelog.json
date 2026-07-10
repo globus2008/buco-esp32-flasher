@@ -1,25 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.53",
-      "date": "2026-07-08",
+      "version": "1.0.63",
+      "date": "2026-07-10",
       "notes": [
-        "feat: add date/time sync benefit to Internet Connection wizard step",
-        "feat: add Save Changes step to Wizard before Load/Save",
-        "feat: add Internet Connection info step and Update Motor Controllers to Wizard",
-        "feat: auto-detect default language from IP on Locals page",
-        "feat: add Weather Forecast virtual sensors from Open-Meteo",
-        "feat: add sun-tracking computation module for future Sun automation",
-        "feat: add My Position page for per-zone intermediate position/angle Send"
-      ]
-    },
-    {
-      "version": "1.0.46",
-      "date": "2026-07-06",
-      "notes": [
-        "fix: close first-boot save race that left a dangling zoneIndex entry",
-        "feat: add Update Motor Controllers page to push zone config to hardware",
-        "feat: add Reset to Auto page with manual reset and per-zone weekly timer"
+        "feat: Comfort Energy Mode sends Manual Priority telegram and silences energy functions",
+        "feat: add Learn Zones and Run/Tilt Times help pages in all 6 languages",
+        "feat: add Settings/Basic Settings/Heartbeat page and keep-alive broadcast",
+        "fix: eliminate remaining task_wdt crashes and dead DIO inputs",
+        "fix: eliminate task_wdt crashes from blocking RS485 sends and Serial output",
+        "feat: add MoCo Settings -> Switch Config page",
+        "feat: add Log -> Event activity log, rename Manual to Manual Control",
+        "feat: add Settings/Comfort/Sun (sun protection + sun tracking)",
+        "feat: add Log -> Sensors history chart and Log -> Export",
+        "fix: left-align live sensor values on ADIO/DIO/Weather Status pages"
       ]
     }
   ]
