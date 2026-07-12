@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "1.0.65",
+      "date": "2026-07-12",
+      "notes": [
+        "feat: add unified i18n translation mechanism for UI and help content",
+        "fix: raise task watchdog to 20s and add fetch timeouts to stop save-triggered reboot loop"
+      ]
+    },
+    {
       "version": "1.0.63",
       "date": "2026-07-10",
       "notes": [
@@ -11,9 +19,7 @@
         "fix: eliminate task_wdt crashes from blocking RS485 sends and Serial output",
         "feat: add MoCo Settings -> Switch Config page",
         "feat: add Log -> Event activity log, rename Manual to Manual Control",
-        "feat: add Settings/Comfort/Sun (sun protection + sun tracking)",
-        "feat: add Log -> Sensors history chart and Log -> Export",
-        "fix: left-align live sensor values on ADIO/DIO/Weather Status pages"
+        "feat: add Settings/Comfort/Sun (sun protection + sun tracking)"
       ]
     }
   ]
