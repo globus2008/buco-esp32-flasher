@@ -1,19 +1,25 @@
 {
   "entries": [
     {
+      "version": "1.0.110",
+      "date": "2026-07-21",
+      "notes": [
+        "feat: add KNX/IP gateway (KNXnet/IP Routing, mirrors BACnet's points)",
+        "feat: add Solar Heating function (UI, firmware watcher, BACnet, i18n)",
+        "docs: CLAUDE.md documentation sweep + remove genuine i18n duplicates",
+        "feat: add Energy/Maintain Heat function (UI, firmware watcher, BACnet, i18n)",
+        "fix: readable Event log action names + header clock 'undefined undefined'",
+        "feat: nav cleanup + Network Config Wi-Fi screen + User Management UX fixes",
+        "feat: add User Management (login, roles, permissions)"
+      ]
+    },
+    {
       "version": "1.0.103",
       "date": "2026-07-19",
       "notes": [
         "fix: OTA update check could crash device under low heap (w5500_tsk panic)",
         "docs: CLAUDE.md - document the whole BACnet/IP gateway phase",
-        "feat: BACnet stage 2d - configurable Device ID/UDP port + drop the temp UDP debug route",
-        "feat: BACnet stage 2c - WriteProperty commands + Touch BuCo EDE numbering",
-        "chore: remove temporary diagnostics (loop profiler, loop WDT, BACnet/HW/IB+/DIO debug logs)",
-        "fix: BACnet weather points need a restart hint + device clock UTC offset/diagnostics",
-        "fix: 32-zone BACnet heap exhaustion + weather points + real Device version/clock",
-        "feat: spread the zone automation sweep across loop() iterations",
-        "feat: map every configured ADIO/DIO type to BACnet + zone-independent pulse-wind sampling",
-        "feat: map wind_pulse_hz (Soliris pulse wind on DIO) to BACnet + protect PCC pins from the sampler"
+        "feat: BACnet stage 2d - configurable Device ID/UDP port + drop the temp UDP debug route"
       ]
     }
   ]

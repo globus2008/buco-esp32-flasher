@@ -1,13 +1,13 @@
 {
   "name": "BUCO ESP32 (IB+ Bus Gateway)",
-  "version": "1.0.103",
+  "version": "1.0.110",
   "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
       "parts": [
         {
-          "path": "buco-esp32-1.0.103-factory.bin",
+          "path": "buco-esp32-1.0.110-factory.bin",
           "offset": 0
         }
       ]
