@@ -63,6 +63,25 @@
             font-size: 0.9rem;
             margin-top: 14px;
         }
+        .changelog-entry { margin-bottom: 18px; }
+        .changelog-entry:last-child { margin-bottom: 0; }
+        .changelog-entry h3 { font-size: 0.95rem; margin: 0 0 6px; }
+        .changelog-entry h3 .date { font-weight: normal; color: #6b7280; font-size: 0.85rem; }
+        .changelog-entry ul { margin: 0; padding-left: 20px; }
+        .changelog-entry li { margin-bottom: 4px; font-size: 0.92rem; }
+        .more-btn {
+            display: block;
+            margin: 14px auto 0;
+            border: 1px solid #d1d5db;
+            background: #fff;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f2937;
+            cursor: pointer;
+        }
+        .more-btn:hover { background: #f3f4f6; }
     </style>
 </head>
 <body>
@@ -105,6 +124,14 @@
                 <li data-i18n="upd2"></li>
             </ol>
         </div>
+
+        <div class="card" id="changelog-card">
+            <h2 data-i18n="changelogTitle"></h2>
+            <p class="note"><span data-i18n="currentVersionLabel"></span> <span id="changelog-version-value"></span></p>
+            <div id="changelog-list"></div>
+            <p class="note" id="changelog-unavailable" style="display:none;" data-i18n="changelogUnavailable"></p>
+            <button type="button" id="changelog-more-btn" class="more-btn" style="display:none;" data-i18n="showMoreButton"></button>
+        </div>
     </div>
 
     <script>
@@ -135,7 +162,11 @@
                 after2: 'Configure your zones and sensors in the web interface.',
                 updatesTitle: 'Future Updates',
                 upd1: 'Later firmware updates do <strong>not</strong> require USB: open the device\'s maintenance panel at ' + PANEL_URL + ' and upload the provided ' + OTA_FILE + ' file (default password: ' + PWD + ').',
-                upd2: 'We recommend changing the default OTA password using the ' + EQCONNECT + ' app.'
+                upd2: 'We recommend changing the default OTA password using the ' + EQCONNECT + ' app.',
+                changelogTitle: 'Changelog',
+                currentVersionLabel: 'Current version:',
+                showMoreButton: 'Show more',
+                changelogUnavailable: 'Changelog is currently unavailable.'
             },
             cs: {
                 subtitle: 'Firmware brány sběrnice IB+ pro kontrolér ERQOS EQSP32-CE (kompatibilní s motor controllery Somfy)',
@@ -152,7 +183,11 @@
                 after2: 'Ve webovém rozhraní nastavte zóny a senzory.',
                 updatesTitle: 'Budoucí aktualizace',
                 upd1: 'Další aktualizace firmwaru už USB <strong>nevyžadují</strong>: otevřete servisní panel zařízení na ' + PANEL_URL + ' a nahrajte dodaný soubor ' + OTA_FILE + ' (výchozí heslo: ' + PWD + ').',
-                upd2: 'Doporučujeme změnit výchozí OTA heslo pomocí aplikace ' + EQCONNECT + '.'
+                upd2: 'Doporučujeme změnit výchozí OTA heslo pomocí aplikace ' + EQCONNECT + '.',
+                changelogTitle: 'Historie změn',
+                currentVersionLabel: 'Aktuální verze:',
+                showMoreButton: 'Zobrazit další',
+                changelogUnavailable: 'Historie změn je momentálně nedostupná.'
             },
             de: {
                 subtitle: 'IB+-Bus-Gateway-Firmware für den ERQOS EQSP32-CE Controller (kompatibel mit Somfy-Motorsteuerungen)',
@@ -169,7 +204,11 @@
                 after2: 'Konfigurieren Sie Zonen und Sensoren in der Weboberfläche.',
                 updatesTitle: 'Zukünftige Updates',
                 upd1: 'Spätere Firmware-Updates benötigen <strong>kein</strong> USB mehr: Öffnen Sie das Wartungspanel des Geräts unter ' + PANEL_URL + ' und laden Sie die bereitgestellte Datei ' + OTA_FILE + ' hoch (Standardpasswort: ' + PWD + ').',
-                upd2: 'Wir empfehlen, das Standard-OTA-Passwort mit der ' + EQCONNECT + '-App zu ändern.'
+                upd2: 'Wir empfehlen, das Standard-OTA-Passwort mit der ' + EQCONNECT + '-App zu ändern.',
+                changelogTitle: 'Änderungsprotokoll',
+                currentVersionLabel: 'Aktuelle Version:',
+                showMoreButton: 'Mehr anzeigen',
+                changelogUnavailable: 'Das Änderungsprotokoll ist derzeit nicht verfügbar.'
             },
             fr: {
                 subtitle: 'Micrologiciel de passerelle bus IB+ pour le contrôleur ERQOS EQSP32-CE (compatible avec les contrôleurs de moteurs Somfy)',
@@ -186,7 +225,11 @@
                 after2: 'Configurez les zones et les capteurs dans l\'interface web.',
                 updatesTitle: 'Mises à jour futures',
                 upd1: 'Les mises à jour ultérieures ne nécessitent <strong>plus</strong> d\'USB : ouvrez le panneau de maintenance de l\'appareil sur ' + PANEL_URL + ' et téléversez le fichier ' + OTA_FILE + ' fourni (mot de passe par défaut : ' + PWD + ').',
-                upd2: 'Nous recommandons de changer le mot de passe OTA par défaut via l\'application ' + EQCONNECT + '.'
+                upd2: 'Nous recommandons de changer le mot de passe OTA par défaut via l\'application ' + EQCONNECT + '.',
+                changelogTitle: 'Journal des modifications',
+                currentVersionLabel: 'Version actuelle :',
+                showMoreButton: 'Afficher plus',
+                changelogUnavailable: 'Le journal des modifications est actuellement indisponible.'
             },
             hr: {
                 subtitle: 'Firmware IB+ sabirničkog pristupnika za ERQOS EQSP32-CE kontroler (kompatibilno sa Somfy motornim kontrolerima)',
@@ -203,7 +246,11 @@
                 after2: 'Konfigurirajte zone i senzore u web sučelju.',
                 updatesTitle: 'Buduća ažuriranja',
                 upd1: 'Kasnija ažuriranja firmwarea <strong>ne</strong> zahtijevaju USB: otvorite servisni panel uređaja na ' + PANEL_URL + ' i prenesite isporučenu datoteku ' + OTA_FILE + ' (zadana lozinka: ' + PWD + ').',
-                upd2: 'Preporučujemo promjenu zadane OTA lozinke pomoću aplikacije ' + EQCONNECT + '.'
+                upd2: 'Preporučujemo promjenu zadane OTA lozinke pomoću aplikacije ' + EQCONNECT + '.',
+                changelogTitle: 'Povijest promjena',
+                currentVersionLabel: 'Trenutna verzija:',
+                showMoreButton: 'Prikaži više',
+                changelogUnavailable: 'Povijest promjena trenutno nije dostupna.'
             },
             pl: {
                 subtitle: 'Oprogramowanie bramy magistrali IB+ dla sterownika ERQOS EQSP32-CE (kompatybilne ze sterownikami silników Somfy)',
@@ -220,7 +267,11 @@
                 after2: 'Skonfiguruj strefy i czujniki w interfejsie webowym.',
                 updatesTitle: 'Przyszłe aktualizacje',
                 upd1: 'Kolejne aktualizacje <strong>nie</strong> wymagają już USB: otwórz panel serwisowy urządzenia pod adresem ' + PANEL_URL + ' i wgraj dostarczony plik ' + OTA_FILE + ' (domyślne hasło: ' + PWD + ').',
-                upd2: 'Zalecamy zmianę domyślnego hasła OTA za pomocą aplikacji ' + EQCONNECT + '.'
+                upd2: 'Zalecamy zmianę domyślnego hasła OTA za pomocą aplikacji ' + EQCONNECT + '.',
+                changelogTitle: 'Historia zmian',
+                currentVersionLabel: 'Aktualna wersja:',
+                showMoreButton: 'Pokaż więcej',
+                changelogUnavailable: 'Historia zmian jest obecnie niedostępna.'
             }
         };
 
@@ -256,6 +307,67 @@
         });
 
         applyLang(detectLang());
+
+        // Changelog: changelog-full.json is the unbounded counterpart to the
+        // small changelog.json the device firmware itself reads (that one
+        // stays capped at 10 notes total for the device's fixed 4KB parse
+        // buffer - see CLAUDE.md's "Firmware distribution" section and
+        // scripts/publish_flasher.py). Fetched from this same GitHub Pages
+        // origin, so there's no CORS concern. Shown newest-first, revealed
+        // one release at a time initially and 25 more per click - a long
+        // history never dumps onto the page all at once.
+        const CHANGELOG_FIRST_BATCH = 1;
+        const CHANGELOG_PAGE_SIZE = 25;
+        let changelogEntries = [];
+        let changelogShown = 0;
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, (c) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[c]);
+        }
+
+        function renderChangelogList() {
+            document.getElementById('changelog-list').innerHTML = changelogEntries
+                .slice(0, changelogShown)
+                .map((entry) => {
+                    const notes = (entry.notes || [])
+                        .map((n) => '<li>' + escapeHtml(n) + '</li>')
+                        .join('');
+                    return '<div class="changelog-entry"><h3>v' + escapeHtml(entry.version) +
+                        ' <span class="date">&mdash; ' + escapeHtml(entry.date) + '</span></h3><ul>' +
+                        notes + '</ul></div>';
+                })
+                .join('');
+            document.getElementById('changelog-more-btn').style.display =
+                changelogShown < changelogEntries.length ? '' : 'none';
+        }
+
+        document.getElementById('changelog-more-btn').addEventListener('click', () => {
+            changelogShown = Math.min(changelogShown + CHANGELOG_PAGE_SIZE, changelogEntries.length);
+            renderChangelogList();
+        });
+
+        fetch('manifest.json')
+            .then((r) => r.json())
+            .then((data) => {
+                document.getElementById('changelog-version-value').textContent = data.version || '';
+            })
+            .catch(() => {});
+
+        fetch('changelog-full.json')
+            .then((r) => {
+                if (!r.ok) throw new Error('changelog fetch failed');
+                return r.json();
+            })
+            .then((data) => {
+                changelogEntries = (data && data.entries) || [];
+                changelogShown = Math.min(CHANGELOG_FIRST_BATCH, changelogEntries.length);
+                renderChangelogList();
+            })
+            .catch(() => {
+                document.getElementById('changelog-unavailable').style.display = '';
+            });
     </script>
 </body>
 </html>

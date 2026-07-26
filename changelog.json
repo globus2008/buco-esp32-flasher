@@ -1,19 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.122",
-      "date": "2026-07-24",
+      "version": "1.0.136",
+      "date": "2026-07-26",
       "notes": [
-        "fix: browser demo missing User Management API mocks",
-        "feat: merge KNX Up/Down into DPT 1.008 point, retag Stop/Angle/Position DPTs",
-        "feat: split BACnet/KNX Gateway Setting into own pages; fix KNX ETS CSV export + restart flag",
-        "feat: User Management phone name, email warning, simple passwords; Network Config DHCP readout",
-        "feat: always show a state in the header User Management indicator",
-        "fix: surface expired/missing session on IB+ command routes",
-        "feat: show Ethernet IP in mobile header between Help and Save",
-        "fix: Test Bus Wires reliability + UI rework from real field capture",
-        "feat: add Test Bus Wires commissioning page (MoCo Settings)",
-        "feat: RS485 Master/Slave role + sensor renaming (RS485 + Weather Forecast)"
+        "feat: full-history changelog on flasher site + SharePoint export, release pipeline script",
+        "feat: DIO-triggered function switches for Test Zone Priority/Test Bus Wires/Sun & Timer Automatic",
+        "feat: explicit \"Don't show again\" checkbox on Welcome Screen",
+        "feat: percentage progress bar on the global Save overlay",
+        "fix: Blind Button UP/DOWN pre-pass swallowed same-tick crossovers and release-from-Stop",
+        "fix: send End Limit Switch telegram unconditionally, default it on",
+        "fix: Venetian blinds never get a Switch Config telegram when unset",
+        "fix: welcomeSeen/disclaimer flag can silently fail to persist; prevent duplicate Blind Button assignment",
+        "fix: Screen/roller products never got a Switch Config telegram",
+        "feat: gate stale KNX GA export; add boot loading percentage readout"
       ]
     }
   ]

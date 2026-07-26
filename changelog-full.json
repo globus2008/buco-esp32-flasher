@@ -1,0 +1,138 @@
+{
+  "entries": [
+    {
+      "version": "1.0.136",
+      "date": "2026-07-26",
+      "notes": [
+        "feat: full-history changelog on flasher site + SharePoint export, release pipeline script",
+        "feat: DIO-triggered function switches for Test Zone Priority/Test Bus Wires/Sun & Timer Automatic",
+        "feat: explicit \"Don't show again\" checkbox on Welcome Screen",
+        "feat: percentage progress bar on the global Save overlay",
+        "fix: Blind Button UP/DOWN pre-pass swallowed same-tick crossovers and release-from-Stop",
+        "fix: send End Limit Switch telegram unconditionally, default it on",
+        "fix: Venetian blinds never get a Switch Config telegram when unset",
+        "fix: welcomeSeen/disclaimer flag can silently fail to persist; prevent duplicate Blind Button assignment",
+        "fix: Screen/roller products never got a Switch Config telegram",
+        "feat: gate stale KNX GA export; add boot loading percentage readout",
+        "fix: shorten command-busy overlay to match faster IB+ send time",
+        "perf: send each IB+ telegram once instead of 3x",
+        "feat: KNX security status heartbeat toggle; fix header i18n race, KNX RX diagnostics, Position DPT export",
+        "feat: mandatory first-boot language + disclaimer gate, synced to flasher site"
+      ]
+    },
+    {
+      "version": "1.0.122",
+      "date": "2026-07-24",
+      "notes": [
+        "fix: browser demo missing User Management API mocks",
+        "feat: merge KNX Up/Down into DPT 1.008 point, retag Stop/Angle/Position DPTs",
+        "feat: split BACnet/KNX Gateway Setting into own pages; fix KNX ETS CSV export + restart flag",
+        "feat: User Management phone name, email warning, simple passwords; Network Config DHCP readout",
+        "feat: always show a state in the header User Management indicator",
+        "fix: surface expired/missing session on IB+ command routes",
+        "feat: show Ethernet IP in mobile header between Help and Save",
+        "fix: Test Bus Wires reliability + UI rework from real field capture",
+        "feat: add Test Bus Wires commissioning page (MoCo Settings)",
+        "feat: RS485 Master/Slave role + sensor renaming (RS485 + Weather Forecast)"
+      ]
+    },
+    {
+      "version": "1.0.110",
+      "date": "2026-07-21",
+      "notes": [
+        "feat: add KNX/IP gateway (KNXnet/IP Routing, mirrors BACnet's points)",
+        "feat: add Solar Heating function (UI, firmware watcher, BACnet, i18n)",
+        "docs: CLAUDE.md documentation sweep + remove genuine i18n duplicates",
+        "feat: add Energy/Maintain Heat function (UI, firmware watcher, BACnet, i18n)",
+        "fix: readable Event log action names + header clock 'undefined undefined'",
+        "feat: nav cleanup + Network Config Wi-Fi screen + User Management UX fixes",
+        "feat: add User Management (login, roles, permissions)"
+      ]
+    },
+    {
+      "version": "1.0.103",
+      "date": "2026-07-19",
+      "notes": [
+        "fix: OTA update check could crash device under low heap (w5500_tsk panic)",
+        "docs: CLAUDE.md - document the whole BACnet/IP gateway phase",
+        "feat: BACnet stage 2d - configurable Device ID/UDP port + drop the temp UDP debug route",
+        "feat: BACnet stage 2c - WriteProperty commands + Touch BuCo EDE numbering",
+        "chore: remove temporary diagnostics (loop profiler, loop WDT, BACnet/HW/IB+/DIO debug logs)",
+        "fix: BACnet weather points need a restart hint + device clock UTC offset/diagnostics",
+        "fix: 32-zone BACnet heap exhaustion + weather points + real Device version/clock",
+        "feat: spread the zone automation sweep across loop() iterations",
+        "feat: map every configured ADIO/DIO type to BACnet + zone-independent pulse-wind sampling",
+        "feat: map wind_pulse_hz (Soliris pulse wind on DIO) to BACnet + protect PCC pins from the sampler"
+      ]
+    },
+    {
+      "version": "1.0.65",
+      "date": "2026-07-12",
+      "notes": [
+        "feat: add unified i18n translation mechanism for UI and help content",
+        "fix: raise task watchdog to 20s and add fetch timeouts to stop save-triggered reboot loop"
+      ]
+    },
+    {
+      "version": "1.0.63",
+      "date": "2026-07-10",
+      "notes": [
+        "feat: Comfort Energy Mode sends Manual Priority telegram and silences energy functions",
+        "feat: add Learn Zones and Run/Tilt Times help pages in all 6 languages",
+        "feat: add Settings/Basic Settings/Heartbeat page and keep-alive broadcast",
+        "fix: eliminate remaining task_wdt crashes and dead DIO inputs",
+        "fix: eliminate task_wdt crashes from blocking RS485 sends and Serial output",
+        "feat: add MoCo Settings -> Switch Config page",
+        "feat: add Log -> Event activity log, rename Manual to Manual Control",
+        "feat: add Settings/Comfort/Sun (sun protection + sun tracking)",
+        "feat: add Log -> Sensors history chart and Log -> Export",
+        "fix: left-align live sensor values on ADIO/DIO/Weather Status pages"
+      ]
+    },
+    {
+      "version": "1.0.53",
+      "date": "2026-07-08",
+      "notes": [
+        "feat: add date/time sync benefit to Internet Connection wizard step",
+        "feat: add Save Changes step to Wizard before Load/Save",
+        "feat: add Internet Connection info step and Update Motor Controllers to Wizard",
+        "feat: auto-detect default language from IP on Locals page",
+        "feat: add Weather Forecast virtual sensors from Open-Meteo",
+        "feat: add sun-tracking computation module for future Sun automation",
+        "feat: add My Position page for per-zone intermediate position/angle Send"
+      ]
+    },
+    {
+      "version": "1.0.46",
+      "date": "2026-07-06",
+      "notes": [
+        "fix: close first-boot save race that left a dangling zoneIndex entry",
+        "feat: add Update Motor Controllers page to push zone config to hardware",
+        "feat: add Reset to Auto page with manual reset and per-zone weekly timer",
+        "feat: add Standard Position page for per-zone position/angle and angle endlimits",
+        "feat: add Configuration Wizard with a 14-screen guided commissioning flow",
+        "feat: add Test Zones page for motor controller wiring checks",
+        "fix: stash ignored .claude/settings.json around branch switch in merge_dev_to_main.py",
+        "chore: add merge_dev_to_main.py to fast-forward main from dev",
+        "fix: silence LittleFS vfs_api spam, log network transitions, show real Eth IP"
+      ]
+    },
+    {
+      "version": "1.0.37",
+      "date": "2026-07-05",
+      "notes": [
+        "refactor: narrow Update Firmware to check-only, drop OTA partition",
+        "chore: add push_flasher.py, publish backup reminder in flasher docs"
+      ]
+    },
+    {
+      "version": "1.0.35",
+      "date": "2026-07-05",
+      "notes": [
+        "Added an in-app Update Firmware page - check for and install updates directly from the device.",
+        "Added configuration backups (Load/Save) - save and restore your zone and settings configuration on the device.",
+        "Cleaned up product naming in customer-facing materials."
+      ]
+    }
+  ]
+}
