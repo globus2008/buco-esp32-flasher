@@ -69,6 +69,17 @@
         .changelog-entry h3 .date { font-weight: normal; color: #6b7280; font-size: 0.85rem; }
         .changelog-entry ul { margin: 0; padding-left: 20px; }
         .changelog-entry li { margin-bottom: 4px; font-size: 0.92rem; }
+        .changelog-entry summary { cursor: pointer; }
+        .changelog-entry summary:hover { color: #1f2937; }
+        .changelog-entry .note-body {
+            white-space: pre-wrap;
+            margin: 6px 0 0 4px;
+            padding: 8px 12px;
+            background: #f9fafb;
+            border-left: 3px solid #e5e7eb;
+            font-size: 0.85rem;
+            color: #374151;
+        }
         .more-btn {
             display: block;
             margin: 14px auto 0;
@@ -327,13 +338,31 @@
             })[c]);
         }
 
+        // A note is either the current {summary, body} shape or a legacy
+        // plain string (older already-published entries) - normalize both,
+        // mirroring scripts/changelog_notes.py's note_summary()/note_body().
+        function noteSummary(note) {
+            return (note && typeof note === 'object') ? (note.summary || '') : String(note);
+        }
+        function noteBody(note) {
+            return (note && typeof note === 'object') ? (note.body || '') : '';
+        }
+
+        // A body renders as a native <details>/<summary> - expandable on
+        // click, no extra JS needed beyond this string build.
+        function renderNote(note) {
+            const summary = escapeHtml(noteSummary(note));
+            const body = noteBody(note);
+            if (!body) return '<li>' + summary + '</li>';
+            return '<li><details><summary>' + summary + '</summary><div class="note-body">' +
+                escapeHtml(body) + '</div></details></li>';
+        }
+
         function renderChangelogList() {
             document.getElementById('changelog-list').innerHTML = changelogEntries
                 .slice(0, changelogShown)
                 .map((entry) => {
-                    const notes = (entry.notes || [])
-                        .map((n) => '<li>' + escapeHtml(n) + '</li>')
-                        .join('');
+                    const notes = (entry.notes || []).map(renderNote).join('');
                     return '<div class="changelog-entry"><h3>v' + escapeHtml(entry.version) +
                         ' <span class="date">&mdash; ' + escapeHtml(entry.date) + '</span></h3><ul>' +
                         notes + '</ul></div>';

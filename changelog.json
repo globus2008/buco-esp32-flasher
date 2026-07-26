@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "1.0.139",
+      "date": "2026-07-26",
+      "notes": [
+        "fix: rebuild full changelog history from private repo tags, not the public record",
+        "feat: add plain Restart button, rename System Settings page to Restart / Reset",
+        "fix: shorten Test Bus Wires cycle timing from 4s to 3s"
+      ]
+    },
+    {
       "version": "1.0.136",
       "date": "2026-07-26",
       "notes": [
@@ -10,10 +19,7 @@
         "feat: percentage progress bar on the global Save overlay",
         "fix: Blind Button UP/DOWN pre-pass swallowed same-tick crossovers and release-from-Stop",
         "fix: send End Limit Switch telegram unconditionally, default it on",
-        "fix: Venetian blinds never get a Switch Config telegram when unset",
-        "fix: welcomeSeen/disclaimer flag can silently fail to persist; prevent duplicate Blind Button assignment",
-        "fix: Screen/roller products never got a Switch Config telegram",
-        "feat: gate stale KNX GA export; add boot loading percentage readout"
+        "fix: Venetian blinds never get a Switch Config telegram when unset"
       ]
     }
   ]

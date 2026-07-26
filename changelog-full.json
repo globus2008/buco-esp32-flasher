@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "version": "1.0.139",
+      "date": "2026-07-26",
+      "notes": [
+        {
+          "summary": "fix: rebuild full changelog history from private repo tags, not the public record",
+          "body": "changelog-full.json/dist/changelog.html were reconstructed by replaying the\npublic flasher checkout's own changelog.json history - but that history was\nalready capped at 10 notes total the instant a release was first published,\nso a release with more raw commits than that (v1.0.103: 38, v1.0.122: 12)\ncould never be recovered in full that way. Now rebuilt straight from this\nrepo's own v<version> tags + git log between them (scripts/changelog_notes.py,\nshared with make_factory_image.py's draft so the two logics can't drift\napart again), with a narrow fallback to the public record only for v1.0.35\n(hand-written before this mechanism existed, no earlier tag to diff from).\n\nAlso captures each commit's full body (trailer stripped) alongside its\nsummary, rendered as an expandable <details>/<summary> per note in both\ndist/changelog.html and the flasher site's Changelog card - the device-facing\nchangelog.json keeps summaries only."
+        },
+        {
+          "summary": "feat: add plain Restart button, rename System Settings page to Restart / Reset",
+          "body": "Adds a non-destructive device restart alongside the existing factory\nreset, reusing the already-existing POST /api/restart route and the\nshared waitForDeviceReboot() poll/reload helper."
+        },
+        {
+          "summary": "fix: shorten Test Bus Wires cycle timing from 4s to 3s",
+          "body": "Applies to both the browser-driven cycle (test-bus-wires.js) and the\nDIO-switch-driven firmware cycle (bus_wires_test_engine.cpp), which are\nmeant to look identical on the bus."
+        }
+      ]
+    },
+    {
       "version": "1.0.136",
       "date": "2026-07-26",
       "notes": [
