@@ -1,25 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.139",
-      "date": "2026-07-26",
+      "version": "1.0.176",
+      "date": "2026-08-11",
       "notes": [
-        "fix: rebuild full changelog history from private repo tags, not the public record",
-        "feat: add plain Restart button, rename System Settings page to Restart / Reset",
-        "fix: shorten Test Bus Wires cycle timing from 4s to 3s"
-      ]
-    },
-    {
-      "version": "1.0.136",
-      "date": "2026-07-26",
-      "notes": [
-        "feat: full-history changelog on flasher site + SharePoint export, release pipeline script",
-        "feat: DIO-triggered function switches for Test Zone Priority/Test Bus Wires/Sun & Timer Automatic",
-        "feat: explicit \"Don't show again\" checkbox on Welcome Screen",
-        "feat: percentage progress bar on the global Save overlay",
-        "fix: Blind Button UP/DOWN pre-pass swallowed same-tick crossovers and release-from-Stop",
-        "fix: send End Limit Switch telegram unconditionally, default it on",
-        "fix: Venetian blinds never get a Switch Config telegram when unset"
+        "feat: periodic MoCo real-position auto-refresh for gateway reads; document Home Assistant gateway",
+        "fix: an Apply & Restart on one page could kill an in-flight save on another",
+        "feat: real motor position/tilt readback over RS485-between-Motor-Controllers",
+        "docs: add help content for Control/Area Control/Home/Alarm/Rain-Snow and unify Sensors help pages",
+        "feat: configurable RS485 port roles + RS485 between Motor Controllers",
+        "docs: record the Up-button-stays-disabled limitation and why it's staying as-is",
+        "fix: Home Assistant discovery silently dropped points once the outbound queue filled",
+        "fix: Home Assistant discovery JSON silently truncated to 40 bytes, no entity ever created",
+        "fix: Home Assistant switch commands never worked, cover/switch subscribes flooded receive queue",
+        "feat: add Home Assistant MQTT gateway, consolidate gateway selection into one page"
       ]
     }
   ]
