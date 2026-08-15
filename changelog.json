@@ -1,19 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.176",
-      "date": "2026-08-11",
+      "version": "1.0.187",
+      "date": "2026-08-15",
       "notes": [
-        "feat: periodic MoCo real-position auto-refresh for gateway reads; document Home Assistant gateway",
-        "fix: an Apply & Restart on one page could kill an in-flight save on another",
-        "feat: real motor position/tilt readback over RS485-between-Motor-Controllers",
-        "docs: add help content for Control/Area Control/Home/Alarm/Rain-Snow and unify Sensors help pages",
-        "feat: configurable RS485 port roles + RS485 between Motor Controllers",
-        "docs: record the Up-button-stays-disabled limitation and why it's staying as-is",
-        "fix: Home Assistant discovery silently dropped points once the outbound queue filled",
-        "fix: Home Assistant discovery JSON silently truncated to 40 bytes, no entity ever created",
-        "fix: Home Assistant switch commands never worked, cover/switch subscribes flooded receive queue",
-        "feat: add Home Assistant MQTT gateway, consolidate gateway selection into one page"
+        "fix: repair KNX Heartbeat i18n keys mangled by aa7741f's translation pass",
+        "feat: customer manual generator (scripts/make_manual.py)",
+        "i18n: translate Reset to Auto, Switch Config, Test Bus Wires, Heartbeat into cs/de/fr/hr/pl",
+        "i18n: translate remaining deliberately-English feature names into cs/de/fr/hr/pl",
+        "fix: sidebar was never migrated to data-i18n, plus nav.sensors was an untranslated placeholder in all languages",
+        "docs: add help content for Advanced Settings/Area Definition/Date-Time/Disclaimer/End Products/Internet Connection/Local",
+        "i18n: full UI translation pass - fill ui.json/help.json gaps, migrate every remaining page to data-i18n",
+        "feat: shared gateway diagnostics point set, exposed by all four gateways",
+        "feat: Modbus gateway (TCP + RTU), confirmed end to end on real hardware",
+        "fix: MoCo position auto-refresh no longer requires a gateway to be active"
       ]
     }
   ]
