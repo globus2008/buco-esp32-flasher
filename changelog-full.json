@@ -1,6 +1,36 @@
 {
   "entries": [
     {
+      "version": "1.0.206",
+      "date": "2026-09-07",
+      "notes": [
+        {
+          "summary": "fix: propagate Zone Control Exact Positions target into currentPosition/currentTiltAngle",
+          "body": "/api/goto_pos queued the IB+ telegram but never updated the zone's\ncurrentPosition/currentTiltAngle, so a manually-sent exact target never\nshowed up on the Home Dashboard tile and reopening the Exact Positions\nscreen kept pre-filling the old value. Fixed by having the handler call\nthe existing requestZoneActualPositionUpdate() right after queuing the\ntelegram - the same optimistic assume-the-commanded-target write a\ndriving ZONE_FUNCTIONS watcher's own Step B already does, scoped to this\none route since (unlike Up/Stop/Down) a GOTO_POS always carries an\nexplicit, unambiguous target. control.js also refreshes zone-states\nbefore pre-filling the inputs on page mount, since appConfig can be\nstale with no poller running between visits."
+        },
+        {
+          "summary": "fix: sync Exact Positions defaults with zone's known position/angle",
+          "body": "Zone Control's Advanced screen used to always default to 50%/0deg.\nPrefill it from the zone's own currentPosition/currentTiltAngle instead,\nso a previously issued manual command (e.g. 100%/45deg) can be repeated\njust by reopening the page."
+        },
+        {
+          "summary": "fix: default Date/Time manual fields to the live device clock",
+          "body": "The date/time inputs on Options -> Basic Settings -> Date/Time only\npicked up the live device clock (matching the header) while \"Sync\nover Internet\" was on; with it off, they showed the last saved\nmanualDate/manualTime, which could be stale and disagree with the\nheader. Now they track the live clock whenever they're not actively\nbeing edited (readOnly), so opening the page - or re-enabling a sync\nsource after a pencil-edit - always defaults to \"now\"."
+        },
+        {
+          "summary": "fix: Sun Tracking Minimum Step now gates resends, raise Update Time default, auto-fill Orientation",
+          "body": "Minimum Step only quantized the computed target, it never compared it\nagainst the zone's currently held position, so the sunTracking redrive\nsent a telegram on every Update Time tick regardless of how small the\nchange was. Now it skips the resend when the difference (angle for\nslat products, position for screen products) is below the configured\nstep, still resetting the redrive timer so the recompute cadence is\nunaffected.\n\nSince Minimum Step now actually suppresses no-op resends, raise Update\nTime's default from 5 to 30 minutes across every seed/fallback site.\n\nAlso auto-fill the CONFIGURE modal's Orientation field from the zone's\nassigned Zone Orientation property (e.g. East -> 90 deg) the same way\nAzimuth Range already does, only while it still sits at the seeded\n180 deg default."
+        },
+        {
+          "summary": "feat: show decoded position/angle in Log -> Event instead of raw hex",
+          "body": "Manual Control's Position action showed the raw IB+-encoded angle byte\nin hex (e.g. \"Position 100% (angle 0xC8)\"); toggle-style functions\n(Sun Protection, Timer, ...) just showed a bare \"On\"/\"Off\" with no\nindication of where the zone actually moved to.\n\nNow decodes the angle via decodeIbPlusAngleDeg() (the same convention\nalready used by BACnet's BLIND_ANGLE_AV and the Home Dashboard tile)\nand shows e.g. \"100%/45\u00c2\u00b0\", hiding the angle entirely for products with\nno tilt mechanism. On/Off entries append \"- <pos>%/<angle>\u00c2\u00b0\" whenever\nthe activate/deactivate action had a literal known target\n(EVT_FLAG_HAS_POSITION), matching in both the on-screen table and the\nCSV export. Updated the browser demo's seed data/CSV mock to match and\nremoved the now-unused logEvent.actionPositionAngle i18n key."
+        },
+        {
+          "summary": "fix: remove Soliris Sensor WT sun preset from ADIO Sun Sensor picker",
+          "body": "The Soliris Sensor WT is a combined sun+wind sensor, but only its wind\noutput is usable on this device (DIO's wind_pulse_hz model). Its sun\noutput is no longer offered as a sun_voltage sensor model."
+        }
+      ]
+    },
+    {
       "version": "1.0.200",
       "date": "2026-09-06",
       "notes": [

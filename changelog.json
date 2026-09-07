@@ -1,25 +1,25 @@
 {
   "entries": [
     {
+      "version": "1.0.206",
+      "date": "2026-09-07",
+      "notes": [
+        "fix: propagate Zone Control Exact Positions target into currentPosition/currentTiltAngle",
+        "fix: sync Exact Positions defaults with zone's known position/angle",
+        "fix: default Date/Time manual fields to the live device clock",
+        "fix: Sun Tracking Minimum Step now gates resends, raise Update Time default, auto-fill Orientation",
+        "feat: show decoded position/angle in Log -> Event instead of raw hex",
+        "fix: remove Soliris Sensor WT sun preset from ADIO Sun Sensor picker"
+      ]
+    },
+    {
       "version": "1.0.200",
       "date": "2026-09-06",
       "notes": [
         "fix: remember last-confirmed UI language to fix boot-overlay language flash",
         "fix: stop welcomeSeen/disclaimer resetting after a restart, and fix boot language flash",
         "feat: show the cause of a zone Error in Log -> Error",
-        "fix: auto-refresh Log -> Error status panels instead of manual button",
-        "fix: stop schedule engines losing an event whose trigger passed while the clock was invalid",
-        "fix: add missing days.<key>.short/full i18n keys for Timer day tabs",
-        "feat: implement the Log -> Error page",
-        "fix: let the automation watchers actually read RS485 sensor values"
-      ]
-    },
-    {
-      "version": "1.0.192",
-      "date": "2026-09-01",
-      "notes": [
-        "feat: simplify WSC11 setup - fixed 9600 baud, broadcast id reset, Master/Slave",
-        "feat: integrate the Thies WSC11 weather station (4.9056.11.001)"
+        "fix: auto-refresh Log -> Error status panels instead of manual button"
       ]
     }
   ]
