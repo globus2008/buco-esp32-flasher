@@ -1,25 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.206",
-      "date": "2026-09-07",
+      "version": "1.0.220",
+      "date": "2026-09-13",
       "notes": [
-        "fix: propagate Zone Control Exact Positions target into currentPosition/currentTiltAngle",
-        "fix: sync Exact Positions defaults with zone's known position/angle",
-        "fix: default Date/Time manual fields to the live device clock",
-        "fix: Sun Tracking Minimum Step now gates resends, raise Update Time default, auto-fill Orientation",
-        "feat: show decoded position/angle in Log -> Event instead of raw hex",
-        "fix: remove Soliris Sensor WT sun preset from ADIO Sun Sensor picker"
-      ]
-    },
-    {
-      "version": "1.0.200",
-      "date": "2026-09-06",
-      "notes": [
-        "fix: remember last-confirmed UI language to fix boot-overlay language flash",
-        "fix: stop welcomeSeen/disclaimer resetting after a restart, and fix boot language flash",
-        "feat: show the cause of a zone Error in Log -> Error",
-        "fix: auto-refresh Log -> Error status panels instead of manual button"
+        "feat: TaHoma gateway Phase 8 - cloud mode with Somfy account sign-in",
+        "feat: TaHoma gateway Phase 6 - state readback and gateway Tahoma profile",
+        "feat: TaHoma gateway Phase 5 - command backend behind motor_output",
+        "feat: TaHoma gateway Phase 4 - device discovery, Devices page, zone binding",
+        "feat: TaHoma gateway Phase 3 - connection manager (local, events only)",
+        "feat: TaHoma gateway Phase 2 - motor_output seam (IB+ backend only)",
+        "feat: TaHoma gateway Phase 1 - Control Type (IB+ BuCo / Tahoma BuCo)",
+        "fix: zone file integrity - verified writes, shadow copy recovery, NoMemory no longer disables a zone",
+        "docs: TaHoma Phase 0 - command path proven end to end, heap figures banded",
+        "feat: TaHoma gateway Phase 0 - feasibility spike, measured and passed"
       ]
     }
   ]
