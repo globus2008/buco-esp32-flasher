@@ -1,6 +1,32 @@
 {
   "entries": [
     {
+      "version": "1.0.225",
+      "date": "2026-09-14",
+      "notes": [
+        {
+          "summary": "feat: TaHoma Connection page as a 2-screen carousel",
+          "body": "Split Tahoma -> Connection into Connection / Connection status screens\n(tabs, arrows and dots, like Area Control) so the page stays narrow on\nphones. The status table is only polled while its screen is visible."
+        },
+        {
+          "summary": "fix: Control Type gate - show the setup overlay immediately on Continue",
+          "body": "The overlay was only shown after ensureNoPendingSavesBeforeRestart()\nfinished waiting for the container save started just before, which takes\nseveral seconds on the device, so the click looked lost. Show it first,\nhide the stale 100% progress bar, and ignore repeated clicks."
+        },
+        {
+          "summary": "feat: TaHoma gateway Phase 9 - help texts, manual control-type badges, docs",
+          "body": "- Help: replace the stale \"does not yet control any TaHoma device\" text with a\n  Tahoma setup paragraph; add Tahoma-mode paragraphs to Zone Control, Area\n  Control, Home, Gateway and RS485 Ports help; fix the stale Devices page intro\n  (all 6 languages).\n- make_manual.py: read data-modes from the sidebar, badge chapters restricted\n  to one control type, and screenshot Tahoma-only pages in a second pass with\n  the demo switched to Tahoma mode (they were silently captured as Home). A page\n  the demo refuses is reported as [H].\n- docs/tahoma-gateway.md is now the main TaHoma document: status table,\n  architecture, incidents, consolidated hardware checklist, known gaps, costs.\n- CLAUDE.md: TaHoma section rewritten by topic (607 -> 178 lines)."
+        },
+        {
+          "summary": "feat: TaHoma gateway Phase 7 - command source and communication-loss records",
+          "body": "Log -> Event gains a Source column (Web, DIO, KNX, BACnet, Modbus, Home\nAssistant), stored in the free top 3 bits of the event record's flags, so\nthe 12-byte record format is unchanged. Automation and older records show\na dash. The CSV export gains a source column.\n\nLog -> Error now records communication lost/restored for RS485 devices\n(both control types, 60 s restore hold), the TaHoma box (120 s stale\ncriterion, one record per outage) and bound TaHoma devices. All\nlogZoneEvent() calls stay outside spinlock sections.\n\nAlso fixes \"Unknown\" function names in the CSV for Cooling, Block Heat,\nMaintain Heat and Solar Heating. i18n in all 6 languages, help, demo and\ndocs updated. Measured: RAM +40 B, flash +1.1 KB. Not yet hardware-tested."
+        },
+        {
+          "summary": "fix: TaHoma client reboot - never read the TLS socket under g_mux",
+          "body": "publishStatus() called tahomaHttpConnected() inside portENTER_CRITICAL.\nWiFiClientSecure::connected() does a real mbedTLS/lwIP read while a session\nis open and can block on lwIP's core lock; blocking with interrupts disabled\ntripped the interrupt watchdog (two spontaneous reboots in cloud + BACnet\nmode, decoded against the matching v1.0.220 ELF). The flag is now read before\nentering the critical section. Not a RAM issue (59 KB free at the crash)."
+        }
+      ]
+    },
+    {
       "version": "1.0.220",
       "date": "2026-09-13",
       "notes": [
