@@ -1,25 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.225",
-      "date": "2026-09-14",
+      "version": "1.0.236",
+      "date": "2026-10-04",
       "notes": [
-        "feat: TaHoma Connection page as a 2-screen carousel",
-        "fix: Control Type gate - show the setup overlay immediately on Continue",
-        "feat: TaHoma gateway Phase 9 - help texts, manual control-type badges, docs",
-        "feat: TaHoma gateway Phase 7 - command source and communication-loss records",
-        "fix: TaHoma client reboot - never read the TLS socket under g_mux"
-      ]
-    },
-    {
-      "version": "1.0.220",
-      "date": "2026-09-13",
-      "notes": [
-        "feat: TaHoma gateway Phase 8 - cloud mode with Somfy account sign-in",
-        "feat: TaHoma gateway Phase 6 - state readback and gateway Tahoma profile",
-        "feat: TaHoma gateway Phase 5 - command backend behind motor_output",
-        "feat: TaHoma gateway Phase 4 - device discovery, Devices page, zone binding",
-        "feat: TaHoma gateway Phase 3 - connection manager (local, events only)"
+        "fix: wind-inactivity Error waits for 12h of continuous uptime",
+        "fix: a backup Load no longer re-opens the Welcome screen either",
+        "fix: a backup Load no longer re-opens the Disclaimer and Control Type gates",
+        "feat: Wind Direction sub-trigger in Security - Wind",
+        "feat: Touch BuCo configuration export and import on Load/Save",
+        "feat: SDN BuCo step 3 - Motor settings page, end limits and rotation direction",
+        "feat: SDN BuCo step 2b - Devices page, protocol per Integration Guide 2024",
+        "feat: SDN BuCo step 2a - SDN bus driver, scan and zone-group routes",
+        "feat: SDN BuCo control type step 1 - selectable mode and RS485 SDN port role",
+        "refactor: rename control type \"Tahoma BuCo\" to \"Tahoma Gateway\""
       ]
     }
   ]
