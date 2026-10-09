@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "1.0.239",
+      "date": "2026-10-09",
+      "notes": [
+        "feat: SDN BuCo step 4 - automation via IB+ bridge with emulated priority",
+        "fix: update check no longer leaks its TLS session",
+        "fix: rate-limit the OTA \"Check deferred\" log line"
+      ]
+    },
+    {
       "version": "1.0.236",
       "date": "2026-10-04",
       "notes": [
@@ -10,10 +19,7 @@
         "feat: Wind Direction sub-trigger in Security - Wind",
         "feat: Touch BuCo configuration export and import on Load/Save",
         "feat: SDN BuCo step 3 - Motor settings page, end limits and rotation direction",
-        "feat: SDN BuCo step 2b - Devices page, protocol per Integration Guide 2024",
-        "feat: SDN BuCo step 2a - SDN bus driver, scan and zone-group routes",
-        "feat: SDN BuCo control type step 1 - selectable mode and RS485 SDN port role",
-        "refactor: rename control type \"Tahoma BuCo\" to \"Tahoma Gateway\""
+        "feat: SDN BuCo step 2b - Devices page, protocol per Integration Guide 2024"
       ]
     }
   ]

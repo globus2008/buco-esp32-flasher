@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "version": "1.0.239",
+      "date": "2026-10-09",
+      "notes": [
+        {
+          "summary": "feat: SDN BuCo step 4 - automation via IB+ bridge with emulated priority",
+          "body": "In SDN mode queueIbPlusCommand()/queueIbPlusGotoPos()/queueIbPlusZoneValue()\nhand every telegram to src/sdn_priority.cpp, which translates it to SDN, and\nloop() runs tickZoneFunctionsEngine() - so every Security, Comfort and Energy\nwatcher, the schedules, sun tracking, DIO switches and the gateways' lock/sun\npoints work as in IB+ mode without touching a single call site.\n\nIB+ priority (08 04/05/06 until 08 07) is emulated: a per-zone RAM \"held\" flag\ndrops every non-priority movement for the zone (manual commands go through the\nsame gate), and SET_LOCAL_UI locks the motor's DCT input (wall switch). The\nflag is restored from the zone snapshot after a reboot. \"All Zones\" with held\nzones becomes group frames to the other known zones.\n\nEnergy Mode, Reset to Auto and Heartbeat (IB+ motor controller features) are\noff in SDN mode; energyMode reads as standard there; the slat two-phase\nreference send is skipped. Web UI shows Security/Comfort/Energy and the\nsystem pages automation depends on, plus Zone Locked and Sun on Zone Control.\n\nNot tested on hardware - bench checklist steps 16-22 in docs/sdn-protocol.md."
+        },
+        {
+          "summary": "fix: update check no longer leaks its TLS session",
+          "body": "otaFetchTask() called finishOtaTask() - and so vTaskDelete(nullptr) -\nfrom inside the function that owned the WiFiClientSecure, HTTPClient\nand JsonDocument locals. vTaskDelete() never returns, so none of their\ndestructors ran and every \"Check for updates\" leaked the whole mbedTLS\nsession (~45KB). On a real device one check left free heap at ~61KB\nwith a 17KB largest block, below the load-shed guard's 20KB floor, so\nevery later HTTP request got a 503 and the Update page reported\n\"The update check failed\" / \"Internet connection: Unknown\" until a\nreboot.\n\nThe check now lives in runOtaCheck(); the task calls finishOtaTask()\nonly after it returns, the same split weather_manager.cpp already uses."
+        },
+        {
+          "summary": "fix: rate-limit the OTA \"Check deferred\" log line",
+          "body": "While the heap gate keeps an update check waiting, tickOtaManager()\nruns on every loop() iteration and printed the deferral line each\ntime - hundreds of identical lines per second in a real field log,\ndrowning everything else. It now prints at most once per second."
+        }
+      ]
+    },
+    {
       "version": "1.0.236",
       "date": "2026-10-04",
       "notes": [
