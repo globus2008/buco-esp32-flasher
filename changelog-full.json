@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "version": "1.0.242",
+      "date": "2026-10-23",
+      "notes": [
+        {
+          "summary": "chore: set upload/monitor port to COM3",
+          "body": ""
+        },
+        {
+          "summary": "feat: Wi-Fi client - join the customer's router alongside Ethernet",
+          "body": "Settings -> Options -> Basic Settings -> Wi-Fi: scan for networks, connect\nwith a password, DHCP or static IP, live connection status. The BuCo-ESP32\naccess point keeps running and now takes a password, required while the\nclient is on. Ethernet and Wi-Fi run side by side.\n\n- STA gets the chip's factory MAC: the EQSP32 library installs its Ethernet\n  MAC as the base MAC, so both links got the same IP (found in the Phase 0\n  hardware spike).\n- Own reconnect state machine; a wrong password is reported and retried\n  every 5 minutes instead of every 3 seconds.\n- Default route kept on Ethernet while it is up, so BACnet/KNX traffic stays\n  where it was. Gateways remain Ethernet-only (user decision).\n- Update check, weather, e-mail and TaHoma accept either link.\n- /wifi.json is never served, not in backups, removed by factory reset.\n- Scan completion from the SCAN_DONE event; timeouts use millis() (a stale\n  per-tick timestamp made every scan \"fail in 2 ms\" on hardware).\n- Six languages, help page, demo handler.\n\nHardware: scan, connect, and access on the Wi-Fi IP with the cable pulled\nconfirmed. The default-route guard is not verified yet."
+        },
+        {
+          "summary": "feat: end-positions-only venetian blind products",
+          "body": "Two new End Products, \"Venetian blind 90\u00c2\u00b0/0\u00c2\u00b0 (end positions only)\" and\n\"Venetian blind 90\u00c2\u00b0/-90\u00c2\u00b0 (end positions only)\", for glazing that cracks\nfrom thermal stress when a blind rests part-way down. The blind may only\nstand at 0 % or 100 %, the slats tilt freely and Stop is forbidden.\n\n- Run/Tilt Times / Update Motor Controllers always send Tilt Only\n  (09 4E) with End Limit Switch, so the local button only tilts.\n- Firmware backstop (src/end_positions_only.*): queueIbPlus*() drops\n  STOP for such zones (broadcast STOP fans out to the other zones),\n  snaps goto positions and stored My Positions to 0/100; the SDN branch\n  of motor_output.cpp applies the same rule. Covers gateways, DIO\n  buttons and automation.\n- Web UI: Stop hidden in Zone/Area Control, every position field takes\n  only 0/100, stored positions are snapped when the product is chosen.\n- Touch BuCo export aliases them to the plain venetians; demo mirrors\n  the firmware rules; i18n and help in all six languages.\n\nNot tested on hardware."
+        }
+      ]
+    },
+    {
       "version": "1.0.239",
       "date": "2026-10-09",
       "notes": [
