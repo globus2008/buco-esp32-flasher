@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.0.244",
+      "date": "2026-11-03",
+      "notes": [
+        {
+          "summary": "docs: Matter gateway Phase 0 spike - failed at Gate A, not pursued",
+          "body": "The prebuilt EQSP32 library (1.4.0 and 1.6.0) is compiled against ESP-IDF\n4.4 and does not link on Arduino core 3.x / IDF 5, which Arduino's Matter\nlibrary requires (missing tcpip_adapter_* and FreeRTOS port symbols).\nMatter is dropped until ERQOS ships an IDF 5 build. Spike code lives on\nbranch spike/matter."
+        },
+        {
+          "summary": "feat: SDN Settings - per-motor settings pages and copy between motors",
+          "body": "SDN BuCo step 5. The sidebar group \"SDN\" becomes \"SDN Settings\", one page\nper function in the style of MoCo Settings (installations can hold 100+\nmotors, so no per-motor carousel):\n- Devices: text filter, \"Set up\" column (batch read of end limits), rename\n- End Limits (formerly \"Motor settings\"), now with the shared picker\n- Intermediate Positions: IP 1-16 by %, by moving the motor, delete,\n  spread evenly, copy to every motor of a zone\n- Speed (DC motors), Local Controls (LEDs, Touch Motion, radio, buttons;\n  the DCT input stays read only - it belongs to the emulated priority)\n- Motor Info: label, serial/production date, firmware, state, position,\n  application mode (read only), lifetime counters\n- Copy Parameters: IPs, speed, local controls, optionally direction to\n  many motors in one firmware batch; end limits are never copied\n- Factory Reset: selected SET_FACTORY_DEFAULT functions\n\nFirmware: READ / WRITE / BATCH_COPY / BATCH_OVERVIEW jobs on the SdnBus\ntask, one bus request per batch unit, every write verified by read-back,\nresult buffers on the heap in SDN mode only. New routes\n/api/sdn/read|write|batch-copy|batch-overview and GET /api/sdn/result.\nPer-type support lives only in SDN_MOTOR_PROFILES (app.js) and is learned\nfrom NACK 10h/25h at runtime.\n\nAlso: sdn_probe.py read-only settings probes (survey), demo simulation\nwith 120 extra motors, 166 i18n keys in six languages, help pages, docs.\nNot tested on hardware (no motor available): host frame test 18/18,\ndemo run 31/31, firmware flashed and routes answer 409 outside SDN mode."
+        }
+      ]
+    },
+    {
       "version": "1.0.242",
       "date": "2026-10-23",
       "notes": [

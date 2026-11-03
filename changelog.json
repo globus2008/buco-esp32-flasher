@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "1.0.244",
+      "date": "2026-11-03",
+      "notes": [
+        "docs: Matter gateway Phase 0 spike - failed at Gate A, not pursued",
+        "feat: SDN Settings - per-motor settings pages and copy between motors"
+      ]
+    },
+    {
       "version": "1.0.242",
       "date": "2026-10-23",
       "notes": [
@@ -23,9 +31,7 @@
       "date": "2026-10-04",
       "notes": [
         "fix: wind-inactivity Error waits for 12h of continuous uptime",
-        "fix: a backup Load no longer re-opens the Welcome screen either",
-        "fix: a backup Load no longer re-opens the Disclaimer and Control Type gates",
-        "feat: Wind Direction sub-trigger in Security - Wind"
+        "fix: a backup Load no longer re-opens the Welcome screen either"
       ]
     }
   ]
