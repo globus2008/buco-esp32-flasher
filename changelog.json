@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "1.0.246",
+      "date": "2026-11-03",
+      "notes": [
+        "feat: challenge-response login and Wizard access point password step",
+        "docs: HTTPS web UI Phase 0 spike - failed on hardware, not pursued"
+      ]
+    },
+    {
       "version": "1.0.244",
       "date": "2026-11-03",
       "notes": [
@@ -24,14 +32,6 @@
         "feat: SDN BuCo step 4 - automation via IB+ bridge with emulated priority",
         "fix: update check no longer leaks its TLS session",
         "fix: rate-limit the OTA \"Check deferred\" log line"
-      ]
-    },
-    {
-      "version": "1.0.236",
-      "date": "2026-10-04",
-      "notes": [
-        "fix: wind-inactivity Error waits for 12h of continuous uptime",
-        "fix: a backup Load no longer re-opens the Welcome screen either"
       ]
     }
   ]

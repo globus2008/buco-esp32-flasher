@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.0.246",
+      "date": "2026-11-03",
+      "notes": [
+        {
+          "summary": "feat: challenge-response login and Wizard access point password step",
+          "body": "Login no longer sends the password: the browser fetches a one-time nonce\n(/api/login-challenge) and answers with a SCRAM-SHA-256 style proof. Only\nstoredKey is kept in /users.json, so a leaked backup cannot log in.\nExisting accounts are converted at boot without their password.\n\nThe Wizard gets a last, optional step to set the access point WPA2\npassword, shown only while the access point is still open.\n\nAlso fixes performGlobalSave() not returning the container save, which\nmade every Apply & Restart refuse after a container-only change."
+        },
+        {
+          "summary": "docs: HTTPS web UI Phase 0 spike - failed on hardware, not pursued",
+          "body": "A TLS terminator on 443 (one session, piped to 127.0.0.1:80) pushed free\nheap to 21 KB / 7.6 KB largest block and the load-shed guard 503'd the UI.\nRecord buffers are fixed at 16+16 KB in the prebuilt sdkconfig; zone count\ndoes not matter. Spike branch deleted, this section is the record."
+        }
+      ]
+    },
+    {
       "version": "1.0.244",
       "date": "2026-11-03",
       "notes": [
