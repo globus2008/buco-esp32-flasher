@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.252",
+      "date": "2026-11-06",
+      "notes": [
+        "chore: set upload/monitor port to COM11",
+        "feat: RTS Config - whole-unit programming and remote pairing procedure",
+        "docs: RTS Config - per-motor pairing finding from MoCo Service Tool",
+        "fix: warn when a MoCo ID exceeds the 3-byte address range",
+        "fix: RTS Config accepts 8-digit MoCo IDs",
+        "feat: RTS Config page - per-motor RTS card programming and connection test"
+      ]
+    },
+    {
       "version": "1.0.246",
       "date": "2026-11-03",
       "notes": [
@@ -14,24 +26,6 @@
       "notes": [
         "docs: Matter gateway Phase 0 spike - failed at Gate A, not pursued",
         "feat: SDN Settings - per-motor settings pages and copy between motors"
-      ]
-    },
-    {
-      "version": "1.0.242",
-      "date": "2026-10-23",
-      "notes": [
-        "chore: set upload/monitor port to COM3",
-        "feat: Wi-Fi client - join the customer's router alongside Ethernet",
-        "feat: end-positions-only venetian blind products"
-      ]
-    },
-    {
-      "version": "1.0.239",
-      "date": "2026-10-09",
-      "notes": [
-        "feat: SDN BuCo step 4 - automation via IB+ bridge with emulated priority",
-        "fix: update check no longer leaks its TLS session",
-        "fix: rate-limit the OTA \"Check deferred\" log line"
       ]
     }
   ]

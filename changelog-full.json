@@ -1,6 +1,36 @@
 {
   "entries": [
     {
+      "version": "1.0.252",
+      "date": "2026-11-06",
+      "notes": [
+        {
+          "summary": "chore: set upload/monitor port to COM11",
+          "body": ""
+        },
+        {
+          "summary": "feat: RTS Config - whole-unit programming and remote pairing procedure",
+          "body": "Hardware tests showed the RTS card always applies to the whole Motor\nController: 08 1F to MoCo ID + n still paired all 4 motors, and IB+ UP/MY\ncommands do not step the motor selection. The per-motor rows are removed;\nthe page now offers ENTER/EXIT for the MoCo ID, the connection test, and a\n6-step procedure for limiting a remote channel to selected motors with the\nremote's own UP, MY and PROG buttons. Translated into all 6 languages.\nCLAUDE.md records the test results and the MoCo's RS485 event frames."
+        },
+        {
+          "summary": "docs: RTS Config - per-motor pairing finding from MoCo Service Tool",
+          "body": ""
+        },
+        {
+          "summary": "fix: warn when a MoCo ID exceeds the 3-byte address range",
+          "body": "A MoCo ID is sent as a 3-byte address, so 16 777 215 is the largest usable\nvalue; an 8-digit field accepts up to 99 999 999, which would silently wrap\nto another Motor Controller's address. New MOCO_ID_MAX and\nupdateMocoIdRangeWarning() in app.js show an inline warning and block\nsending on Learn Zones (Use MoCo ID), Run/Tilt Times (Send over ID), MoCo IDs\n(Add) and RTS Config. Run/Tilt Times' ID field is now digits-only, max 8."
+        },
+        {
+          "summary": "fix: RTS Config accepts 8-digit MoCo IDs",
+          "body": ""
+        },
+        {
+          "summary": "feat: RTS Config page - per-motor RTS card programming and connection test",
+          "body": "New Settings > Options > MoCo Settings > RTS Config page for the 4-motor\nMotor Controller's RTS card. ENTER/EXIT (08 1F / 08 20) open or cancel RTS\nprogramming for all motors (MoCo ID) or one motor (MoCo ID + 1..4), zone 00,\nvia /api/zone_value - no firmware change. Saved 4-motor MoCo IDs can be\npicked read-only. Connection test sends the Test Bus Wires LED telegrams\n(08 54 / 08 55 + 09 2C 00) to the MoCo ID's own address. Translated into all\n6 languages, with help page. Not tested on hardware."
+        }
+      ]
+    },
+    {
       "version": "1.0.246",
       "date": "2026-11-03",
       "notes": [
