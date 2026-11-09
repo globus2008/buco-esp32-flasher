@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "1.0.253",
+      "date": "2026-11-09",
+      "notes": [
+        "chore: upgrade EQSP32 library to 1.6.1"
+      ]
+    },
+    {
       "version": "1.0.252",
       "date": "2026-11-06",
       "notes": [
@@ -24,8 +31,7 @@
       "version": "1.0.244",
       "date": "2026-11-03",
       "notes": [
-        "docs: Matter gateway Phase 0 spike - failed at Gate A, not pursued",
-        "feat: SDN Settings - per-motor settings pages and copy between motors"
+        "docs: Matter gateway Phase 0 spike - failed at Gate A, not pursued"
       ]
     }
   ]

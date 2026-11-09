@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "1.0.253",
+      "date": "2026-11-09",
+      "notes": [
+        {
+          "summary": "chore: upgrade EQSP32 library to 1.6.1",
+          "body": "Pin erqos/EQSP32 to exactly 1.6.1 (was ^1.4.0) and RadioLib to ~7.7.1,\nwhich 1.6.1 requires. Since 1.6.1 the vendor OTA services (Web\nMaintenance Panel on port 8000, Arduino OTA) stay off while the IoT core\nis disabled.\n\nVerified on an EQSP32CE and an EQSP32RE: second RS485 port still works\non the RE (motor controller on CAN H/CAN L moves), port 8000 closed,\nidle free heap ~4-5 KB higher despite +7.9 KB static RAM."
+        }
+      ]
+    },
+    {
       "version": "1.0.252",
       "date": "2026-11-06",
       "notes": [
