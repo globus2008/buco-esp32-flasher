@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "1.0.256",
+      "date": "2026-11-11",
+      "notes": [
+        "feat: Slovak and Hungarian translations, language-specific demo builds",
+        "feat: option to disable the \"All Zones\" Area broadcast (inrush current)",
+        "docs: automatic motor cascading is KNX-module logic, not an IB+ MoCo parameter"
+      ]
+    },
+    {
       "version": "1.0.253",
       "date": "2026-11-09",
       "notes": [
@@ -17,21 +26,6 @@
         "fix: warn when a MoCo ID exceeds the 3-byte address range",
         "fix: RTS Config accepts 8-digit MoCo IDs",
         "feat: RTS Config page - per-motor RTS card programming and connection test"
-      ]
-    },
-    {
-      "version": "1.0.246",
-      "date": "2026-11-03",
-      "notes": [
-        "feat: challenge-response login and Wizard access point password step",
-        "docs: HTTPS web UI Phase 0 spike - failed on hardware, not pursued"
-      ]
-    },
-    {
-      "version": "1.0.244",
-      "date": "2026-11-03",
-      "notes": [
-        "docs: Matter gateway Phase 0 spike - failed at Gate A, not pursued"
       ]
     }
   ]

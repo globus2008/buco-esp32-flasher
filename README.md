@@ -138,6 +138,31 @@ putem aplikacije EQConnect).
 </details>
 
 <details>
+<summary><strong>🇭🇺 Magyar</strong></summary>
+
+IB+ buszátjáró firmware az **ERQOS EQSP32-CE** ipari vezérlőhöz. Az átjáró kompatibilis a Somfy
+motorvezérlőkkel (zsaluk, redőnyök, napellenzők), amelyeket RS485 IB+ buszon vezérel, és
+beépített webes felülettel rendelkezik — alkalmazás és felhő nélkül. Ez független termék, nem
+hivatalos Somfy termék.
+
+**Telepítés:** nyissa meg a <https://globus2008.github.io/buco-esp32-flasher/> oldalt Chrome-ban
+vagy Edge-ben, csatlakoztassa az EQSP32-t USB-kábellel, kattintson az **Install** gombra, és
+válassza ki a soros portot. A telepítés kb. 2 percig tart, és az eszköz összes adatát törli. Ha
+meg szeretné tartani őket, előbb mentse el az eszköz webes felületén a Beállítások → Opciók →
+Betöltés/Mentés → Másolás a számítógépre funkcióval, majd a frissítés után állítsa vissza a
+Másolás a számítógépről funkcióval. Ha a port nem jelenik meg, telepítse a CP210x vagy CH340
+illesztőprogramot (hivatkozások fent).
+
+**Telepítés után:** az eszköz saját Wi-Fi hozzáférési pontot indít — csatlakozzon, és nyissa meg
+a `http://192.168.4.1` címet, vagy Etherneten a `http://buco-esp32.local` címet.
+
+**Frissítések:** a későbbi frissítésekhez nem kell USB — töltse fel a `*-ota.bin` fájlt a
+`http://<eszköz-ip>:8000` címen elérhető karbantartási panelen (alapértelmezett jelszó `admin`,
+javasoljuk a módosítását az EQConnect alkalmazással).
+
+</details>
+
+<details>
 <summary><strong>🇵🇱 Polski</strong></summary>
 
 Oprogramowanie bramy magistrali IB+ dla przemysłowego sterownika **ERQOS EQSP32-CE**. Brama
@@ -158,5 +183,29 @@ sterownik CP210x lub CH340 (linki powyżej).
 **Aktualizacje:** kolejne aktualizacje nie wymagają USB — wgraj plik `*-ota.bin` przez panel
 serwisowy pod adresem `http://<ip-urządzenia>:8000` (domyślne hasło `admin`, zalecamy zmianę w
 aplikacji EQConnect).
+
+</details>
+
+<details>
+<summary><strong>🇸🇰 Slovenčina</strong></summary>
+
+Firmvér brány zbernice IB+ pre priemyselný riadiaci systém **ERQOS EQSP32-CE**. Brána je
+kompatibilná s motorovými ovládačmi Somfy (žalúzie, rolety, markízy), ktoré ovláda cez zbernicu
+RS485 IB+, a má vstavané webové rozhranie — bez aplikácie, bez cloudu. Ide o nezávislý produkt,
+nie oficiálny produkt Somfy.
+
+**Inštalácia:** otvorte <https://globus2008.github.io/buco-esp32-flasher/> v Chrome alebo Edge,
+pripojte EQSP32 USB káblom, kliknite na **Install** a vyberte sériový port. Inštalácia trvá
+~2 minúty a vymaže všetky údaje v zariadení. Ak ich chcete zachovať, najprv ich vo webovom
+rozhraní zariadenia uložte cez Nastavenia → Možnosti → Načítať/Uložiť → Kopírovať do počítača a
+po aktualizácii ich obnovte pomocou Kopírovať z počítača. Ak sa port nezobrazí, nainštalujte
+ovládač CP210x alebo CH340 (odkazy vyššie).
+
+**Po inštalácii:** zariadenie spustí vlastný prístupový bod Wi-Fi — pripojte sa a otvorte
+`http://192.168.4.1`, alebo cez Ethernet `http://buco-esp32.local`.
+
+**Aktualizácie:** ďalšie aktualizácie nevyžadujú USB — nahrajte súbor `*-ota.bin` cez servisný
+panel na `http://<ip-zariadenia>:8000` (predvolené heslo `admin`, odporúčame ho zmeniť
+aplikáciou EQConnect).
 
 </details>

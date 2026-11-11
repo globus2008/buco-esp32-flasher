@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "version": "1.0.256",
+      "date": "2026-11-11",
+      "notes": [
+        {
+          "summary": "feat: Slovak and Hungarian translations, language-specific demo builds",
+          "body": "- Complete sk/hu dictionaries (ui.json + help.json) and disclaimer texts\n- Language selector (boot gate + Locals), SUPPORTED_LANGS, IP detect SK->sk, HU->hu\n- Flasher page and public README localized into sk/hu; disclaimers synced by publish_flasher.py\n- make_demo.py --lang <code...>|all builds buco-demo-<lang>-<version>.html with localized\n  sample names, its own localStorage namespace, matching geo-IP and translated DEMO panel"
+        },
+        {
+          "summary": "feat: option to disable the \"All Zones\" Area broadcast (inrush current)",
+          "body": "The virtual \"All Zones\" Area entry is one IB+ broadcast, so every motor\nstarts at the same instant. Advanced Settings gains \"Disable All Zones in\nAreas\" (default off). When on, the entry is ignored everywhere: Area\nControl hides empty Areas, Area Definition hides the checkbox and warns on\nan empty Area, the DIO area picker marks it, and the firmware skips it for\nDIO Area buttons, Lock Area and Sun/Timer switches. Translated into all six\nlanguages; CLAUDE.md documents it next to the cascading investigation."
+        },
+        {
+          "summary": "docs: automatic motor cascading is KNX-module logic, not an IB+ MoCo parameter",
+          "body": ""
+        }
+      ]
+    },
+    {
       "version": "1.0.253",
       "date": "2026-11-09",
       "notes": [

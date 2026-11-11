@@ -146,7 +146,7 @@
     </div>
 
     <script>
-        // Same 6 languages as the device web UI's help content (data/help/).
+        // Same 8 languages as the device web UI (data/i18n/).
         // Values may contain trusted static HTML (links, <code>); applied via
         // innerHTML - fine for a fully static page with no user input.
         const DRIVERS = '<a href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers" target="_blank" rel="noopener">CP210x</a>, <a href="https://www.wch-ic.com/downloads/CH341SER_ZIP.html" target="_blank" rel="noopener">CH340</a>';
@@ -263,6 +263,27 @@
                 showMoreButton: 'Prikaži više',
                 changelogUnavailable: 'Povijest promjena trenutno nije dostupna.'
             },
+            hu: {
+                subtitle: 'IB+ buszátjáró firmware az ERQOS EQSP32-CE vezérlőhöz (kompatibilis a Somfy motorvezérlőkkel)',
+                reqTitle: 'Követelmények',
+                req1: '<strong>Google Chrome</strong> vagy <strong>Microsoft Edge</strong> böngésző (a Firefox és a Safari nem támogatja az USB-s programozást).',
+                req2: 'Az EQSP32-t ehhez a számítógéphez csatlakoztató <strong>USB-kábel</strong>.',
+                req3: 'Ha csatlakoztatás után nem jelenik meg soros port, telepítse az USB-illesztőprogramot: ' + DRIVERS + '.',
+                installTitle: 'Firmware telepítése',
+                installIntro: 'Csatlakoztassa az eszközt USB-n, majd kattintson a gombra, és válassza ki a soros portot.',
+                installNote: 'A telepítés kb. 2 percig tart. Ne válassza le az eszközt.',
+                installWarn: 'A firmware telepítése az eszközön lévő összes adatot törli, a korábbi konfigurációt is. Ha meg szeretné tartani, előbb használja a Beállítások &rarr; Opciók &rarr; Betöltés/Mentés &rarr; Másolás a számítógépre funkciót, majd a frissítés után állítsa vissza a Másolás a számítógépről funkcióval.',
+                afterTitle: 'Telepítés után',
+                after1: 'Az eszköz saját Wi-Fi hozzáférési pontot indít &mdash; csatlakozzon hozzá, és nyissa meg a ' + AP_URL + ' címet, vagy csatlakoztassa az eszközt Etherneten a helyi hálózathoz, és nyissa meg a ' + MDNS_URL + ' címet.',
+                after2: 'Állítsa be a zónákat és az érzékelőket a webes felületen.',
+                updatesTitle: 'Későbbi frissítések',
+                upd1: 'A későbbi firmware-frissítésekhez <strong>nem</strong> kell USB: nyissa meg az eszköz karbantartási paneljét a ' + PANEL_URL + ' címen, és töltse fel a mellékelt ' + OTA_FILE + ' fájlt (alapértelmezett jelszó: ' + PWD + ').',
+                upd2: 'Javasoljuk, hogy az alapértelmezett OTA-jelszót módosítsa az ' + EQCONNECT + ' alkalmazással.',
+                changelogTitle: 'Változásnapló',
+                currentVersionLabel: 'Jelenlegi verzió:',
+                showMoreButton: 'Továbbiak',
+                changelogUnavailable: 'A változásnapló jelenleg nem érhető el.'
+            },
             pl: {
                 subtitle: 'Oprogramowanie bramy magistrali IB+ dla sterownika ERQOS EQSP32-CE (kompatybilne ze sterownikami silników Somfy)',
                 reqTitle: 'Wymagania',
@@ -283,10 +304,31 @@
                 currentVersionLabel: 'Aktualna wersja:',
                 showMoreButton: 'Pokaż więcej',
                 changelogUnavailable: 'Historia zmian jest obecnie niedostępna.'
+            },
+            sk: {
+                subtitle: 'Firmvér brány zbernice IB+ pre riadiaci systém ERQOS EQSP32-CE (kompatibilný s motorovými ovládačmi Somfy)',
+                reqTitle: 'Požiadavky',
+                req1: 'Prehliadač <strong>Google Chrome</strong> alebo <strong>Microsoft Edge</strong> (Firefox a Safari programovanie cez USB nepodporujú).',
+                req2: '<strong>USB kábel</strong> spájajúci EQSP32 s týmto počítačom.',
+                req3: 'Ak sa po pripojení nezobrazí sériový port, nainštalujte ovládač USB: ' + DRIVERS + '.',
+                installTitle: 'Inštalácia firmvéru',
+                installIntro: 'Pripojte zariadenie cez USB, potom kliknite na tlačidlo a vyberte sériový port.',
+                installNote: 'Inštalácia trvá asi 2 minúty. Zariadenie neodpájajte.',
+                installWarn: 'Inštalácia firmvéru vymaže všetky údaje v zariadení vrátane predchádzajúcej konfigurácie. Ak ju chcete zachovať, najprv použite Nastavenia &rarr; Možnosti &rarr; Načítať/Uložiť &rarr; Kopírovať do počítača a po aktualizácii ju obnovte pomocou Kopírovať z počítača.',
+                afterTitle: 'Po inštalácii',
+                after1: 'Zariadenie spustí vlastný prístupový bod Wi-Fi &mdash; pripojte sa k nemu a otvorte ' + AP_URL + ', alebo pripojte zariadenie do siete LAN cez Ethernet a otvorte ' + MDNS_URL + '.',
+                after2: 'Nastavte zóny a snímače vo webovom rozhraní.',
+                updatesTitle: 'Budúce aktualizácie',
+                upd1: 'Ďalšie aktualizácie firmvéru <strong>nevyžadujú</strong> USB: otvorte servisný panel zariadenia na adrese ' + PANEL_URL + ' a nahrajte dodaný súbor ' + OTA_FILE + ' (predvolené heslo: ' + PWD + ').',
+                upd2: 'Odporúčame zmeniť predvolené heslo OTA pomocou aplikácie ' + EQCONNECT + '.',
+                changelogTitle: 'Zoznam zmien',
+                currentVersionLabel: 'Aktuálna verzia:',
+                showMoreButton: 'Zobraziť viac',
+                changelogUnavailable: 'Zoznam zmien momentálne nie je k dispozícii.'
             }
         };
 
-        const LANGS = ['en', 'cs', 'de', 'fr', 'hr', 'pl'];
+        const LANGS = ['en', 'cs', 'de', 'fr', 'hr', 'hu', 'pl', 'sk'];
 
         function detectLang() {
             const saved = localStorage.getItem('flasher-lang');
