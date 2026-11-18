@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "1.0.261",
+      "date": "2026-11-18",
+      "notes": [
+        "docs: PC gateway limits and hardware connection in the Test Mode help",
+        "feat: firmware automation engine runs in the browser build (phase 2)",
+        "feat: PC gateway - real RS485 adapters in the browser build (Web Serial)",
+        "feat: automation stagger between zones and Sun delays in seconds",
+        "feat: Test Mode - accelerated simulated day with synthetic weather"
+      ]
+    },
+    {
       "version": "1.0.256",
       "date": "2026-11-11",
       "notes": [
@@ -20,12 +31,7 @@
       "version": "1.0.252",
       "date": "2026-11-06",
       "notes": [
-        "chore: set upload/monitor port to COM11",
-        "feat: RTS Config - whole-unit programming and remote pairing procedure",
-        "docs: RTS Config - per-motor pairing finding from MoCo Service Tool",
-        "fix: warn when a MoCo ID exceeds the 3-byte address range",
-        "fix: RTS Config accepts 8-digit MoCo IDs",
-        "feat: RTS Config page - per-motor RTS card programming and connection test"
+        "chore: set upload/monitor port to COM11"
       ]
     }
   ]
