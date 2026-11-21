@@ -1,37 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.261",
-      "date": "2026-11-18",
+      "version": "1.0.274",
+      "date": "2026-11-21",
       "notes": [
-        "docs: PC gateway limits and hardware connection in the Test Mode help",
-        "feat: firmware automation engine runs in the browser build (phase 2)",
-        "feat: PC gateway - real RS485 adapters in the browser build (Web Serial)",
-        "feat: automation stagger between zones and Sun delays in seconds",
-        "feat: Test Mode - accelerated simulated day with synthetic weather"
-      ]
-    },
-    {
-      "version": "1.0.256",
-      "date": "2026-11-11",
-      "notes": [
-        "feat: Slovak and Hungarian translations, language-specific demo builds",
-        "feat: option to disable the \"All Zones\" Area broadcast (inrush current)",
-        "docs: automatic motor cascading is KNX-module logic, not an IB+ MoCo parameter"
-      ]
-    },
-    {
-      "version": "1.0.253",
-      "date": "2026-11-09",
-      "notes": [
-        "chore: upgrade EQSP32 library to 1.6.1"
-      ]
-    },
-    {
-      "version": "1.0.252",
-      "date": "2026-11-06",
-      "notes": [
-        "chore: set upload/monitor port to COM11"
+        "build: run esptool v5 from the isolated core's penv",
+        "build: factory image survives pioarduino's buildfs deleting the other images",
+        "build: EQSP32_Lite is the only target; release builds need the isolated core",
+        "chore: remove the multi-account TaHoma spike, document Phase 0 results",
+        "spike: multi-account TaHoma cloud rotation (Phase 0, building wind protection)",
+        "feat: BACnet BBMD/BDT, Foreign Device and DNS server 2 (Touch BuCo parity)",
+        "chore: ignore serial monitor captures in logs/",
+        "docs: HTTPS web UI second spike on EQSP32_Lite - failed on hardware, not pursued",
+        "docs: EQSP32_Lite beta 111926 - record hardware results in IB+ and TaHoma mode",
+        "feat: EQSP32_Lite Rev2.0.0-beta-111926 - enlarged Serial TX buffer again"
       ]
     }
   ]

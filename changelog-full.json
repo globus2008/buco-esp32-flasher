@@ -1,6 +1,64 @@
 {
   "entries": [
     {
+      "version": "1.0.274",
+      "date": "2026-11-21",
+      "notes": [
+        {
+          "summary": "build: run esptool v5 from the isolated core's penv",
+          "body": ""
+        },
+        {
+          "summary": "build: factory image survives pioarduino's buildfs deleting the other images",
+          "body": ""
+        },
+        {
+          "summary": "build: EQSP32_Lite is the only target; release builds need the isolated core",
+          "body": "User decision: no BuCo runs on a real installation yet, so the 1.6.1 line is\nno longer kept alive (tag last-eqsp32-1.6.1 stays as a rollback point).\nmake_factory_image.py now refuses to build without PLATFORMIO_CORE_DIR (the\npioarduino platform must never be installed into the global core), takes pio\nfrom $PIO, and uses esptool v5 option names (merge-bin, --flash-mode)."
+        },
+        {
+          "summary": "chore: remove the multi-account TaHoma spike, document Phase 0 results",
+          "body": "The spike (previous commit) is no longer needed. docs/tahoma-building-wind.md\nrecords the user decisions, the Phase 0 measurements (~25 s per 32-account\nburst, no rate limit seen, cookie idle timeout 60-300 s, heap as the main\nrisk) and the approved design and phases. CLAUDE.md points to it."
+        },
+        {
+          "summary": "spike: multi-account TaHoma cloud rotation (Phase 0, building wind protection)",
+          "body": "Temporary bench tool, committed only so it can be recovered from history;\nremoved again in the next commit. Measures rotating one TLS session through\nseveral Somfy accounts: handshake, sign-in, cookie lifetime, /exec/apply,\ndevice listing, rate limiting and heap. Results in docs/tahoma-building-wind.md."
+        },
+        {
+          "summary": "feat: BACnet BBMD/BDT, Foreign Device and DNS server 2 (Touch BuCo parity)",
+          "body": "Gateway page gains two BACnet screens matching Touch BuCo's Settings ->\nNetwork carousel:\n- BBMD: enable switch (default on, the historical behaviour) and a\n  Broadcast Distribution Table of up to 7 peer BBMDs; the device's own\n  address is added first by the firmware. Off switches bip_receive() to\n  the non-BBMD handler (revision 16 ignores the accept-FD flag).\n- Foreign Device: registers with a remote BBMD and renews every TTL;\n  the BBMD's result is logged once per change.\nBBMD and Foreign Device are mutually exclusive (UI, save route, loader).\n\nNetwork Config gains DNS server 2 (static mode), handed to lwIP on each\nEthernet connect edge since EQSP32Configs has a single DNS slot.\n\n/api/save-network-config now buffers its body across chunks (4 KB cap),\nand both pages resend the whole loaded /network.json as pass-through so\none page's Apply can no longer wipe the other's fields.\n\nMAX_BBMD_ENTRIES 2 -> 8. RAM +232 B, flash +5.2 KB. Not hardware-tested."
+        },
+        {
+          "summary": "chore: ignore serial monitor captures in logs/",
+          "body": ""
+        },
+        {
+          "summary": "docs: HTTPS web UI second spike on EQSP32_Lite - failed on hardware, not pursued",
+          "body": "Rebuilt the Arduino framework (pioarduino custom_sdkconfig) with mbedTLS\ndynamic buffers and ran the TLS-terminator spike on an EQSP32R with 32 zones\nand BACnet. The UI and zone commands worked over HTTPS, but large responses\ncost 25-49 KB per connection and a cold load drove the heap to 24 KB free /\n7.7 KB largest block. User decision: the web UI stays plain HTTP. The spike\ncode was not kept; docs/https-lite-spike.md records the measurements and the\ncustom-framework build procedure."
+        },
+        {
+          "summary": "docs: EQSP32_Lite beta 111926 - record hardware results in IB+ and TaHoma mode",
+          "body": ""
+        },
+        {
+          "summary": "feat: EQSP32_Lite Rev2.0.0-beta-111926 - enlarged Serial TX buffer again",
+          "body": "ERQOS fixed the DIO/TX-buffer bug in the new beta: DIO9 reads 1 with\nSerial.setTxBufferSize(2048) (verified on an EQSP32R, +5 V on DIO9), so the\nLite-only workaround in main.cpp is removed. The boot i2cWrite error is gone;\nthe NVS NOT_FOUND lines remain. Hardware watchdog \"late\" warnings (31-40 ms)\nonly appear on LittleFS writes. Also adds the VS Code tasks for the isolated\ncore 3 PlatformIO install."
+        },
+        {
+          "summary": "fix: TaHoma - cancel superseded manual executions, 20 KB connect gate",
+          "body": "The box runs one execution per device at a time and keeps an RTS\nexecution IN_PROGRESS for ~30 s, so repeated Zone/Area Control clicks\nqueued for minutes. Before a manual command is sent, earlier unfinished\nall-manual executions for the same zones are now cancelled with\nDELETE /exec/current/setup/{execId}. Gateway commands are never\ncancelled. motorOutputCommand/GotoPos() gained a `manual` flag, set by\n/api/command and /api/goto_pos when source == \"manual\".\n\nThe connect gate's largest-block floor goes from 32 KB to 20 KB: the\ntwo mbedTLS record buffers are separate ~16.9 KB allocations, and on\nEQSP32_Lite the recurring 31 732 B \"largest block\" is a separate,\nalways-free 32 KB heap region, so a 32 KB gate blocked reconnects and\ncommands expired.\n\nTemporary \">> [ TAHOMA DIAG ]\" lines stay in until the fix is\nconfirmed on hardware."
+        },
+        {
+          "summary": "fix: EQSP32_Lite - skip the enlarged Serial TX buffer (DIO inputs read 0)",
+          "body": "Bisected on hardware with ERQOS's DIO9 test: Serial.setTxBufferSize(2048)\nmakes every main-unit digital input read 0 on EQSP32_Lite 2.0.0-beta (DIN\nand SWT). Moving it after eqsp32.begin() fixed the small test but not the\nfull firmware, so Lite builds skip it; the 1.6.1 build is unchanged. Fix\nrequested from ERQOS."
+        },
+        {
+          "summary": "feat: EQSP32_Lite 2.0.0-beta on Arduino core 3.3.12 (spike)",
+          "body": "ERQOS's no-IoT library build (hardware only, no Wi-Fi/BLE/MQTT/OTA/LoRa)\non pioarduino 55.03.312-1. Changes needed: EQSP32_Lite.h include, IoT-only\nconfig flags guarded, isDeviceOnline() -> Ethernet status, IDF 5 task WDT\nreconfigure, mbedTLS 3 PBKDF2 _ext, host shim renamed. Library zip vendored\nunchanged under vendor/.\n\nA/B on the same EQSP32R and config: static RAM 117316 -> 94148 B, idle free\nheap 112 -> 118 KB, minimum heap during TLS ~17 -> ~31 KB, more requests\nserved under load. Boot, Ethernet, AP, SNTP, IB+ TX and HTTPS update check\nverified on hardware. See CLAUDE.md \"EQSP32_Lite\"."
+        }
+      ]
+    },
+    {
       "version": "1.0.261",
       "date": "2026-11-18",
       "notes": [
