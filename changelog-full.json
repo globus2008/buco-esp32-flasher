@@ -1,6 +1,96 @@
 {
   "entries": [
     {
+      "version": "1.0.295",
+      "date": "2026-11-22",
+      "notes": [
+        {
+          "summary": "fix: merge_dev_to_main.py merges origin/main instead of pulling",
+          "body": "`git pull --ff-only origin main` merges .git/FETCH_HEAD, which VS Code's\nbackground fetch right after the dev push can rewrite with several\nbranches (\"Cannot fast-forward to multiple branches\"). The script already\nfetches origin at the start, so fast-forward to origin/main directly."
+        },
+        {
+          "summary": "fix: make_factory_image.py never falls back to the global pio",
+          "body": "Without $PIO the release pipeline's step 2 picked the global\n~/.platformio pio (Core 6.2.0-post.1), which refuses the pioarduino\nplatform. resolve_isolated_pio() now tries $PIO, then the venv next to\nPLATFORMIO_CORE_DIR, then PATH - skipping anything under ~/.platformio."
+        },
+        {
+          "summary": "feat: building wind Phase 4 - Sun in Tahoma mode; Control Type texts updated",
+          "body": "- Sun runs in the Tahoma control type as on/off to a position only (no\n  Sun Tracking, Pre Open Slats or My Position 2); dropped while Wind holds\n  a zone, sent once the wind has ended. Automation stagger ignored in\n  Tahoma. No Sun point in the gateways' Tahoma profile (user decision).\n- Comfort -> Sun visible in Tahoma (Timer stays hidden); Sun switch in\n  Zone Control and My apartment.\n- Control Type page, its help and Test Mode help no longer say Tahoma has\n  no automation (8 languages).\n- Docs updated. Not tested on hardware."
+        },
+        {
+          "summary": "feat: building wind Phase 3 - My apartment page, owner wind/sun switch",
+          "body": "- POST /api/zone/user-enable: an end user switches Wind\n  (functions.wind.userEnabled) or Sun of an own zone; every switch is\n  written to the Event log (new EVT_ACT_USER_DISABLED/ENABLED).\n- My apartment page for role \"user\" (all control types): wind switch with\n  a danger confirmation, sun switch outside Tahoma, link to My Somfy\n  account. Zone Control's Sun switch uses the same route (fixes 403 for\n  role user).\n- Home shows \"Wind protection off\"; Tahoma tiles show an active\n  security function. USER_MAX_COUNT 20 -> 40.\n- i18n (8 languages), help, demo handler, docs. Not tested on hardware."
+        },
+        {
+          "summary": "feat: building wind Phase 2 - Wind/Error automation in Tahoma mode",
+          "body": "- Tahoma control type runs the zone functions engine, limited to Wind\n  (+ Wind Direction) and Error; DIO inputs trigger nothing.\n- src/tahoma_priority.*: emulated priority (held zones drop manual and\n  gateway movements), IB+ automation telegrams translated to TaHoma\n  commands; wind/error command resent every 3 minutes.\n- Security commands never expire in either TaHoma client; the rotation\n  burst serves them first, ordered by floor and windward facade.\n- Zone Properties always on (Advanced toggle removed); Floor is a\n  numeric level -2..15. functions.wind.userEnabled read for Phase 3.\n- Help, i18n (8 languages), CLAUDE.md, docs. Not tested on hardware."
+        },
+        {
+          "summary": "feat: link users to Somfy accounts, account form carousel, boot auto-restore",
+          "body": "- User Management: one add/edit form as a carousel (Account / Zones /\n  Areas / Somfy account); the owner registration that created Somfy\n  accounts is removed. A user is linked to existing Somfy accounts via\n  POST /api/tahoma/set-account-owners (several per user, one owner per\n  account); zones are only ticked by hand. Accounts page shows owners.\n- TaHoma Devices: binding a device no longer renames the zone - one\n  product can appear many times; names are set on Number of Zones only.\n- Boot: with no /zones.json (factory-image reflash, uploadfs) the newest\n  backup is restored before any config reader, so a Tahoma backup never\n  boots IB+ first; skipped once after a factory reset."
+        },
+        {
+          "summary": "feat: Ethernet health watch - event log, gateway ping, recovery",
+          "body": "The device kept reporting Ethernet connected while the LAN could not reach\nit, with nothing in the log. eth_health logs every Ethernet event, pings\nthe gateway once a minute, logs new heap lows, renews the DHCP lease after\n3 failed checks and restarts after 6 (backing off up to 1 h); recovery arms\nonly once the gateway has answered since power-on. Log -> Error records it\nas Comm lost/restored: Ethernet gateway."
+        },
+        {
+          "summary": "fix: Email Notification menu item available in every control type",
+          "body": "Tahoma mode hid it, so User Management's 'Configure Email Notification'\nlink landed on Home; password-reset codes need the SMTP account there too."
+        },
+        {
+          "summary": "feat: owner registration fills an empty TaHoma account 1",
+          "body": "While the Connection page's account 1 is still empty, the first account\ncreated on /api/tahoma/save-account (the owner registration) is stored as\naccount 1 instead of being refused, so nobody has to type an owner's\npassword on the Connection page.\n\n- tahoma.json carries ownerUserId (g_account1Owner); the Connection page\n  keeps it for the same box and drops it for another one. The shared\n  saveAccount1Config() now writes tahoma.json for both routes.\n- save-account with id 1 changes only the Somfy e-mail/password, for\n  account 1's owner (\"My Somfy account\" shows them a pencil; mode, server\n  and PIN hidden) or for the registration correcting what it just saved.\n- /api/tahoma/accounts reports canRegister; the registration's \"cannot\n  add\" note now only means the account limit is reached.\n- Deleting the owner clears account 1's owner too. Demo mirrors it all.\n\nNot tested on hardware."
+        },
+        {
+          "summary": "feat: apartment owner registration on User Management",
+          "body": "The installer hands their own (VPN-connected) tablet to the apartment\nowner, who enters their own name, e-mail and password and, in the Tahoma\ncontrol type, the Somfy account of the apartment. The installer never\nlearns either password and nothing is sent to the owner.\n\n- The new user is role \"user\" with no zone and no area (\"No access yet\"\n  badge); the installer assigns zones later.\n- /api/save-user now answers with the account id.\n- TaHoma extra accounts carry ownerUserId (set by an installer only), so\n  the owner sees the account on \"My Somfy account\" before any zone is\n  assigned; deleting the user clears it (ids are reused).\n- The Somfy sign-in is tested right away; a failed sign-in keeps the form\n  open with only the Somfy fields editable.\n- tahomaAccountTestText() moved to app.js; demo mirrors the routes;\n  texts in all 8 languages.\n\nNot tested on hardware."
+        },
+        {
+          "summary": "fix: TaHoma rotation discovery ran twice and wrote to account 1's file",
+          "body": "While loop() was writing an account's device list, the rotation task saw\n\"result taken, account still set\" and started the same discovery again.\nThe second result arrived after the account had been cleared, so it was\nwritten to /tahoma-devices.json (account 1) and the account's discovery\nstate stayed PARSED, leaving the Devices page waiting until its 3-minute\ntimeout (\"The device list was not read yet\").\n\nA task-only g_discInProgress flag now runs doDiscovery() exactly once per\ntaken account and holds the next one until the file is written."
+        },
+        {
+          "summary": "feat: live progress while TaHoma devices are discovered",
+          "body": "Both discovery visitors publish the number of devices read and stored so far;\nthe Devices page (and the Accounts page) show \"Reading the device list - N\nread, M motors/windows so far\" instead of a static \"Discovering\". The final\nsummary now comes from the loaded device file, so it can no longer say\n\"0 devices found\" above a filled list. Demo simulates the progress; 8\nlanguages."
+        },
+        {
+          "summary": "fix: TaHoma discovery stores only movable devices",
+          "body": "Every device of the box is still read, but sockets, sensors, lights and other\ndevices that cannot be moved are counted as skipped instead of taking a slot\nin the stored list - a box with ~119 devices could otherwise push its motors\npast the limit (64 with one box, 32 per account in building mode). Same rule\nas tahomaCapsSummary().bindable in the web UI; demo, texts (8 languages) and\nCLAUDE.md follow."
+        },
+        {
+          "summary": "feat: TaHoma Devices with 8 devices per zone, owner page, building-mode Connection (building wind step 6)",
+          "body": "- Devices page: account selector, up to 8 devices per zone (tahomaDevices list,\n  first device mirrored into the single-device fields), zones-and-devices list,\n  per-account discovery and wink in building mode.\n- Rotation client: identify (wink) of one device, ahead of a burst.\n- Connection page in building mode: status from the rotation client, test of\n  the saved connection only (no more 409).\n- Owner: top-level \"My Somfy account\" menu item for role user.\n- Zone/Area Control: caps OR-ed over all devices of a zone/area; Area Control\n  hides tilt/position and disables buttons no device takes.\n- i18n (8 languages), help, demo handlers, CLAUDE.md, docs."
+        },
+        {
+          "summary": "feat: TaHoma account rotation and Accounts page (building wind step 5)",
+          "body": "Building mode (2+ TaHoma accounts) now runs its own client: one TLS\nsession served account by account - fresh cloud sign-in or local Bearer,\none /exec/apply per account, shared connection per cloud server, 429\npause with back-off, per-account outage logging (new EVT_COMM_TAHOMA_ACCOUNT\nand EVT_CMD_FAIL_ACCOUNT), position readback by polling, per-account\ndiscovery and a test sign-in route.\n\nOptions -> Tahoma -> Accounts lists the accounts with their state and lets\nthe installer add, edit (incl. zones), test, discover and delete them; an\nowner edits only their own credentials. 8 languages, help, demo handler.\n\nNot tested on hardware."
+        },
+        {
+          "summary": "feat: local TaHoma accounts and a switchable access point",
+          "body": "- Extra TaHoma accounts (2..32) can be \"local\" (Developer Mode: fixed\n  IP + token + PIN) as well as \"cloud\"; both field sets are stored.\n  Account 1 may stay local. With several boxes the real position will\n  still be read back (polled box by box, step 5): usage rule renamed\n  TAHOMA_MULTI_SLOW_FEEDBACK (8 languages).\n- Wi-Fi page, Access Point screen: \"Access point on\" (/wifi.json\n  apEnabled). Off saves memory; the access point still starts by itself\n  after 60 s without an Ethernet connection and stops again 5 min after\n  Ethernet is back with no station connected. Safe mode always starts\n  it. The radio is switched off when neither AP nor client runs.\n  Wizard echoes the field; demo, help and i18n updated.\n\nRAM +8 B, flash +2.6 KB. Not tested on hardware."
+        },
+        {
+          "summary": "feat: TaHoma accounts and up to 8 devices per zone (building wind step 4)",
+          "body": "- Accounts 2..32 (cloud only) in keepFs():/secrets/tahoma-accounts.json;\n  account 1 stays the Connection page's tahoma.json. Ids are never\n  reused. Never served, never in a backup. Written via a .tmp file.\n- Building mode = 2+ accounts at boot; crossing 1 <-> 2 needs a restart.\n  The single-box client does not start in building mode (the rotation\n  client is step 5).\n- Zones: tahomaAccountId + tahomaDevices[] (max 8; the old single-device\n  fields are still read). The first device is the feedback device; a\n  command goes to every device of the zone. Compact RAM records (~22 B,\n  box PIN in a shared table), replaced per zone on save.\n- Routes: GET /api/tahoma/accounts, POST save-account / delete-account /\n  discover-account. Owners (role user) see and edit only the accounts of\n  their own zones. A new account runs the usage rules; a confirmed\n  TAHOMA_MULTI_NO_GATEWAY switches the saved gateway off, and the memory\n  budget is judged without it.\n- /tahoma-devices-<id>.json is a protected file.\n\nRAM +32 B, flash +12.6 KB. Not tested on hardware."
+        },
+        {
+          "summary": "refactor: shared TaHoma cloud helpers; usage dialog names what to switch off",
+          "body": "- New tahoma_port/tahoma_cloud_common.*: stateless helpers moved out of\n  tahoma_client.cpp (connect gates 80/20 KB, measured connect, sign-in,\n  /exec/apply action builder and closure/orientation conversions, caps,\n  streamed /setup/devices parser, gateway list). The single-box client\n  calls them; a line-by-line check of the moved code found only renames\n  and signature changes. Prepares the building-wind rotation client.\n- TahomaHttpResponse.retryAfterSec (delta-seconds, capped at 3600).\n- A refused memory change lists the running functions that can be\n  switched off (budget.switchOff[]), each with its cost and menu path\n  (e.g. the Wi-Fi client). i18n in 8 languages, demo updated.\n\nRAM unchanged, flash +1.6 KB. Not tested on hardware."
+        },
+        {
+          "summary": "feat: usage limits, memory budget and crash-loop safe mode",
+          "body": "One firmware evaluator (src/usage_limits.*) checks fixed rules and an\nestimated memory budget whenever a save would change the gateway, the\nzone count, the control type, the Wi-Fi client, e-mail or Test Mode.\nA memory shortfall always blocks; fixed rules may ask for confirmation\n(?usageConfirm=CODE). The browser handles the 409 in usageFetch().\n\n- Quiet-heap floor (10 one-minute buckets), >> [ USAGE ] log line,\n  Log -> Error records for low memory and safe mode.\n- Device-wide TLS token: OTA check and e-mail never overlap.\n- Safe mode after 3 crash resets: gateway and Wi-Fi client off in RAM,\n  header badge, Restart normally on the new Resources page.\n- Resources page (Options -> System Settings), i18n in 8 languages,\n  help, demo handler.\n- Fix: hostlib stub for performFactoryReset(bool) (PC gateway build).\n\nCost estimates are not calibrated yet; not tested on hardware."
+        },
+        {
+          "summary": "feat: keep partition for backups and every credential",
+          "body": "Phase 1 step 1 of the TaHoma building wind plan (docs/tahoma-building-wind.md,\nplan added there in this commit).\n\n- partitions.csv: littlefs 0x3E0000, new 1 MB \"keep\" LittleFS at 0x6F0000\n  (data subtype \"undefined\" + board_build.filesystem_partition = littlefs, so\n  uploadfs can never target it). The factory image ends before it, so it\n  survives a firmware update.\n- src/keep_fs.*: mounts keep, falls back to the main LittleFS if missing.\n- Load/Save backup slots moved to keep (copyFileChunked names both\n  filesystems); /backups/ served from keep, /secrets never.\n- /secrets: users.json, wifi.json, email.json, tahoma.json. None is in a\n  backup; a plain factory reset keeps them. GET /email.json now returns the\n  config with the SMTP password masked (passwordSet); an empty password keeps\n  the saved one on save and SEND TEST EMAIL.\n- Factory reset: \"Also delete Load/Save backups and stored credentials\"\n  (?wipeKeep=1, applied at the next boot via /wipe-keep.flag). 8 languages.\n- Flasher: no full-erase prompt (it would wipe keep); install warning updated.\n- Demo and Touch BuCo import carry-over list follow the new file set.\n\nChanging the partition table wipes existing device data once.\nNot tested on hardware."
+        },
+        {
+          "summary": "fix: update check always \"Device busy\" on EQSP32_Lite",
+          "body": "On Lite the largest free block settles at ~31.7 KB after the first TLS\nsession and idle free heap at ~90 KB, so the 100 KB / 48 KB gate never\npassed. Use the TaHoma client's measured 80 KB / 20 KB instead, and let the\nUpdate page keep polling through the expected 503s while the check runs."
+        }
+      ]
+    },
+    {
       "version": "1.0.274",
       "date": "2026-11-21",
       "notes": [

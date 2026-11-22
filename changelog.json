@@ -1,19 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.274",
-      "date": "2026-11-21",
+      "version": "1.0.295",
+      "date": "2026-11-22",
       "notes": [
-        "build: run esptool v5 from the isolated core's penv",
-        "build: factory image survives pioarduino's buildfs deleting the other images",
-        "build: EQSP32_Lite is the only target; release builds need the isolated core",
-        "chore: remove the multi-account TaHoma spike, document Phase 0 results",
-        "spike: multi-account TaHoma cloud rotation (Phase 0, building wind protection)",
-        "feat: BACnet BBMD/BDT, Foreign Device and DNS server 2 (Touch BuCo parity)",
-        "chore: ignore serial monitor captures in logs/",
-        "docs: HTTPS web UI second spike on EQSP32_Lite - failed on hardware, not pursued",
-        "docs: EQSP32_Lite beta 111926 - record hardware results in IB+ and TaHoma mode",
-        "feat: EQSP32_Lite Rev2.0.0-beta-111926 - enlarged Serial TX buffer again"
+        "fix: merge_dev_to_main.py merges origin/main instead of pulling",
+        "fix: make_factory_image.py never falls back to the global pio",
+        "feat: building wind Phase 4 - Sun in Tahoma mode; Control Type texts updated",
+        "feat: building wind Phase 3 - My apartment page, owner wind/sun switch",
+        "feat: building wind Phase 2 - Wind/Error automation in Tahoma mode",
+        "feat: link users to Somfy accounts, account form carousel, boot auto-restore",
+        "feat: Ethernet health watch - event log, gateway ping, recovery",
+        "fix: Email Notification menu item available in every control type",
+        "feat: owner registration fills an empty TaHoma account 1",
+        "feat: apartment owner registration on User Management"
       ]
     }
   ]
