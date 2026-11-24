@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.0.307",
+      "date": "2026-11-24",
+      "notes": [
+        {
+          "summary": "feat: Change MoCo ID page; position readback no longer sends 10 53",
+          "body": "The MoCo RS485 frame B7 09 ctr 10 53 <id> CRC, used as a \"Set Address\"\nbefore every Read Position, actually SETS the MoCo ID of every Motor\nController that hears it. The readback now sends Read Position (10 5C)\nalone, so a link with several MoCos can no longer get its IDs rewritten.\n\nNew Options -> MoCo Settings -> Change MoCo ID page, shown only with the\nAdvanced \"Change MoCo ID\" option (default off): new ID (ends in 1 or 6),\noptional current ID (MoCo ID list record renamed after a verified change),\n\"only one Motor Controller connected\" confirmation, and an experimental\nLock all / Unlock current ID / Set ID / Unlock all sequence. The firmware\njob (POST /api/moco-id/change) sends 10 53 once on every IB+ and MoCo\nRS485 port - on IB+ as an untested experiment - then verifies with a Read\nPosition at the new ID over a MoCo RS485 port. Help + 8 languages, demo\nhandler. Frames match the user's 12 captures; not tested on hardware."
+        },
+        {
+          "summary": "fix: OTA check no longer blocked by its own status polls",
+          "body": "Idle heap on Lite (~82.2 KB) sat only ~300 B above the 80 KB gate, so every\nUpdate-page poll reset the 2 s quiet period and the check always ended in\n'Device busy'. Gate lowered to 72 KB, the page polls every 2.5 s while\nchecking, and the defer log names the reason."
+        }
+      ]
+    },
+    {
       "version": "1.0.305",
       "date": "2026-11-24",
       "notes": [

@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "1.0.307",
+      "date": "2026-11-24",
+      "notes": [
+        "feat: Change MoCo ID page; position readback no longer sends 10 53",
+        "fix: OTA check no longer blocked by its own status polls"
+      ]
+    },
+    {
       "version": "1.0.305",
       "date": "2026-11-24",
       "notes": [
@@ -11,9 +19,7 @@
         "feat: calibrate usage cost model, measure TLS session heap in building mode",
         "feat: rename TaHoma account 1, Resources data check script",
         "feat: check every motor by default after entering a MoCo ID",
-        "feat: warn that the TaHoma cloud API is no longer officially supported",
-        "docs: ERQOS answer on the output watchdog during flash writes",
-        "fix: OTA update check - name DNS/TLS failures, retry once, avoid busy moments"
+        "feat: warn that the TaHoma cloud API is no longer officially supported"
       ]
     }
   ]
