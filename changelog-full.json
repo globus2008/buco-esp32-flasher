@@ -1,6 +1,52 @@
 {
   "entries": [
     {
+      "version": "1.0.305",
+      "date": "2026-11-24",
+      "notes": [
+        {
+          "summary": "docs: flasher page subtitle and README intro describe what the firmware does today",
+          "body": "The subtitle and the README intro still described an IB+-only gateway with\n\"no app, no cloud\". They now name the EQSP32 controller family, the three\ncontrol paths (IB+, SDN, TaHoma io/RTS), the BACnet/KNX/Modbus/Home Assistant\ninterfaces, and say that the internet/cloud is used only by optional\nfunctions (TaHoma cloud accounts, weather forecast). All 8 languages."
+        },
+        {
+          "summary": "fix: flasher page and README no longer point to the removed port-8000 OTA panel",
+          "body": "The \"Future Updates\" card and the public README told customers to update\nthrough the vendor maintenance panel on port 8000 with the *-ota.bin file.\nThat panel does not exist on EQSP32_Lite and had no OTA slot to write to\nbefore either. Every update is now described as a USB install from the\nflasher page, with the device's Update Firmware page as the place that shows\na newer version. The README's \"installing erases all data\" note now matches\nthe page (Load/Save backups and credentials stay on the device) and mentions\nthe disclaimer. publish_flasher.py stops publishing *-ota.bin (the stale\ncleanup removes old copies). All 8 languages."
+        },
+        {
+          "summary": "feat: disclaimer gate on the flasher page, disclaimer text revised in 8 languages",
+          "body": "- flasher/index.html: a Disclaimer card above the install card shows the\n  canonical legal/disclaimer-<lang>.html; the checkbox unlocks only after the\n  text is scrolled to its end, and the install button stays hidden until it is\n  ticked. Required on every visit. The legal files were already synced, but\n  the page never showed them.\n- Disclaimer text revised to match the product (draft for legal review):\n  EQSP32 controllers and Erqos's library, every control path (IB+, SDN,\n  TaHoma, BACnet/KNX/Modbus/HA, automatic functions), protective functions\n  are not certified safety devices, third-party services incl. the no longer\n  supported TaHoma cloud, installation security, acceptance on the installer\n  page and in the device, which version applies.\n- New de/fr/hr/pl texts, so all 8 UI languages have their own; LEGAL_FILES\n  publishes all of them."
+        },
+        {
+          "summary": "fix: lean TaHoma device-list reader - discovery no longer drains the heap",
+          "body": "tahomaStreamDeviceList() used an ArduinoJson filter that kept the value of\nevery state and every command name; one device of a real cloud account took\n11.4 KB with the TLS session open and the free heap fell to 2.9-7 KB. A\nhand-written reader now keeps only deviceURL, label, controllableName,\navailable, the two percent states and the command names tahomaCapsOf()\nreads. Measured: largest device document 1.4 KB, lowest free heap during a\n114-device cloud discovery 11.9 KB. Used by discovery, position polls and\nresync in both clients. Per-device document statistics are reported on\n/api/tahoma/accounts (rotation.heap.disc*)."
+        },
+        {
+          "summary": "feat: calibrate usage cost model, measure TLS session heap in building mode",
+          "body": "- USAGE_REFERENCE_IDLE 116 -> 102 KB (IB+ quiet floor 101 KB measured) and\n  tahomaRotation fixed cost 14 -> 18.5 KB (building mode floor 81 KB with\n  2 accounts / 8 zones), both from scripts/resources_check.py on hardware.\n- Rotation client measures the device's lowest free heap during every TLS\n  session (heap local-minimum monitor) and reports it on\n  /api/tahoma/accounts rotation.heap and the serial log. First result: a\n  handshake takes ~65-70 KB, so the 80 KB connect gate stays; a cloud\n  discovery of 114 devices went down to 2.9 KB free."
+        },
+        {
+          "summary": "feat: rename TaHoma account 1, Resources data check script",
+          "body": "- Account 1 (\"Connection page box\") can be renamed on the Accounts page like\n  the other accounts: tahoma.json \"label\", name-only save that keeps the live\n  session; kept while the Connection page saves the same box.\n- /api/usage/status also returns uptime, the floor thresholds, the running\n  state inputs, the whole cost model and the total cost (now chunked).\n- scripts/resources_check.py (+ .cmd): read-only validation of the Resources\n  page data on a real device - invariants, recomputed costs, state vs config,\n  snapshots over time, /api/usage/check probes vs a Python copy of evaluate(),\n  and a calibration report."
+        },
+        {
+          "summary": "feat: check every motor by default after entering a MoCo ID",
+          "body": "Learn Zones (Use MoCo ID) and Run/Tilt Times (Send over ID) now render\nall motor checkboxes checked once a valid MoCo ID is entered; the\ninstaller unticks the motors to leave out."
+        },
+        {
+          "summary": "feat: warn that the TaHoma cloud API is no longer officially supported",
+          "body": "Somfy no longer officially supports the cloud API and may switch its\nservers off; the local API (Developer Mode token) stays supported.\nConnection page and Accounts form show a warning while Cloud is selected,\nthe Accounts list while any account uses the cloud; help in 8 languages."
+        },
+        {
+          "summary": "docs: ERQOS answer on the output watchdog during flash writes",
+          "body": "A flash erase over ~150 ms trips the EQSP32 power-output safety mechanism\nand the outputs are not restored automatically. Harmless today (no power\noutput is driven); document the rule that a future output driver must\nre-assert its level periodically."
+        },
+        {
+          "summary": "fix: OTA update check - name DNS/TLS failures, retry once, avoid busy moments",
+          "body": "A field check failed as a bare \"HTTP -1\" 48 ms after the gate opened, and a\nlater one took the heap from 88 KB to 13 KB during the TLS session (Lite,\nTaHoma building mode).\n\n- resolve the host first so a DNS failure gets its own message\n- retry a failed connect once after 2 s; log the mbedTLS error and heap\n- no check in the first 60 s after boot, and the gate must stay open 2 s\n  in a row before the session starts (floor unchanged: idle heap ~80 KB)"
+        }
+      ]
+    },
+    {
       "version": "1.0.295",
       "date": "2026-11-22",
       "notes": [

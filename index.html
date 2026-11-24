@@ -93,6 +93,35 @@
             cursor: pointer;
         }
         .more-btn:hover { background: #f3f4f6; }
+        .disclaimer-text {
+            max-height: 340px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 4px 16px;
+            background: #f9fafb;
+            font-size: 0.85rem;
+            color: #374151;
+        }
+        .disclaimer-text h3 { font-size: 0.95rem; }
+        .disclaimer-accept {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .disclaimer-accept input { margin-top: 4px; width: 18px; height: 18px; flex-shrink: 0; }
+        .disclaimer-accept.disabled { color: #9ca3af; cursor: not-allowed; }
+        .install-locked {
+            background: #f3f4f6;
+            border: 1px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 14px;
+            color: #4b5563;
+            font-size: 0.92rem;
+        }
     </style>
 </head>
 <body>
@@ -112,10 +141,28 @@
             </ol>
         </div>
 
+        <!-- Disclaimer gate: the text is the same canonical file the device shows
+             (data/legal/, synced into legal/ by scripts/publish_flasher.py). It must be
+             scrolled to the end and accepted on every visit before the install button
+             appears - deliberately not remembered in localStorage. -->
+        <div class="card" id="disclaimer-card">
+            <h2 data-i18n="disclaimerTitle"></h2>
+            <p class="note" style="margin-top:0;" data-i18n="disclaimerIntro"></p>
+            <div class="disclaimer-text" id="disclaimer-text" tabindex="0"></div>
+            <p class="note" id="disclaimer-scroll-hint" data-i18n="disclaimerScrollHint"></p>
+            <label class="disclaimer-accept disabled" id="disclaimer-accept-label">
+                <input type="checkbox" id="disclaimer-accept" disabled>
+                <span data-i18n="disclaimerAccept"></span>
+            </label>
+        </div>
+
         <div class="card install-area">
             <h2 data-i18n="installTitle"></h2>
             <p data-i18n="installIntro"></p>
-            <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+            <div class="install-locked" id="install-locked" data-i18n="installLocked"></div>
+            <div id="install-button-wrap" hidden>
+                <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+            </div>
             <p class="note" data-i18n="installNote"></p>
             <div class="warn" data-i18n="installWarn"></div>
         </div>
@@ -150,16 +197,12 @@
         // Values may contain trusted static HTML (links, <code>); applied via
         // innerHTML - fine for a fully static page with no user input.
         const DRIVERS = '<a href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers" target="_blank" rel="noopener">CP210x</a>, <a href="https://www.wch-ic.com/downloads/CH341SER_ZIP.html" target="_blank" rel="noopener">CH340</a>';
-        const EQCONNECT = '<a href="https://erqos.com/eqconnect/" target="_blank" rel="noopener">EQConnect</a>';
         const AP_URL = '<code>http://192.168.4.1</code>';
         const MDNS_URL = '<code>http://buco-esp32.local</code>';
-        const PANEL_URL = '<code>http://&lt;device-ip&gt;:8000</code>';
-        const OTA_FILE = '<code>*-ota.bin</code>';
-        const PWD = '<code>admin</code>';
 
         const I18N = {
             en: {
-                subtitle: 'IB+ Bus Gateway firmware for the ERQOS EQSP32-CE controller (compatible with Somfy motor controllers)',
+                subtitle: "Gateway firmware for the ERQOS EQSP32 controller: Somfy products over IB+, SDN and TaHoma, with BACnet, KNX, Modbus and Home Assistant interfaces",
                 reqTitle: 'Requirements',
                 req1: '<strong>Google Chrome</strong> or <strong>Microsoft Edge</strong> browser (Firefox and Safari do not support USB flashing).',
                 req2: 'A <strong>USB cable</strong> connecting the EQSP32 to this computer.',
@@ -172,15 +215,22 @@
                 after1: 'The device starts its own Wi-Fi access point &mdash; connect to it and open ' + AP_URL + ', or connect the device to your LAN via Ethernet and open ' + MDNS_URL + '.',
                 after2: 'Configure your zones and sensors in the web interface.',
                 updatesTitle: 'Future Updates',
-                upd1: 'Later firmware updates do <strong>not</strong> require USB: open the device\'s maintenance panel at ' + PANEL_URL + ' and upload the provided ' + OTA_FILE + ' file (default password: ' + PWD + ').',
-                upd2: 'We recommend changing the default OTA password using the ' + EQCONNECT + ' app.',
+                upd1: "Later firmware versions are installed the same way: over USB from this page. This updates the firmware and the web interface together.",
+                upd2: "The device shows whether a newer version exists under Settings &rarr; Options &rarr; System Settings &rarr; Update Firmware.",
                 changelogTitle: 'Changelog',
                 currentVersionLabel: 'Current version:',
                 showMoreButton: 'Show more',
-                changelogUnavailable: 'Changelog is currently unavailable.'
+                changelogUnavailable: 'Changelog is currently unavailable.',
+                disclaimerTitle: "Disclaimer",
+                disclaimerIntro: "Please read the disclaimer before installing the firmware.",
+                disclaimerScrollHint: "Scroll to the end of the text to be able to accept it.",
+                disclaimerAccept: "I have read the disclaimer above and I accept it.",
+                installLocked: "The installation becomes available once you accept the disclaimer above.",
+                disclaimerLoadFailed: "The disclaimer could not be loaded - reload the page. The firmware cannot be installed without it.",
+                disclaimerFallback: "This text is not available in your language - the English version applies."
             },
             cs: {
-                subtitle: 'Firmware brány sběrnice IB+ pro kontrolér ERQOS EQSP32-CE (kompatibilní s motor controllery Somfy)',
+                subtitle: "Firmware brány pro kontrolér ERQOS EQSP32: výrobky Somfy přes IB+, SDN a TaHoma, s rozhraními BACnet, KNX, Modbus a Home Assistant",
                 reqTitle: 'Požadavky',
                 req1: 'Prohlížeč <strong>Google Chrome</strong> nebo <strong>Microsoft Edge</strong> (Firefox a Safari flashování přes USB nepodporují).',
                 req2: '<strong>USB kabel</strong> propojující EQSP32 s tímto počítačem.',
@@ -193,15 +243,22 @@
                 after1: 'Zařízení vytvoří vlastní Wi-Fi přístupový bod &mdash; připojte se k němu a otevřete ' + AP_URL + ', nebo připojte zařízení do sítě přes Ethernet a otevřete ' + MDNS_URL + '.',
                 after2: 'Ve webovém rozhraní nastavte zóny a senzory.',
                 updatesTitle: 'Budoucí aktualizace',
-                upd1: 'Další aktualizace firmwaru už USB <strong>nevyžadují</strong>: otevřete servisní panel zařízení na ' + PANEL_URL + ' a nahrajte dodaný soubor ' + OTA_FILE + ' (výchozí heslo: ' + PWD + ').',
-                upd2: 'Doporučujeme změnit výchozí OTA heslo pomocí aplikace ' + EQCONNECT + '.',
+                upd1: "Další verze firmwaru se instalují stejně: přes USB z této stránky. Aktualizuje se tím firmware i webové rozhraní zároveň.",
+                upd2: "Zda existuje novější verze, zobrazí zařízení v Settings &rarr; Options &rarr; System Settings &rarr; Update Firmware.",
                 changelogTitle: 'Historie změn',
                 currentVersionLabel: 'Aktuální verze:',
                 showMoreButton: 'Zobrazit další',
-                changelogUnavailable: 'Historie změn je momentálně nedostupná.'
+                changelogUnavailable: 'Historie změn je momentálně nedostupná.',
+                disclaimerTitle: "Prohlášení o vyloučení odpovědnosti",
+                disclaimerIntro: "Před instalací firmwaru si prosím přečtěte prohlášení o vyloučení odpovědnosti.",
+                disclaimerScrollHint: "Text dočtěte až do konce, pak ho bude možné odsouhlasit.",
+                disclaimerAccept: "Přečetl(a) jsem výše uvedené prohlášení a souhlasím s ním.",
+                installLocked: "Instalace bude dostupná po odsouhlasení prohlášení výše.",
+                disclaimerLoadFailed: "Prohlášení se nepodařilo načíst - obnovte stránku. Bez něj nelze firmware nainstalovat.",
+                disclaimerFallback: "Tento text není k dispozici ve vašem jazyce - platí anglická verze."
             },
             de: {
-                subtitle: 'IB+-Bus-Gateway-Firmware für den ERQOS EQSP32-CE Controller (kompatibel mit Somfy-Motorsteuerungen)',
+                subtitle: "Gateway-Firmware für den Controller ERQOS EQSP32: Somfy-Produkte über IB+, SDN und TaHoma, mit Schnittstellen für BACnet, KNX, Modbus und Home Assistant",
                 reqTitle: 'Voraussetzungen',
                 req1: '<strong>Google Chrome</strong> oder <strong>Microsoft Edge</strong> Browser (Firefox und Safari unterstützen kein USB-Flashen).',
                 req2: 'Ein <strong>USB-Kabel</strong>, das den EQSP32 mit diesem Computer verbindet.',
@@ -214,15 +271,22 @@
                 after1: 'Das Gerät startet einen eigenen WLAN-Zugangspunkt &mdash; verbinden Sie sich damit und öffnen Sie ' + AP_URL + ', oder verbinden Sie das Gerät per Ethernet mit Ihrem Netzwerk und öffnen Sie ' + MDNS_URL + '.',
                 after2: 'Konfigurieren Sie Zonen und Sensoren in der Weboberfläche.',
                 updatesTitle: 'Zukünftige Updates',
-                upd1: 'Spätere Firmware-Updates benötigen <strong>kein</strong> USB mehr: Öffnen Sie das Wartungspanel des Geräts unter ' + PANEL_URL + ' und laden Sie die bereitgestellte Datei ' + OTA_FILE + ' hoch (Standardpasswort: ' + PWD + ').',
-                upd2: 'Wir empfehlen, das Standard-OTA-Passwort mit der ' + EQCONNECT + '-App zu ändern.',
+                upd1: "Spätere Firmware-Versionen werden genauso installiert: per USB über diese Seite. Dabei werden Firmware und Weboberfläche gemeinsam aktualisiert.",
+                upd2: "Ob eine neuere Version verfügbar ist, zeigt das Gerät unter Settings &rarr; Options &rarr; System Settings &rarr; Update Firmware.",
                 changelogTitle: 'Änderungsprotokoll',
                 currentVersionLabel: 'Aktuelle Version:',
                 showMoreButton: 'Mehr anzeigen',
-                changelogUnavailable: 'Das Änderungsprotokoll ist derzeit nicht verfügbar.'
+                changelogUnavailable: 'Das Änderungsprotokoll ist derzeit nicht verfügbar.',
+                disclaimerTitle: "Haftungsausschluss",
+                disclaimerIntro: "Bitte lesen Sie den Haftungsausschluss, bevor Sie die Firmware installieren.",
+                disclaimerScrollHint: "Scrollen Sie bis zum Ende des Textes, um ihn akzeptieren zu können.",
+                disclaimerAccept: "Ich habe den obigen Haftungsausschluss gelesen und akzeptiere ihn.",
+                installLocked: "Die Installation wird verfügbar, sobald Sie den obigen Haftungsausschluss akzeptieren.",
+                disclaimerLoadFailed: "Der Haftungsausschluss konnte nicht geladen werden - laden Sie die Seite neu. Ohne ihn kann die Firmware nicht installiert werden.",
+                disclaimerFallback: "Dieser Text ist in Ihrer Sprache nicht verfügbar - es gilt die englische Fassung."
             },
             fr: {
-                subtitle: 'Micrologiciel de passerelle bus IB+ pour le contrôleur ERQOS EQSP32-CE (compatible avec les contrôleurs de moteurs Somfy)',
+                subtitle: "Firmware de passerelle pour le contrôleur ERQOS EQSP32 : produits Somfy via IB+, SDN et TaHoma, avec interfaces BACnet, KNX, Modbus et Home Assistant",
                 reqTitle: 'Prérequis',
                 req1: 'Navigateur <strong>Google Chrome</strong> ou <strong>Microsoft Edge</strong> (Firefox et Safari ne prennent pas en charge le flashage USB).',
                 req2: 'Un <strong>câble USB</strong> reliant l\'EQSP32 à cet ordinateur.',
@@ -235,15 +299,22 @@
                 after1: 'L\'appareil crée son propre point d\'accès Wi-Fi &mdash; connectez-vous-y et ouvrez ' + AP_URL + ', ou reliez l\'appareil à votre réseau en Ethernet et ouvrez ' + MDNS_URL + '.',
                 after2: 'Configurez les zones et les capteurs dans l\'interface web.',
                 updatesTitle: 'Mises à jour futures',
-                upd1: 'Les mises à jour ultérieures ne nécessitent <strong>plus</strong> d\'USB : ouvrez le panneau de maintenance de l\'appareil sur ' + PANEL_URL + ' et téléversez le fichier ' + OTA_FILE + ' fourni (mot de passe par défaut : ' + PWD + ').',
-                upd2: 'Nous recommandons de changer le mot de passe OTA par défaut via l\'application ' + EQCONNECT + '.',
+                upd1: "Les versions ultérieures du firmware s'installent de la même manière : en USB depuis cette page. Le firmware et l'interface web sont ainsi mis à jour ensemble.",
+                upd2: "L'appareil indique si une version plus récente existe sous Settings &rarr; Options &rarr; System Settings &rarr; Update Firmware.",
                 changelogTitle: 'Journal des modifications',
                 currentVersionLabel: 'Version actuelle :',
                 showMoreButton: 'Afficher plus',
-                changelogUnavailable: 'Le journal des modifications est actuellement indisponible.'
+                changelogUnavailable: 'Le journal des modifications est actuellement indisponible.',
+                disclaimerTitle: "Clause de non-responsabilité",
+                disclaimerIntro: "Veuillez lire la clause de non-responsabilité avant d'installer le firmware.",
+                disclaimerScrollHint: "Faites défiler le texte jusqu'à la fin pour pouvoir l'accepter.",
+                disclaimerAccept: "J'ai lu la clause de non-responsabilité ci-dessus et je l'accepte.",
+                installLocked: "L'installation sera disponible dès que vous aurez accepté la clause ci-dessus.",
+                disclaimerLoadFailed: "La clause n'a pas pu être chargée - rechargez la page. Le firmware ne peut pas être installé sans elle.",
+                disclaimerFallback: "Ce texte n'est pas disponible dans votre langue - la version anglaise fait foi."
             },
             hr: {
-                subtitle: 'Firmware IB+ sabirničkog pristupnika za ERQOS EQSP32-CE kontroler (kompatibilno sa Somfy motornim kontrolerima)',
+                subtitle: "Firmware pristupnika za kontroler ERQOS EQSP32: Somfy proizvodi preko IB+, SDN i TaHoma, sa sučeljima BACnet, KNX, Modbus i Home Assistant",
                 reqTitle: 'Preduvjeti',
                 req1: 'Preglednik <strong>Google Chrome</strong> ili <strong>Microsoft Edge</strong> (Firefox i Safari ne podržavaju USB flashanje).',
                 req2: '<strong>USB kabel</strong> koji povezuje EQSP32 s ovim računalom.',
@@ -256,15 +327,22 @@
                 after1: 'Uređaj pokreće vlastitu Wi-Fi pristupnu točku &mdash; spojite se na nju i otvorite ' + AP_URL + ', ili spojite uređaj na mrežu Ethernetom i otvorite ' + MDNS_URL + '.',
                 after2: 'Konfigurirajte zone i senzore u web sučelju.',
                 updatesTitle: 'Buduća ažuriranja',
-                upd1: 'Kasnija ažuriranja firmwarea <strong>ne</strong> zahtijevaju USB: otvorite servisni panel uređaja na ' + PANEL_URL + ' i prenesite isporučenu datoteku ' + OTA_FILE + ' (zadana lozinka: ' + PWD + ').',
-                upd2: 'Preporučujemo promjenu zadane OTA lozinke pomoću aplikacije ' + EQCONNECT + '.',
+                upd1: "Kasnije verzije firmwarea instaliraju se na isti način: preko USB-a s ove stranice. Time se zajedno ažuriraju firmware i web sučelje.",
+                upd2: "Postoji li novija verzija, uređaj prikazuje u Settings &rarr; Options &rarr; System Settings &rarr; Update Firmware.",
                 changelogTitle: 'Povijest promjena',
                 currentVersionLabel: 'Trenutna verzija:',
                 showMoreButton: 'Prikaži više',
-                changelogUnavailable: 'Povijest promjena trenutno nije dostupna.'
+                changelogUnavailable: 'Povijest promjena trenutno nije dostupna.',
+                disclaimerTitle: "Izjava o odricanju od odgovornosti",
+                disclaimerIntro: "Prije instalacije firmvera pročitajte izjavu o odricanju od odgovornosti.",
+                disclaimerScrollHint: "Pomaknite tekst do kraja kako biste ga mogli prihvatiti.",
+                disclaimerAccept: "Pročitao/la sam gornju izjavu i prihvaćam je.",
+                installLocked: "Instalacija postaje dostupna nakon što prihvatite gornju izjavu.",
+                disclaimerLoadFailed: "Izjavu nije bilo moguće učitati - ponovno učitajte stranicu. Bez nje se firmver ne može instalirati.",
+                disclaimerFallback: "Ovaj tekst nije dostupan na vašem jeziku - vrijedi engleska verzija."
             },
             hu: {
-                subtitle: 'IB+ buszátjáró firmware az ERQOS EQSP32-CE vezérlőhöz (kompatibilis a Somfy motorvezérlőkkel)',
+                subtitle: "Átjáró firmware az ERQOS EQSP32 vezérlőhöz: Somfy termékek IB+, SDN és TaHoma útján, BACnet, KNX, Modbus és Home Assistant interfészekkel",
                 reqTitle: 'Követelmények',
                 req1: '<strong>Google Chrome</strong> vagy <strong>Microsoft Edge</strong> böngésző (a Firefox és a Safari nem támogatja az USB-s programozást).',
                 req2: 'Az EQSP32-t ehhez a számítógéphez csatlakoztató <strong>USB-kábel</strong>.',
@@ -277,15 +355,22 @@
                 after1: 'Az eszköz saját Wi-Fi hozzáférési pontot indít &mdash; csatlakozzon hozzá, és nyissa meg a ' + AP_URL + ' címet, vagy csatlakoztassa az eszközt Etherneten a helyi hálózathoz, és nyissa meg a ' + MDNS_URL + ' címet.',
                 after2: 'Állítsa be a zónákat és az érzékelőket a webes felületen.',
                 updatesTitle: 'Későbbi frissítések',
-                upd1: 'A későbbi firmware-frissítésekhez <strong>nem</strong> kell USB: nyissa meg az eszköz karbantartási paneljét a ' + PANEL_URL + ' címen, és töltse fel a mellékelt ' + OTA_FILE + ' fájlt (alapértelmezett jelszó: ' + PWD + ').',
-                upd2: 'Javasoljuk, hogy az alapértelmezett OTA-jelszót módosítsa az ' + EQCONNECT + ' alkalmazással.',
+                upd1: "A későbbi firmware-verziók ugyanígy telepíthetők: USB-n keresztül erről az oldalról. Ez a firmware-t és a webes felületet egyszerre frissíti.",
+                upd2: "Hogy van-e újabb verzió, azt az eszköz a Settings &rarr; Options &rarr; System Settings &rarr; Update Firmware menüben mutatja.",
                 changelogTitle: 'Változásnapló',
                 currentVersionLabel: 'Jelenlegi verzió:',
                 showMoreButton: 'Továbbiak',
-                changelogUnavailable: 'A változásnapló jelenleg nem érhető el.'
+                changelogUnavailable: 'A változásnapló jelenleg nem érhető el.',
+                disclaimerTitle: "Felelősségkizáró nyilatkozat",
+                disclaimerIntro: "A firmware telepítése előtt kérjük, olvassa el a felelősségkizáró nyilatkozatot.",
+                disclaimerScrollHint: "Görgessen a szöveg végéig, hogy elfogadhassa.",
+                disclaimerAccept: "Elolvastam a fenti nyilatkozatot, és elfogadom.",
+                installLocked: "A telepítés a fenti nyilatkozat elfogadása után válik elérhetővé.",
+                disclaimerLoadFailed: "A nyilatkozatot nem sikerült betölteni - töltse újra az oldalt. Nélküle a firmware nem telepíthető.",
+                disclaimerFallback: "Ez a szöveg nem érhető el az Ön nyelvén - az angol változat az irányadó."
             },
             pl: {
-                subtitle: 'Oprogramowanie bramy magistrali IB+ dla sterownika ERQOS EQSP32-CE (kompatybilne ze sterownikami silników Somfy)',
+                subtitle: "Oprogramowanie bramy dla sterownika ERQOS EQSP32: produkty Somfy przez IB+, SDN i TaHoma, z interfejsami BACnet, KNX, Modbus i Home Assistant",
                 reqTitle: 'Wymagania',
                 req1: 'Przeglądarka <strong>Google Chrome</strong> lub <strong>Microsoft Edge</strong> (Firefox i Safari nie obsługują flashowania przez USB).',
                 req2: '<strong>Kabel USB</strong> łączący EQSP32 z tym komputerem.',
@@ -298,15 +383,22 @@
                 after1: 'Urządzenie uruchamia własny punkt dostępowy Wi-Fi &mdash; połącz się z nim i otwórz ' + AP_URL + ', lub podłącz urządzenie do sieci przez Ethernet i otwórz ' + MDNS_URL + '.',
                 after2: 'Skonfiguruj strefy i czujniki w interfejsie webowym.',
                 updatesTitle: 'Przyszłe aktualizacje',
-                upd1: 'Kolejne aktualizacje <strong>nie</strong> wymagają już USB: otwórz panel serwisowy urządzenia pod adresem ' + PANEL_URL + ' i wgraj dostarczony plik ' + OTA_FILE + ' (domyślne hasło: ' + PWD + ').',
-                upd2: 'Zalecamy zmianę domyślnego hasła OTA za pomocą aplikacji ' + EQCONNECT + '.',
+                upd1: "Kolejne wersje oprogramowania instaluje się tak samo: przez USB z tej strony. Aktualizuje to jednocześnie oprogramowanie i interfejs webowy.",
+                upd2: "Czy dostępna jest nowsza wersja, urządzenie pokazuje w Settings &rarr; Options &rarr; System Settings &rarr; Update Firmware.",
                 changelogTitle: 'Historia zmian',
                 currentVersionLabel: 'Aktualna wersja:',
                 showMoreButton: 'Pokaż więcej',
-                changelogUnavailable: 'Historia zmian jest obecnie niedostępna.'
+                changelogUnavailable: 'Historia zmian jest obecnie niedostępna.',
+                disclaimerTitle: "Wyłączenie odpowiedzialności",
+                disclaimerIntro: "Przed instalacją oprogramowania układowego przeczytaj oświadczenie o wyłączeniu odpowiedzialności.",
+                disclaimerScrollHint: "Przewiń tekst do końca, aby móc go zaakceptować.",
+                disclaimerAccept: "Przeczytałem(-am) powyższe oświadczenie i je akceptuję.",
+                installLocked: "Instalacja będzie dostępna po zaakceptowaniu powyższego oświadczenia.",
+                disclaimerLoadFailed: "Nie udało się wczytać oświadczenia - odśwież stronę. Bez niego nie można zainstalować oprogramowania.",
+                disclaimerFallback: "Ten tekst nie jest dostępny w Twoim języku - obowiązuje wersja angielska."
             },
             sk: {
-                subtitle: 'Firmvér brány zbernice IB+ pre riadiaci systém ERQOS EQSP32-CE (kompatibilný s motorovými ovládačmi Somfy)',
+                subtitle: "Firmvér brány pre riadiaci systém ERQOS EQSP32: výrobky Somfy cez IB+, SDN a TaHoma, s rozhraniami BACnet, KNX, Modbus a Home Assistant",
                 reqTitle: 'Požiadavky',
                 req1: 'Prehliadač <strong>Google Chrome</strong> alebo <strong>Microsoft Edge</strong> (Firefox a Safari programovanie cez USB nepodporujú).',
                 req2: '<strong>USB kábel</strong> spájajúci EQSP32 s týmto počítačom.',
@@ -319,12 +411,19 @@
                 after1: 'Zariadenie spustí vlastný prístupový bod Wi-Fi &mdash; pripojte sa k nemu a otvorte ' + AP_URL + ', alebo pripojte zariadenie do siete LAN cez Ethernet a otvorte ' + MDNS_URL + '.',
                 after2: 'Nastavte zóny a snímače vo webovom rozhraní.',
                 updatesTitle: 'Budúce aktualizácie',
-                upd1: 'Ďalšie aktualizácie firmvéru <strong>nevyžadujú</strong> USB: otvorte servisný panel zariadenia na adrese ' + PANEL_URL + ' a nahrajte dodaný súbor ' + OTA_FILE + ' (predvolené heslo: ' + PWD + ').',
-                upd2: 'Odporúčame zmeniť predvolené heslo OTA pomocou aplikácie ' + EQCONNECT + '.',
+                upd1: "Ďalšie verzie firmvéru sa inštalujú rovnako: cez USB z tejto stránky. Aktualizuje sa tým firmvér aj webové rozhranie zároveň.",
+                upd2: "Či existuje novšia verzia, zobrazí zariadenie v Settings &rarr; Options &rarr; System Settings &rarr; Update Firmware.",
                 changelogTitle: 'Zoznam zmien',
                 currentVersionLabel: 'Aktuálna verzia:',
                 showMoreButton: 'Zobraziť viac',
-                changelogUnavailable: 'Zoznam zmien momentálne nie je k dispozícii.'
+                changelogUnavailable: 'Zoznam zmien momentálne nie je k dispozícii.',
+                disclaimerTitle: "Vyhlásenie o vylúčení zodpovednosti",
+                disclaimerIntro: "Pred inštaláciou firmvéru si prosím prečítajte vyhlásenie o vylúčení zodpovednosti.",
+                disclaimerScrollHint: "Text dočítajte až do konca, potom ho bude možné odsúhlasiť.",
+                disclaimerAccept: "Prečítal(a) som vyššie uvedené vyhlásenie a súhlasím s ním.",
+                installLocked: "Inštalácia bude dostupná po odsúhlasení vyhlásenia vyššie.",
+                disclaimerLoadFailed: "Vyhlásenie sa nepodarilo načítať - obnovte stránku. Bez neho nie je možné firmvér nainštalovať.",
+                disclaimerFallback: "Tento text nie je k dispozícii vo vašom jazyku - platí anglická verzia."
             }
         };
 
@@ -337,6 +436,63 @@
             return LANGS.includes(nav) ? nav : 'en';
         }
 
+        // Disclaimer languages published under legal/ (LEGAL_FILES in
+        // scripts/publish_flasher.py) - today all of LANGS; a language added
+        // later without its own text falls back to English with a note.
+        const DISCLAIMER_LANGS = ['en', 'cs', 'de', 'fr', 'hr', 'hu', 'pl', 'sk'];
+        let disclaimerLang = null;
+
+        function disclaimerReachedEnd() {
+            const box = document.getElementById('disclaimer-text');
+            return box.scrollTop + box.clientHeight >= box.scrollHeight - 8;
+        }
+
+        function updateDisclaimerGate() {
+            const box = document.getElementById('disclaimer-text');
+            const cb = document.getElementById('disclaimer-accept');
+            const label = document.getElementById('disclaimer-accept-label');
+            const loaded = box.dataset.loaded === '1';
+            if (loaded && disclaimerReachedEnd()) {
+                cb.disabled = false;
+                label.classList.remove('disabled');
+                document.getElementById('disclaimer-scroll-hint').style.display = 'none';
+            }
+            const accepted = cb.checked && !cb.disabled;
+            document.getElementById('install-button-wrap').hidden = !accepted;
+            document.getElementById('install-locked').style.display = accepted ? 'none' : '';
+        }
+
+        function loadDisclaimer(lang) {
+            const fileLang = DISCLAIMER_LANGS.includes(lang) ? lang : 'en';
+            if (lang === disclaimerLang) return;
+            disclaimerLang = lang;
+            const box = document.getElementById('disclaimer-text');
+            fetch('legal/disclaimer-' + fileLang + '.html', { cache: 'no-cache' })
+                .then((r) => {
+                    if (!r.ok) throw new Error('disclaimer ' + r.status);
+                    return r.text();
+                })
+                .then((html) => {
+                    if (disclaimerLang !== lang) return; // a newer language won
+                    // Same-origin file from this repo's own legal/ folder (trusted).
+                    const fallback = fileLang !== lang
+                        ? '<p><em>' + I18N[lang].disclaimerFallback + '</em></p>' : '';
+                    box.innerHTML = fallback + html;
+                    box.dataset.loaded = '1';
+                    updateDisclaimerGate();
+                })
+                .catch(() => {
+                    box.dataset.loaded = '0';
+                    box.innerHTML = '<p style="color:#b91c1c;">' + I18N[lang].disclaimerLoadFailed + '</p>';
+                    disclaimerLang = null;
+                    updateDisclaimerGate();
+                });
+        }
+
+        document.getElementById('disclaimer-text').addEventListener('scroll', updateDisclaimerGate);
+        document.getElementById('disclaimer-accept').addEventListener('change', updateDisclaimerGate);
+        window.addEventListener('resize', updateDisclaimerGate);
+
         function applyLang(lang) {
             const dict = I18N[lang];
             document.documentElement.lang = lang;
@@ -348,6 +504,7 @@
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
             localStorage.setItem('flasher-lang', lang);
+            loadDisclaimer(lang);
         }
 
         const switchEl = document.getElementById('lang-switch');

@@ -8,12 +8,13 @@ Somfy SA, or any other company of the Somfy group ("Somfy"). The Software is not
 product. It is not manufactured, warranted, distributed, or supported by Somfy, and installing or
 using it does not create any contractual relationship with Somfy.</p>
 
-<p><strong>2. Hardware.</strong> The Software is intended to run on the EQSP32-CE industrial
-controller manufactured and sold by <strong>Erqos Technologies</strong> ("Erqos"). Neither the
+<p><strong>2. Hardware.</strong> The Software is intended to run on EQSP32 industrial
+controllers (for example the EQSP32-CE) manufactured and sold by <strong>Erqos Technologies</strong>
+("Erqos"), and it uses the software library supplied by Erqos to access this hardware. Neither the
 developer nor Somfy manufactures, sells, warrants, or bears any responsibility whatsoever for this
-hardware. Any defect, malfunction, or non-conformity of the EQSP32-CE hardware is the sole
-responsibility of Erqos Technologies and is governed exclusively by Erqos's own sale and warranty
-terms.</p>
+hardware or that library. Any defect, malfunction, or non-conformity of the EQSP32 hardware is the
+sole responsibility of Erqos Technologies and is governed exclusively by Erqos's own sale and
+warranty terms.</p>
 
 <p><strong>3. No warranty.</strong> THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT
 WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF
@@ -22,16 +23,46 @@ developer nor Somfy represents that the Software is free of errors, that it will
 uninterrupted, or that it is suitable for any particular installation.</p>
 
 <p><strong>4. Nature of the controlled equipment &mdash; safety.</strong> The Software controls
-electrically powered motorized blinds, shutters, awnings, and related motor controllers over the
-Somfy IB+ bus. Incorrect installation, wiring, configuration, or use of this equipment can result
-in property damage, mechanical failure, entrapment, electric shock, fire, or personal injury,
-including serious injury or death. Installation and configuration must only be carried out by a
-person technically competent to do so, in compliance with all applicable electrical, building, and
-machinery-safety regulations and standards in the country of installation, and with the end
-product manufacturer's own installation instructions. Every installation must be functionally
-tested before being handed over for productive use.</p>
+electrically powered motorized blinds, shutters, awnings, windows, and related motor controllers:
+over the Somfy IB+ bus, over the Somfy SDN (RS485) bus, and through Somfy TaHoma boxes, which pass
+commands on to radio-controlled (io-homecontrol, RTS) products. It can also be commanded by building
+management systems through its BACnet, KNX, Modbus, and Home Assistant interfaces, and its automatic
+functions (for example wind, sun, timer, or alarm functions) move the controlled products without
+anyone operating them at that moment. Incorrect installation, wiring, configuration, or use of this
+equipment can result in property damage, mechanical failure, entrapment, electric shock, fire, or
+personal injury, including serious injury or death. Installation and configuration must only be
+carried out by a person technically competent to do so, in compliance with all applicable
+electrical, building, and machinery-safety regulations and standards in the country of
+installation, and with the end product manufacturer's own installation instructions. Every
+installation, including every automatic function and every connected external system, must be
+functionally tested before being handed over for productive use.</p>
 
-<p><strong>5. Limitation of liability.</strong> TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW,
+<p><strong>5. Automatic and protective functions.</strong> The protective functions of the
+Software (for example wind, rain, frost, or alarm protection and the error function) depend on
+correctly installed and working sensors, wiring, power supply, configuration and, where used,
+network connections and external services. They are not certified safety devices and may fail,
+react late, or not react at all, for example after a sensor, network, or power failure. Where the
+protection of persons or property requires it, the installer must provide adequate independent
+protection, such as the end products' own protective functions or certified sensors and
+controls.</p>
+
+<p><strong>6. Third-party systems and services.</strong> Some functions depend on systems and
+services operated by third parties, including Somfy TaHoma boxes and the Somfy cloud service,
+internet weather forecasts, time servers, and the update server. Somfy no longer officially
+supports the TaHoma cloud interface that the Software can use; it may change or stop working at any
+time. Neither the developer nor Somfy guarantees the availability, correctness, or continued
+existence of any such system or service, and neither is responsible for the consequences of its
+failure, change, or withdrawal.</p>
+
+<p><strong>7. Security of the installation.</strong> The web interface of the device is served
+over unencrypted HTTP within the local network, and the device stores access credentials entered by
+its users (for example for Somfy accounts, Wi-Fi networks, and e-mail accounts). The operator is
+responsible for securing the network the device is connected to, for setting a password on the
+device's Wi-Fi access point, for enabling user management where required, and for not exposing the
+device directly to the internet (remote access only through a secured connection such as a
+VPN).</p>
+
+<p><strong>8. Limitation of liability.</strong> TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW,
 THE DEVELOPER ("globus2008") AND SOMFY SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES OF ANY KIND &mdash; INCLUDING BUT NOT LIMITED TO
 PROPERTY DAMAGE, PERSONAL INJURY, LOSS OF DATA, LOSS OF PROFIT, OR BUSINESS INTERRUPTION &mdash;
@@ -44,7 +75,7 @@ cannot lawfully be excluded under applicable law (such as liability for death or
 caused by gross negligence or intentional misconduct, where such an exclusion is not legally
 permitted).</p>
 
-<p><strong>6. Responsibility for configuration.</strong> Every person who installs, configures, or
+<p><strong>9. Responsibility for configuration.</strong> Every person who installs, configures, or
 operates the Software &mdash; regardless of their employer or professional affiliation, including
 any employee, contractor, or representative of Somfy or any Somfy group company &mdash; does so in
 their own individual professional capacity as an installer/operator of the equipment, at their own
@@ -52,12 +83,16 @@ risk and responsibility. Configuring or commissioning an installation using this
 not, by itself, constitute the provision of an official Somfy product or service, and does not
 extend any warranty, guarantee, or corporate liability of Somfy to the resulting installation.</p>
 
-<p><strong>7. Acceptance required.</strong> By checking the box below and clicking "I Accept and
-Continue", you confirm that you have read, understood, and agree to be bound by this disclaimer,
-that you are authorized to accept it on your own behalf and/or on behalf of your employer, and
-that you understand the Software must not be used to configure or operate this installation until
-you have done so. If you do not agree, close this page now and do not use the Software.</p>
+<p><strong>10. Acceptance required.</strong> You must accept this disclaimer before you
+download or install the Software and before you configure or operate an installation with it. You
+accept it on the firmware installer page by ticking the confirmation box, which enables the
+installation, and in the device's web interface by ticking the confirmation box and clicking "I
+Accept and Continue". By doing so you confirm that you have read, understood, and agree to be bound
+by this disclaimer, and that you are authorized to accept it on your own behalf and/or on behalf of
+your employer. If you do not agree, close the page and do not download, install, or use the
+Software.</p>
 
-<p><strong>8. Updates to this disclaimer.</strong> This disclaimer may be revised in future
-versions of the Software. You may be asked to re-confirm your acceptance after such a
-revision.</p>
+<p><strong>11. Updates to this disclaimer.</strong> This disclaimer may be revised. The version
+shown on the firmware installer page at the time of a download or installation applies to that
+download or installation, and after a revision included in a firmware update the device's web
+interface asks for acceptance again.</p>

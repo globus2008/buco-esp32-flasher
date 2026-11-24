@@ -1,19 +1,19 @@
 {
   "entries": [
     {
-      "version": "1.0.295",
-      "date": "2026-11-22",
+      "version": "1.0.305",
+      "date": "2026-11-24",
       "notes": [
-        "fix: merge_dev_to_main.py merges origin/main instead of pulling",
-        "fix: make_factory_image.py never falls back to the global pio",
-        "feat: building wind Phase 4 - Sun in Tahoma mode; Control Type texts updated",
-        "feat: building wind Phase 3 - My apartment page, owner wind/sun switch",
-        "feat: building wind Phase 2 - Wind/Error automation in Tahoma mode",
-        "feat: link users to Somfy accounts, account form carousel, boot auto-restore",
-        "feat: Ethernet health watch - event log, gateway ping, recovery",
-        "fix: Email Notification menu item available in every control type",
-        "feat: owner registration fills an empty TaHoma account 1",
-        "feat: apartment owner registration on User Management"
+        "docs: flasher page subtitle and README intro describe what the firmware does today",
+        "fix: flasher page and README no longer point to the removed port-8000 OTA panel",
+        "feat: disclaimer gate on the flasher page, disclaimer text revised in 8 languages",
+        "fix: lean TaHoma device-list reader - discovery no longer drains the heap",
+        "feat: calibrate usage cost model, measure TLS session heap in building mode",
+        "feat: rename TaHoma account 1, Resources data check script",
+        "feat: check every motor by default after entering a MoCo ID",
+        "feat: warn that the TaHoma cloud API is no longer officially supported",
+        "docs: ERQOS answer on the output watchdog during flash writes",
+        "fix: OTA update check - name DNS/TLS failures, retry once, avoid busy moments"
       ]
     }
   ]

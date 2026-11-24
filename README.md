@@ -1,9 +1,12 @@
 # BUCO ESP32 — Firmware Installer
 
-IB+ Bus Gateway firmware for the **ERQOS EQSP32-CE** industrial controller. The gateway is
-compatible with Somfy motor controllers (blinds, shutters, awnings), driving them over the RS485
-IB+ bus, and provides a built-in web interface for configuration and control — no app, no cloud.
-This is an independent product, not affiliated with or endorsed by Somfy.
+Gateway firmware for the **ERQOS EQSP32** industrial controller (for example the EQSP32-CE). It
+controls Somfy blinds, shutters, awnings and windows over the IB+ bus, over the SDN (RS485) bus,
+or through Somfy TaHoma boxes (io-homecontrol, RTS), and connects them to building management
+systems over BACnet, KNX, Modbus and Home Assistant. Configuration and control run in a web
+interface built into the device — no app is needed; the internet or a cloud service is used only
+by optional functions (for example TaHoma cloud accounts or the weather forecast). This is an
+independent product, not affiliated with or endorsed by Somfy.
 
 ## Install the firmware (browser, no tools needed)
 
@@ -18,9 +21,12 @@ If no serial port appears, install the USB driver:
 [CP210x](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers) or
 [CH340](https://www.wch-ic.com/downloads/CH341SER_ZIP.html).
 
-**Note:** installing erases all data on the device, including any previous configuration. If you
-want to keep it, back it up first in the device's web interface under Settings → Options →
-Load/Save → Copy to computer, then restore it after the update with Copy from computer.
+The installer page asks you to accept the disclaimer before the installation is enabled.
+
+**Note:** installing replaces the device's current configuration. Load/Save backups and stored
+credentials (user accounts, Wi-Fi, e-mail, TaHoma) stay on the device: after the update, restore
+the configuration with Settings → Options → Load/Save → Load. To keep a copy off the device as
+well, use Copy to computer first.
 
 ## After installation
 
@@ -29,183 +35,214 @@ connect the device to your LAN via Ethernet and open `http://buco-esp32.local`.
 
 ## Updates
 
-Later firmware updates don't need USB: open the device's maintenance panel at
-`http://<device-ip>:8000` and upload the `*-ota.bin` file from this repository (default
-password `admin` — we recommend changing it with the [EQConnect](https://erqos.com/eqconnect/)
-app).
+Later firmware versions are installed the same way, over USB from the installer page — this
+updates the firmware and the web interface together. The device shows whether a newer version
+exists under Settings → Options → System Settings → Update Firmware.
 
 ## Hardware
 
-The EQSP32-CE controller is available directly from [erqos.com](https://erqos.com/product/eqsp32ce/).
+The EQSP32 controller (for example the EQSP32-CE) is available directly from
+[erqos.com](https://erqos.com/product/eqsp32ce/).
 
 ---
 
 <details>
 <summary><strong>🇨🇿 Čeština</strong></summary>
 
-Firmware brány sběrnice IB+ pro průmyslový kontrolér **ERQOS EQSP32-CE**. Brána je kompatibilní
-s motor controllery Somfy (žaluzie, rolety, markýzy), které ovládá po sběrnici RS485 IB+, a má
-vestavěné webové rozhraní — bez aplikace, bez cloudu. Jde o nezávislý produkt, který není
-oficiálním výrobkem společnosti Somfy.
+Firmware brány pro průmyslový kontrolér **ERQOS EQSP32** (například EQSP32-CE). Ovládá žaluzie,
+rolety, markýzy a okna Somfy po sběrnici IB+, po sběrnici SDN (RS485) nebo přes centrální jednotky
+Somfy TaHoma (io-homecontrol, RTS) a propojuje je se systémy řízení budov přes BACnet, KNX, Modbus
+a Home Assistant. Nastavení i ovládání probíhá ve webovém rozhraní přímo v zařízení — není potřeba
+žádná aplikace; internet nebo cloudovou službu využívají jen volitelné funkce (například cloudové
+účty TaHoma nebo předpověď počasí). Jde o nezávislý produkt, který není oficiálním výrobkem
+společnosti Somfy.
 
 **Instalace:** otevřete <https://globus2008.github.io/buco-esp32-flasher/> v prohlížeči Chrome
 nebo Edge, připojte EQSP32 přes USB, klikněte na **Install** a vyberte sériový port. Instalace
-trvá ~2 minuty a smaže veškerá data v zařízení. Pokud si je chcete zachovat, nejprve je zálohujte
-ve webovém rozhraní zařízení přes Settings → Options → Load/Save → Copy to computer a po
-aktualizaci je obnovte pomocí Copy from computer. Pokud se port nezobrazí, nainstalujte ovladač
-CP210x nebo CH340 (odkazy výše).
+trvá ~2 minuty; stránka nejprve vyžaduje souhlas s prohlášením o vyloučení odpovědnosti.
+Instalace nahradí současnou konfiguraci, zálohy Load/Save a uložené přihlašovací údaje ale
+v zařízení zůstanou: po aktualizaci konfiguraci obnovte přes Settings → Options → Load/Save → Load
+(kopii mimo zařízení si můžete předem uložit přes Copy to computer). Pokud se port nezobrazí,
+nainstalujte ovladač CP210x nebo CH340 (odkazy výše).
 
 **Po instalaci:** zařízení vytvoří vlastní Wi-Fi síť — připojte se a otevřete
 `http://192.168.4.1`, nebo přes Ethernet otevřete `http://buco-esp32.local`.
 
-**Aktualizace:** další aktualizace už USB nevyžadují — nahrajte soubor `*-ota.bin` přes servisní
-panel na `http://<ip-zařízení>:8000` (výchozí heslo `admin`, doporučujeme změnit v aplikaci
-EQConnect).
+**Aktualizace:** další verze se instalují stejně, přes USB ze stránky instalátoru — aktualizuje se
+tím firmware i webové rozhraní. Zda existuje novější verze, zobrazí zařízení v Settings → Options →
+System Settings → Update Firmware.
 
 </details>
 
 <details>
 <summary><strong>🇩🇪 Deutsch</strong></summary>
 
-IB+-Bus-Gateway-Firmware für den Industriecontroller **ERQOS EQSP32-CE**. Das Gateway ist mit
-Somfy-Motorsteuerungen (Jalousien, Rollläden, Markisen) kompatibel und steuert sie über den
-RS485-IB+-Bus; es bietet eine integrierte Weboberfläche — ohne App, ohne Cloud. Dies ist ein
+Gateway-Firmware für den Industriecontroller **ERQOS EQSP32** (zum Beispiel EQSP32-CE). Sie
+steuert Somfy-Jalousien, -Rollläden, -Markisen und -Fenster über den IB+-Bus, über den SDN-Bus
+(RS485) oder über Somfy-TaHoma-Boxen (io-homecontrol, RTS) und verbindet sie über BACnet, KNX,
+Modbus und Home Assistant mit Gebäudeleitsystemen. Konfiguration und Bedienung erfolgen in einer im
+Gerät integrierten Weboberfläche — eine App ist nicht nötig; Internet oder Cloud-Dienste nutzen nur
+optionale Funktionen (zum Beispiel TaHoma-Cloud-Konten oder die Wettervorhersage). Dies ist ein
 unabhängiges Produkt und kein offizielles Somfy-Produkt.
 
 **Installation:** Öffnen Sie <https://globus2008.github.io/buco-esp32-flasher/> in Chrome oder
 Edge, verbinden Sie den EQSP32 per USB, klicken Sie auf **Install** und wählen Sie den seriellen
-Port. Die Installation dauert ~2 Minuten und löscht alle Daten auf dem Gerät. Wenn Sie diese
-behalten möchten, sichern Sie sie zuerst in der Weboberfläche des Geräts unter Settings →
-Options → Load/Save → Copy to computer und stellen Sie sie nach dem Update mit Copy from
-computer wieder her. Erscheint kein Port, installieren Sie den CP210x- oder CH340-Treiber (Links
-oben).
+Port. Die Installation dauert ~2 Minuten; die Seite verlangt vorher die Zustimmung zum
+Haftungsausschluss. Die Installation ersetzt die aktuelle Konfiguration, Load/Save-Sicherungen und
+gespeicherte Zugangsdaten bleiben jedoch auf dem Gerät: Stellen Sie die Konfiguration nach dem
+Update über Settings → Options → Load/Save → Load wieder her (eine Kopie außerhalb des Geräts
+können Sie vorher mit Copy to computer speichern). Erscheint kein Port, installieren Sie den
+CP210x- oder CH340-Treiber (Links oben).
 
 **Nach der Installation:** Das Gerät startet einen eigenen WLAN-Zugangspunkt — verbinden Sie
 sich und öffnen Sie `http://192.168.4.1`, oder per Ethernet `http://buco-esp32.local`.
 
-**Updates:** Spätere Updates benötigen kein USB — laden Sie die Datei `*-ota.bin` über das
-Wartungspanel unter `http://<geräte-ip>:8000` hoch (Standardpasswort `admin`, Änderung per
-EQConnect-App empfohlen).
+**Updates:** Spätere Versionen werden genauso installiert, per USB über die Installationsseite —
+dabei werden Firmware und Weboberfläche gemeinsam aktualisiert. Ob eine neuere Version existiert,
+zeigt das Gerät unter Settings → Options → System Settings → Update Firmware.
 
 </details>
 
 <details>
 <summary><strong>🇫🇷 Français</strong></summary>
 
-Micrologiciel de passerelle bus IB+ pour le contrôleur industriel **ERQOS EQSP32-CE**. La
-passerelle est compatible avec les contrôleurs de moteurs Somfy (stores, volets, bannes) qu'elle
-pilote via le bus RS485 IB+, et offre une interface web intégrée — sans application, sans cloud.
-Il s'agit d'un produit indépendant, non affilié à Somfy.
+Firmware de passerelle pour le contrôleur industriel **ERQOS EQSP32** (par exemple l'EQSP32-CE).
+Il commande les stores, volets, stores bannes et fenêtres Somfy via le bus IB+, via le bus SDN
+(RS485) ou via des boîtiers Somfy TaHoma (io-homecontrol, RTS), et les relie aux systèmes de
+gestion technique du bâtiment via BACnet, KNX, Modbus et Home Assistant. La configuration et la
+commande se font dans une interface web intégrée à l'appareil — aucune application n'est
+nécessaire ; Internet ou un service cloud ne sont utilisés que par des fonctions optionnelles (par
+exemple les comptes cloud TaHoma ou les prévisions météo). Il s'agit d'un produit indépendant, non
+affilié à Somfy.
 
 **Installation :** ouvrez <https://globus2008.github.io/buco-esp32-flasher/> dans Chrome ou
 Edge, connectez l'EQSP32 en USB, cliquez sur **Install** et sélectionnez le port série.
-L'installation dure ~2 minutes et efface toutes les données de l'appareil. Pour les conserver,
-sauvegardez-les d'abord dans l'interface web de l'appareil via Settings → Options → Load/Save →
-Copy to computer, puis restaurez-les après la mise à jour avec Copy from computer. Si aucun port
-n'apparaît, installez le pilote CP210x ou CH340 (liens ci-dessus).
+L'installation dure ~2 minutes ; la page demande d'abord d'accepter la clause de
+non-responsabilité. L'installation remplace la configuration actuelle, mais les sauvegardes
+Load/Save et les identifiants enregistrés restent dans l'appareil : après la mise à jour,
+restaurez la configuration via Settings → Options → Load/Save → Load (une copie hors de l'appareil
+peut être enregistrée au préalable avec Copy to computer). Si aucun port n'apparaît, installez le
+pilote CP210x ou CH340 (liens ci-dessus).
 
 **Après l'installation :** l'appareil crée son propre point d'accès Wi-Fi — connectez-vous et
 ouvrez `http://192.168.4.1`, ou via Ethernet `http://buco-esp32.local`.
 
-**Mises à jour :** les mises à jour ultérieures ne nécessitent plus d'USB — téléversez le
-fichier `*-ota.bin` via le panneau de maintenance sur `http://<ip-appareil>:8000` (mot de passe
-par défaut `admin`, changement recommandé via l'application EQConnect).
+**Mises à jour :** les versions ultérieures s'installent de la même manière, en USB depuis la
+page d'installation — le firmware et l'interface web sont mis à jour ensemble. L'appareil indique
+si une version plus récente existe sous Settings → Options → System Settings → Update Firmware.
 
 </details>
 
 <details>
 <summary><strong>🇭🇷 Hrvatski</strong></summary>
 
-Firmware IB+ sabirničkog pristupnika za industrijski kontroler **ERQOS EQSP32-CE**. Pristupnik
-je kompatibilan sa Somfy motornim kontrolerima (žaluzine, rolete, tende) kojima upravlja preko
-RS485 IB+ sabirnice i ima ugrađeno web sučelje — bez aplikacije, bez oblaka. Ovo je neovisan
+Firmware pristupnika za industrijski kontroler **ERQOS EQSP32** (na primjer EQSP32-CE). Upravlja
+Somfy žaluzinama, roletama, tendama i prozorima preko IB+ sabirnice, preko SDN sabirnice (RS485)
+ili preko Somfy TaHoma uređaja (io-homecontrol, RTS) te ih povezuje sa sustavima za upravljanje
+zgradama preko BACnet, KNX, Modbus i Home Assistant. Konfiguracija i upravljanje odvijaju se u web
+sučelju ugrađenom u uređaj — aplikacija nije potrebna; internet ili uslugu u oblaku koriste samo
+opcionalne funkcije (na primjer TaHoma računi u oblaku ili vremenska prognoza). Ovo je neovisan
 proizvod i nije službeni Somfy proizvod.
 
 **Instalacija:** otvorite <https://globus2008.github.io/buco-esp32-flasher/> u Chromeu ili
 Edgeu, spojite EQSP32 USB kabelom, kliknite **Install** i odaberite serijski port. Instalacija
-traje ~2 minute i briše sve podatke na uređaju. Ako ih želite zadržati, prvo ih izradite u
-web sučelju uređaja putem Settings → Options → Load/Save → Copy to computer, a nakon ažuriranja
-ih vratite pomoću Copy from computer. Ako se port ne pojavi, instalirajte CP210x ili CH340
-upravljački program (poveznice iznad).
+traje ~2 minute; stranica prije toga traži prihvaćanje izjave o odricanju od odgovornosti.
+Instalacija zamjenjuje trenutnu konfiguraciju, ali sigurnosne kopije Load/Save i spremljeni
+pristupni podaci ostaju na uređaju: nakon ažuriranja vratite konfiguraciju putem Settings →
+Options → Load/Save → Load (kopiju izvan uređaja možete prethodno spremiti pomoću Copy to
+computer). Ako se port ne pojavi, instalirajte CP210x ili CH340 upravljački program (poveznice
+iznad).
 
 **Nakon instalacije:** uređaj pokreće vlastitu Wi-Fi pristupnu točku — spojite se i otvorite
 `http://192.168.4.1`, ili preko Etherneta `http://buco-esp32.local`.
 
-**Ažuriranja:** kasnija ažuriranja ne zahtijevaju USB — prenesite datoteku `*-ota.bin` preko
-servisnog panela na `http://<ip-uređaja>:8000` (zadana lozinka `admin`, preporučujemo promjenu
-putem aplikacije EQConnect).
+**Ažuriranja:** kasnije verzije instaliraju se na isti način, preko USB-a sa stranice za
+instalaciju — time se zajedno ažuriraju firmware i web sučelje. Postoji li novija verzija, uređaj
+prikazuje u Settings → Options → System Settings → Update Firmware.
 
 </details>
 
 <details>
 <summary><strong>🇭🇺 Magyar</strong></summary>
 
-IB+ buszátjáró firmware az **ERQOS EQSP32-CE** ipari vezérlőhöz. Az átjáró kompatibilis a Somfy
-motorvezérlőkkel (zsaluk, redőnyök, napellenzők), amelyeket RS485 IB+ buszon vezérel, és
-beépített webes felülettel rendelkezik — alkalmazás és felhő nélkül. Ez független termék, nem
-hivatalos Somfy termék.
+Átjáró firmware az **ERQOS EQSP32** ipari vezérlőhöz (például az EQSP32-CE-hez). Somfy
+redőnyöket, rolókat, napellenzőket és ablakokat vezérel az IB+ buszon, az SDN (RS485) buszon vagy
+Somfy TaHoma központi egységeken keresztül (io-homecontrol, RTS), és BACnet, KNX, Modbus és Home
+Assistant útján épületfelügyeleti rendszerekhez kapcsolja őket. A beállítás és a vezérlés az
+eszközbe épített webes felületen történik — alkalmazás nem szükséges; internetet vagy
+felhőszolgáltatást csak az opcionális funkciók használnak (például TaHoma felhőfiókok vagy az
+időjárás-előrejelzés). Ez független termék, nem hivatalos Somfy termék.
 
 **Telepítés:** nyissa meg a <https://globus2008.github.io/buco-esp32-flasher/> oldalt Chrome-ban
 vagy Edge-ben, csatlakoztassa az EQSP32-t USB-kábellel, kattintson az **Install** gombra, és
-válassza ki a soros portot. A telepítés kb. 2 percig tart, és az eszköz összes adatát törli. Ha
-meg szeretné tartani őket, előbb mentse el az eszköz webes felületén a Beállítások → Opciók →
-Betöltés/Mentés → Másolás a számítógépre funkcióval, majd a frissítés után állítsa vissza a
-Másolás a számítógépről funkcióval. Ha a port nem jelenik meg, telepítse a CP210x vagy CH340
-illesztőprogramot (hivatkozások fent).
+válassza ki a soros portot. A telepítés kb. 2 percig tart; az oldal előtte a felelősségkizáró
+nyilatkozat elfogadását kéri. A telepítés lecseréli az aktuális konfigurációt, a Load/Save mentések
+és a tárolt hozzáférési adatok azonban az eszközön maradnak: a frissítés után állítsa vissza a
+konfigurációt a Settings → Options → Load/Save → Load funkcióval (az eszközön kívüli másolatot
+előtte a Copy to computer funkcióval mentheti). Ha a port nem jelenik meg, telepítse a CP210x vagy
+CH340 illesztőprogramot (hivatkozások fent).
 
 **Telepítés után:** az eszköz saját Wi-Fi hozzáférési pontot indít — csatlakozzon, és nyissa meg
 a `http://192.168.4.1` címet, vagy Etherneten a `http://buco-esp32.local` címet.
 
-**Frissítések:** a későbbi frissítésekhez nem kell USB — töltse fel a `*-ota.bin` fájlt a
-`http://<eszköz-ip>:8000` címen elérhető karbantartási panelen (alapértelmezett jelszó `admin`,
-javasoljuk a módosítását az EQConnect alkalmazással).
+**Frissítések:** a későbbi verziók ugyanígy, USB-n keresztül a telepítő oldalról telepíthetők —
+ez a firmware-t és a webes felületet együtt frissíti. Hogy van-e újabb verzió, azt az eszköz a
+Settings → Options → System Settings → Update Firmware menüben mutatja.
 
 </details>
 
 <details>
 <summary><strong>🇵🇱 Polski</strong></summary>
 
-Oprogramowanie bramy magistrali IB+ dla przemysłowego sterownika **ERQOS EQSP32-CE**. Brama
-jest kompatybilna ze sterownikami silników Somfy (żaluzje, rolety, markizy), którymi steruje
-przez magistralę RS485 IB+, i ma wbudowany interfejs webowy — bez aplikacji, bez chmury. Jest to
-produkt niezależny, nie jest to oficjalny produkt firmy Somfy.
+Oprogramowanie bramy dla przemysłowego sterownika **ERQOS EQSP32** (na przykład EQSP32-CE).
+Steruje żaluzjami, roletami, markizami i oknami Somfy przez magistralę IB+, magistralę SDN (RS485)
+lub przez centrale Somfy TaHoma (io-homecontrol, RTS) i łączy je z systemami zarządzania budynkiem
+przez BACnet, KNX, Modbus i Home Assistant. Konfiguracja i sterowanie odbywają się w interfejsie
+webowym wbudowanym w urządzenie — aplikacja nie jest potrzebna; z internetu lub usługi chmurowej
+korzystają tylko funkcje opcjonalne (na przykład konta chmurowe TaHoma lub prognoza pogody). Jest
+to produkt niezależny, nie jest to oficjalny produkt firmy Somfy.
 
 **Instalacja:** otwórz <https://globus2008.github.io/buco-esp32-flasher/> w Chrome lub Edge,
 podłącz EQSP32 przez USB, kliknij **Install** i wybierz port szeregowy. Instalacja trwa ~2
-minuty i usuwa wszystkie dane z urządzenia. Aby je zachować, wykonaj najpierw ich kopię zapasową
-w interfejsie webowym urządzenia przez Settings → Options → Load/Save → Copy to computer, a po
-aktualizacji przywróć je za pomocą Copy from computer. Jeśli port się nie pojawi, zainstaluj
-sterownik CP210x lub CH340 (linki powyżej).
+minuty; strona najpierw wymaga akceptacji oświadczenia o wyłączeniu odpowiedzialności. Instalacja
+zastępuje bieżącą konfigurację, ale kopie zapasowe Load/Save i zapisane dane dostępowe pozostają
+w urządzeniu: po aktualizacji przywróć konfigurację przez Settings → Options → Load/Save → Load
+(kopię poza urządzeniem możesz wcześniej zapisać za pomocą Copy to computer). Jeśli port się nie
+pojawi, zainstaluj sterownik CP210x lub CH340 (linki powyżej).
 
 **Po instalacji:** urządzenie uruchamia własny punkt dostępowy Wi-Fi — połącz się i otwórz
 `http://192.168.4.1`, lub przez Ethernet `http://buco-esp32.local`.
 
-**Aktualizacje:** kolejne aktualizacje nie wymagają USB — wgraj plik `*-ota.bin` przez panel
-serwisowy pod adresem `http://<ip-urządzenia>:8000` (domyślne hasło `admin`, zalecamy zmianę w
-aplikacji EQConnect).
+**Aktualizacje:** kolejne wersje instaluje się tak samo, przez USB ze strony instalatora — to
+aktualizuje jednocześnie oprogramowanie i interfejs webowy. Czy dostępna jest nowsza wersja,
+urządzenie pokazuje w Settings → Options → System Settings → Update Firmware.
 
 </details>
 
 <details>
 <summary><strong>🇸🇰 Slovenčina</strong></summary>
 
-Firmvér brány zbernice IB+ pre priemyselný riadiaci systém **ERQOS EQSP32-CE**. Brána je
-kompatibilná s motorovými ovládačmi Somfy (žalúzie, rolety, markízy), ktoré ovláda cez zbernicu
-RS485 IB+, a má vstavané webové rozhranie — bez aplikácie, bez cloudu. Ide o nezávislý produkt,
-nie oficiálny produkt Somfy.
+Firmvér brány pre priemyselný riadiaci systém **ERQOS EQSP32** (napríklad EQSP32-CE). Ovláda
+žalúzie, rolety, markízy a okná Somfy cez zbernicu IB+, cez zbernicu SDN (RS485) alebo cez
+centrálne jednotky Somfy TaHoma (io-homecontrol, RTS) a prepája ich so systémami riadenia budov
+cez BACnet, KNX, Modbus a Home Assistant. Nastavenie aj ovládanie prebieha vo webovom rozhraní
+priamo v zariadení — nie je potrebná žiadna aplikácia; internet alebo cloudovú službu využívajú len
+voliteľné funkcie (napríklad cloudové účty TaHoma alebo predpoveď počasia). Ide o nezávislý
+produkt, nie oficiálny produkt Somfy.
 
 **Inštalácia:** otvorte <https://globus2008.github.io/buco-esp32-flasher/> v Chrome alebo Edge,
 pripojte EQSP32 USB káblom, kliknite na **Install** a vyberte sériový port. Inštalácia trvá
-~2 minúty a vymaže všetky údaje v zariadení. Ak ich chcete zachovať, najprv ich vo webovom
-rozhraní zariadenia uložte cez Nastavenia → Možnosti → Načítať/Uložiť → Kopírovať do počítača a
-po aktualizácii ich obnovte pomocou Kopírovať z počítača. Ak sa port nezobrazí, nainštalujte
+~2 minúty; stránka najprv vyžaduje súhlas s vyhlásením o vylúčení zodpovednosti. Inštalácia
+nahradí súčasnú konfiguráciu, zálohy Load/Save a uložené prihlasovacie údaje však v zariadení
+zostanú: po aktualizácii konfiguráciu obnovte cez Settings → Options → Load/Save → Load (kópiu
+mimo zariadenia si môžete vopred uložiť cez Copy to computer). Ak sa port nezobrazí, nainštalujte
 ovládač CP210x alebo CH340 (odkazy vyššie).
 
 **Po inštalácii:** zariadenie spustí vlastný prístupový bod Wi-Fi — pripojte sa a otvorte
 `http://192.168.4.1`, alebo cez Ethernet `http://buco-esp32.local`.
 
-**Aktualizácie:** ďalšie aktualizácie nevyžadujú USB — nahrajte súbor `*-ota.bin` cez servisný
-panel na `http://<ip-zariadenia>:8000` (predvolené heslo `admin`, odporúčame ho zmeniť
-aplikáciou EQConnect).
+**Aktualizácie:** ďalšie verzie sa inštalujú rovnako, cez USB zo stránky inštalátora —
+aktualizuje sa tým firmvér aj webové rozhranie. Či existuje novšia verzia, zobrazí zariadenie
+v Settings → Options → System Settings → Update Firmware.
 
 </details>
