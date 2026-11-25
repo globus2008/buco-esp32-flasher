@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "1.0.308",
+      "date": "2026-11-25",
+      "notes": [
+        {
+          "summary": "fix: MoCo drops the telegram after Unlock; Change MoCo ID port choice; flasher no longer erases backups",
+          "body": "- Update Motor Controllers: one Unlock broadcast before the first zone instead\n  of one per zone, and the first telegram after it is sent twice\n  (repeatTelegramAfterUnlock(), also in the MoCo ID bulk Update). Hardware\n  2026-11-25: a MoCo drops the first telegram after 09 49 00, so the run time\n  (0D 10) was never stored and the position readback always said 0 %.\n- Change MoCo ID: only new ID + confirmation + a temporary choice of\n  terminals (TxD/RxD or CAN H/CAN L). The firmware opens that port at\n  38400 8E1 for the job: MoCo RS485 as is, IB+ rebauded and back, a free port\n  temporarily, a sensors / Modbus RTU port borrowed (task parked, UART\n  re-opened afterwards). Reason shown on the page; the new ID is checked\n  against the MoCo ID list incl. motor sub-addresses. Old-ID field, lock\n  sequence and the IB+ experiment removed.\n- Position readback: the Home tile sends the mapping it shows, so a read works\n  before the MoCo ID list is saved; plan skips 4-motor records without zones;\n  diagnostics and user-visible alerts; numeric-string tolerant parsing;\n  saveMocoIdsConfigToServer() no longer drops edits made during an in-flight\n  save.\n- Flasher: new_install_prompt_erase true (with false, ESP Web Tools always\n  erased the whole flash incl. the keep partition); page/README say to leave\n  \"Erase device\" unticked and that the install takes ~5 minutes.\n- Load/Save: Copy to computer / Touch BuCo export explain a missing or\n  unselected backup instead of a greyed-out button.\n- Test Bus Wires (page and DIO switch): Cancel Priority (08 07) before the\n  first LEDs-ON telegram."
+        }
+      ]
+    },
+    {
       "version": "1.0.307",
       "date": "2026-11-24",
       "notes": [

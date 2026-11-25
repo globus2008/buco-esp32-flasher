@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "1.0.308",
+      "date": "2026-11-25",
+      "notes": [
+        "fix: MoCo drops the telegram after Unlock; Change MoCo ID port choice; flasher no longer erases backups"
+      ]
+    },
+    {
       "version": "1.0.307",
       "date": "2026-11-24",
       "notes": [
@@ -18,8 +25,7 @@
         "fix: lean TaHoma device-list reader - discovery no longer drains the heap",
         "feat: calibrate usage cost model, measure TLS session heap in building mode",
         "feat: rename TaHoma account 1, Resources data check script",
-        "feat: check every motor by default after entering a MoCo ID",
-        "feat: warn that the TaHoma cloud API is no longer officially supported"
+        "feat: check every motor by default after entering a MoCo ID"
       ]
     }
   ]

@@ -15,7 +15,9 @@ independent product, not affiliated with or endorsed by Somfy.
 1. Use **Google Chrome** or **Microsoft Edge** (Firefox/Safari don't support USB flashing).
 2. Connect the EQSP32 to your computer with a **USB cable**.
 3. Click **Install** on the page and select the serial port.
-4. Wait ~2 minutes. Do not disconnect the device.
+4. In the installer window leave **Erase device** unticked and click **Next** — otherwise the
+   Load/Save backups are deleted too.
+5. Wait ~5 minutes (the installer window may say 2 minutes). Do not disconnect the device.
 
 If no serial port appears, install the USB driver:
 [CP210x](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers) or
@@ -59,7 +61,7 @@ společnosti Somfy.
 
 **Instalace:** otevřete <https://globus2008.github.io/buco-esp32-flasher/> v prohlížeči Chrome
 nebo Edge, připojte EQSP32 přes USB, klikněte na **Install** a vyberte sériový port. Instalace
-trvá ~2 minuty; stránka nejprve vyžaduje souhlas s prohlášením o vyloučení odpovědnosti.
+trvá ~5 minut (v okně instalátoru nechte **Erase device** nezaškrtnuté, jinak se smažou i zálohy); stránka nejprve vyžaduje souhlas s prohlášením o vyloučení odpovědnosti.
 Instalace nahradí současnou konfiguraci, zálohy Load/Save a uložené přihlašovací údaje ale
 v zařízení zůstanou: po aktualizaci konfiguraci obnovte přes Settings → Options → Load/Save → Load
 (kopii mimo zařízení si můžete předem uložit přes Copy to computer). Pokud se port nezobrazí,
@@ -87,7 +89,8 @@ unabhängiges Produkt und kein offizielles Somfy-Produkt.
 
 **Installation:** Öffnen Sie <https://globus2008.github.io/buco-esp32-flasher/> in Chrome oder
 Edge, verbinden Sie den EQSP32 per USB, klicken Sie auf **Install** und wählen Sie den seriellen
-Port. Die Installation dauert ~2 Minuten; die Seite verlangt vorher die Zustimmung zum
+Port. Die Installation dauert ~5 Minuten (lassen Sie im Installationsfenster **Erase device**
+deaktiviert, sonst werden auch die Sicherungen gelöscht); die Seite verlangt vorher die Zustimmung zum
 Haftungsausschluss. Die Installation ersetzt die aktuelle Konfiguration, Load/Save-Sicherungen und
 gespeicherte Zugangsdaten bleiben jedoch auf dem Gerät: Stellen Sie die Konfiguration nach dem
 Update über Settings → Options → Load/Save → Load wieder her (eine Kopie außerhalb des Geräts
@@ -117,7 +120,8 @@ affilié à Somfy.
 
 **Installation :** ouvrez <https://globus2008.github.io/buco-esp32-flasher/> dans Chrome ou
 Edge, connectez l'EQSP32 en USB, cliquez sur **Install** et sélectionnez le port série.
-L'installation dure ~2 minutes ; la page demande d'abord d'accepter la clause de
+L'installation dure ~5 minutes (laissez **Erase device** décoché dans la fenêtre de
+l'installateur, sinon les sauvegardes sont aussi effacées) ; la page demande d'abord d'accepter la clause de
 non-responsabilité. L'installation remplace la configuration actuelle, mais les sauvegardes
 Load/Save et les identifiants enregistrés restent dans l'appareil : après la mise à jour,
 restaurez la configuration via Settings → Options → Load/Save → Load (une copie hors de l'appareil
@@ -146,7 +150,8 @@ proizvod i nije službeni Somfy proizvod.
 
 **Instalacija:** otvorite <https://globus2008.github.io/buco-esp32-flasher/> u Chromeu ili
 Edgeu, spojite EQSP32 USB kabelom, kliknite **Install** i odaberite serijski port. Instalacija
-traje ~2 minute; stranica prije toga traži prihvaćanje izjave o odricanju od odgovornosti.
+traje ~5 minuta (u prozoru instalacijskog programa ostavite **Erase device** neoznačeno,
+inače se brišu i sigurnosne kopije); stranica prije toga traži prihvaćanje izjave o odricanju od odgovornosti.
 Instalacija zamjenjuje trenutnu konfiguraciju, ali sigurnosne kopije Load/Save i spremljeni
 pristupni podaci ostaju na uređaju: nakon ažuriranja vratite konfiguraciju putem Settings →
 Options → Load/Save → Load (kopiju izvan uređaja možete prethodno spremiti pomoću Copy to
@@ -175,7 +180,8 @@ időjárás-előrejelzés). Ez független termék, nem hivatalos Somfy termék.
 
 **Telepítés:** nyissa meg a <https://globus2008.github.io/buco-esp32-flasher/> oldalt Chrome-ban
 vagy Edge-ben, csatlakoztassa az EQSP32-t USB-kábellel, kattintson az **Install** gombra, és
-válassza ki a soros portot. A telepítés kb. 2 percig tart; az oldal előtte a felelősségkizáró
+válassza ki a soros portot. A telepítés kb. 5 percig tart (a telepítő ablakában hagyja bejelöletlenül az **Erase device**
+lehetőséget, különben a mentések is törlődnek); az oldal előtte a felelősségkizáró
 nyilatkozat elfogadását kéri. A telepítés lecseréli az aktuális konfigurációt, a Load/Save mentések
 és a tárolt hozzáférési adatok azonban az eszközön maradnak: a frissítés után állítsa vissza a
 konfigurációt a Settings → Options → Load/Save → Load funkcióval (az eszközön kívüli másolatot
@@ -203,8 +209,9 @@ korzystają tylko funkcje opcjonalne (na przykład konta chmurowe TaHoma lub pro
 to produkt niezależny, nie jest to oficjalny produkt firmy Somfy.
 
 **Instalacja:** otwórz <https://globus2008.github.io/buco-esp32-flasher/> w Chrome lub Edge,
-podłącz EQSP32 przez USB, kliknij **Install** i wybierz port szeregowy. Instalacja trwa ~2
-minuty; strona najpierw wymaga akceptacji oświadczenia o wyłączeniu odpowiedzialności. Instalacja
+podłącz EQSP32 przez USB, kliknij **Install** i wybierz port szeregowy. Instalacja trwa ~5
+minut (w oknie instalatora pozostaw **Erase device** niezaznaczone, inaczej usunięte zostaną
+też kopie zapasowe); strona najpierw wymaga akceptacji oświadczenia o wyłączeniu odpowiedzialności. Instalacja
 zastępuje bieżącą konfigurację, ale kopie zapasowe Load/Save i zapisane dane dostępowe pozostają
 w urządzeniu: po aktualizacji przywróć konfigurację przez Settings → Options → Load/Save → Load
 (kopię poza urządzeniem możesz wcześniej zapisać za pomocą Copy to computer). Jeśli port się nie
@@ -232,7 +239,7 @@ produkt, nie oficiálny produkt Somfy.
 
 **Inštalácia:** otvorte <https://globus2008.github.io/buco-esp32-flasher/> v Chrome alebo Edge,
 pripojte EQSP32 USB káblom, kliknite na **Install** a vyberte sériový port. Inštalácia trvá
-~2 minúty; stránka najprv vyžaduje súhlas s vyhlásením o vylúčení zodpovednosti. Inštalácia
+~5 minút (v okne inštalátora nechajte **Erase device** nezaškrtnuté, inak sa zmažú aj zálohy); stránka najprv vyžaduje súhlas s vyhlásením o vylúčení zodpovednosti. Inštalácia
 nahradí súčasnú konfiguráciu, zálohy Load/Save a uložené prihlasovacie údaje však v zariadení
 zostanú: po aktualizácii konfiguráciu obnovte cez Settings → Options → Load/Save → Load (kópiu
 mimo zariadenia si môžete vopred uložiť cez Copy to computer). Ak sa port nezobrazí, nainštalujte
