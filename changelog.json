@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "1.0.311",
+      "date": "2026-11-26",
+      "notes": [
+        "feat: less technical detail in the UI and the customer log",
+        "feat: Change MoCo ID can use a USB-RS485 converter on a COM port",
+        "Revert \"fix(flasher): install dialog says about 5 minutes instead of ESP Web Tools' hard-coded 2\"",
+        "fix(flasher): install dialog says about 5 minutes instead of ESP Web Tools' hard-coded 2"
+      ]
+    },
+    {
       "version": "1.0.308",
       "date": "2026-11-25",
       "notes": [
@@ -21,11 +31,7 @@
       "notes": [
         "docs: flasher page subtitle and README intro describe what the firmware does today",
         "fix: flasher page and README no longer point to the removed port-8000 OTA panel",
-        "feat: disclaimer gate on the flasher page, disclaimer text revised in 8 languages",
-        "fix: lean TaHoma device-list reader - discovery no longer drains the heap",
-        "feat: calibrate usage cost model, measure TLS session heap in building mode",
-        "feat: rename TaHoma account 1, Resources data check script",
-        "feat: check every motor by default after entering a MoCo ID"
+        "feat: disclaimer gate on the flasher page, disclaimer text revised in 8 languages"
       ]
     }
   ]

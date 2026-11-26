@@ -1,6 +1,28 @@
 {
   "entries": [
     {
+      "version": "1.0.311",
+      "date": "2026-11-26",
+      "notes": [
+        {
+          "summary": "feat: less technical detail in the UI and the customer log",
+          "body": "User decision 2026-11-26 (protect know-how, friendlier for less\ntechnical users). UI and help texts in all 8 languages no longer show\nline settings (baud, parity), telegram structure, response codes or\nimplementation details:\n- RS485 Ports: per-role line settings removed; WSC11, Change MoCo ID,\n  SDN, ADIO, Advanced, Learn, Update Motor Controllers texts reworded.\n- Log -> Event and the CSV export (firmware + demo) name raw commands\n  (Up, Down, Stop, My, priority commands) or \"Other command\", never\n  bytes; Low memory and TaHoma refusals carry no figures/HTTP codes.\n- TaHoma: no handshake/memory/HTTP rows or test details; firmware error\n  strings are mapped to translated texts by tahomaFriendlyError().\n- Serial log left unchanged (debugging tool).\nKept by user decision: Modbus RTU baud/parity on the Gateway page, ADIO\ntemperature method labels, browser console logs."
+        },
+        {
+          "summary": "feat: Change MoCo ID can use a USB-RS485 converter on a COM port",
+          "body": "A third choice under \"RS485 link connected to\": the page opens the\nconverter via Web Serial at 38400 8E1, sends the Set MoCo ID frame and\nverifies with one Read Position at the new ID; the device is not involved.\nWorks in the demo / PC gateway file; disabled on the device's HTTP page\n(Web Serial needs a secure context). Texts in all 8 languages."
+        },
+        {
+          "summary": "Revert \"fix(flasher): install dialog says about 5 minutes instead of ESP Web Tools' hard-coded 2\"",
+          "body": "The text is hard-coded in ESP Web Tools; patching its shadow DOM would break\nsilently with a library update (user decision 2026-11-25). The page note\n\"the installer window may say 2 minutes\" is back instead."
+        },
+        {
+          "summary": "fix(flasher): install dialog says about 5 minutes instead of ESP Web Tools' hard-coded 2",
+          "body": ""
+        }
+      ]
+    },
+    {
       "version": "1.0.308",
       "date": "2026-11-25",
       "notes": [
